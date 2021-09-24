@@ -37,6 +37,7 @@ export const images = {
   logo: require('../assets/images/dreamingLogo.png'),
   trainingPart: require('../assets/images/trainingPart.png'),
   conditioningPart: require('../assets/images/conditioningPart.png'),
+  check: require('../assets/images/check.png'),
   kakao: require('../assets//images/kakaoLogin.png'),
 };
 
