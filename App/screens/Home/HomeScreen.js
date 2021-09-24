@@ -1,10 +1,13 @@
 import React from 'react';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 
+import DreamCalendar from '../../components/dreamCalendar';
+
 function HomeScreen(props) {
   return (
     <SafeAreaView>
       <View>
+        <DreamCalendar />
         <Text>Home screen</Text>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('WritingTraining')}>
