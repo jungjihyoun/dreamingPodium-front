@@ -12,7 +12,7 @@ import {
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
-import {SocialButton} from '../../components/socialButton';
+import {SocialButton} from '../../components/SocialButton';
 
 function LoginScreen({navigation}) {
   return (
