@@ -23,6 +23,7 @@ const DreamCalendar = () => {
         onDateSelected={selectedDate => {
           alert(selectedDate.toDate());
         }}
+        selectedDate={moment()}
         scrollable
         style={{
           height: 120,
