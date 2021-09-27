@@ -10,6 +10,7 @@ import {
 
 import DreamCalendar from '../../components/DreamCalendar';
 import DreamAccordion from '../../components/DreamAccordion';
+import {DreamRoutine} from '../../components/DreamRoutine';
 import {height} from '../../config/globalStyles';
 
 // TODO : 리스트 형태 받아와서 반복하여 생성 - state 관리
@@ -47,6 +48,16 @@ function TrainingNoteScreen(props) {
       noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
       content: '',
     },
+    {
+      noteTite: '훈련내용33',
+      noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
+      content: '',
+    },
+    {
+      noteTite: '훈련내용33',
+      noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
+      content: '',
+    },
   ];
 
   // const routineInfo = [{
@@ -58,10 +69,11 @@ function TrainingNoteScreen(props) {
   // }]
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{height:'100%'}} >
       <DreamCalendar />
       <ScrollView>
         <View style={styles.alignList}>
+          <DreamRoutine routine='운동 후 폼롤러 하기'/>
           <DreamAccordion noteInfo={noteInfo} isRoutineComplete={false} />
         </View>
       </ScrollView>
