@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import WriteTrainingScreen from '../screens/Depth/WriteTrainingScreen';
+import WritingScreen from '../screens/Depth/WritingScreen';
 
 const StackDepth = createStackNavigator();
 const navOptionHandler = () => ({
@@ -11,8 +11,8 @@ const DepthStack = ({navigation, route}) => {
   return (
     <StackDepth.Navigator>
       <StackDepth.Screen
-        name="WritingTraining"
-        component={WriteTrainingScreen}
+        name="WritingScreen"
+        component={WritingScreen}
         options={navOptionHandler}
       />
     </StackDepth.Navigator>
