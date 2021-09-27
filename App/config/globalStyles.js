@@ -38,6 +38,8 @@ export const images = {
   trainingPart: require('../assets/images/trainingPart.png'),
   conditioningPart: require('../assets/images/conditioningPart.png'),
   check: require('../assets/images/check.png'),
+  dropButton: require('../assets/images/dropButton.png'),
+  upButton: require('../assets/images/upButton.png'),
   kakao: require('../assets//images/kakaoLogin.png'),
 };
 
