@@ -41,22 +41,22 @@ function TrainingNoteScreen(props) {
     {
       noteTite: '보완할 점',
       noteSubtitle: '오늘 어떤 훈련을 했나요?',
-      content: '우우웅ㅇ',
+      content: null,
     },
     {
       noteTite: '훈련내용33',
       noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
-      content: '',
+      content: 'wer',
     },
     {
       noteTite: '훈련내용33',
       noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
-      content: '',
+      content: 'fff',
     },
     {
       noteTite: '훈련내용33',
       noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
-      content: '',
+      content: null,
     },
   ];
 

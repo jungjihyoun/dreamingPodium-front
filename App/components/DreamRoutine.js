@@ -39,7 +39,7 @@ export const DreamRoutine = ({
         </View>
 
         <View>
-        <Text style={styles.titleText}>루틴체크</Text>
+        <Text style={styles.titleText}>루틴 체크</Text>
           <Text style={styles.subtitleText}>{routine}</Text>
         </View>
 

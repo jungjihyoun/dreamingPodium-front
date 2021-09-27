@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
+import {useNavigation} from '@react-navigation/native';
+
 import {
   StyleSheet,
   TouchableOpacity,
@@ -11,26 +13,43 @@ import {
 } from 'react-native';
 import {width, height, colors, images} from '../config/globalStyles';
 
-const DreamAccordion = ({
-  style,
-  onPress,
-  isRoutineComplete = undefined,
-  hasWriting,
-  ...props
-}) => {
-  const [isRoutine, setIsRoutine] = useState(isRoutineComplete);
-  const successRoutine = () => {
-    setIsRoutine(!isRoutine);
-  };
+const DreamAccordion = ({style, onPress, ...props}) => {
+  const navigation = useNavigation();
+
   const [state, setState] = useState({activeSections: []});
 
   const titleArea = (section, index, isActive, sections) => {
+    // 글쓰기로 이동
+    if (section.content === null) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push('WritingScreen');
+          }}>
+          <View
+            style={isActive ? styles.boxContainerActive : styles.boxContainer}>
+            <View style={styles.checkbox}>
+              <Image
+                style={[styles.unchecking, {width: 20, height: 15}]}
+                source={images.check}
+              />
+            </View>
+            <View>
+              <Text style={styles.titleText}>{section.noteTite}</Text>
+              <Text style={styles.subtitleText}>{section.noteSubtitle}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+
+    // 글 확인 drop
     return (
       <View style={isActive ? styles.boxContainerActive : styles.boxContainer}>
         <View style={styles.checkbox}>
           <Image
             style={
-              props.hasWriting || isRoutine
+              section.content
                 ? {width: 20, height: 15}
                 : [styles.unchecking, {width: 20, height: 15}]
             }
