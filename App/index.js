@@ -6,6 +6,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MainStack from './navigation/MainStack';
 import LoginScreen from './screens/Auth/LoginScreen';
 
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import {postingReducer} from './reducer/postingSlice';
+import store from './store';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+
 const StackApp = createStackNavigator();
 
 const navOptionHandler = () => ({
@@ -14,20 +19,24 @@ const navOptionHandler = () => ({
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <StackApp.Navigator presentation="modal">
-        <StackApp.Screen
-          name="Login"
-          component={LoginScreen}
-          options={navOptionHandler}
-        />
-        <StackApp.Screen
-          name="HomeApp"
-          component={MainStack}
-          options={navOptionHandler}
-        />
-      </StackApp.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <StackApp.Navigator presentation="modal">
+            <StackApp.Screen
+              name="Login"
+              component={LoginScreen}
+              options={navOptionHandler}
+            />
+            <StackApp.Screen
+              name="HomeApp"
+              component={MainStack}
+              options={navOptionHandler}
+            />
+          </StackApp.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
   );
 };
 
