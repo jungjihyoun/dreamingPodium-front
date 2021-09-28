@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,74 +10,54 @@ import {
 } from 'react-native';
 
 import DreamCalendar from '../../components/DreamCalendar';
-import DreamAccordion from '../../components/DreamAccordion';
+import DreamWirtingCard from '../../components/DreamWirtingCard';
 import {DreamRoutine} from '../../components/DreamRoutine';
+
+import {noteTitleList} from '../../config/noteTitleList';
 import {height} from '../../config/globalStyles';
 
 // TODO : 리스트 형태 받아와서 반복하여 생성 - state 관리
 
-function TrainingNoteScreen(props) {
-  // user input info 형태
-  // noteTitle:
-  // NoteSubtitle:
-  // content:
-  const noteInfo = [
-    {
-      noteTite: '훈련내용',
-      noteSubtitle: '오늘 어떤 훈련을 했나요?',
-      content:
-        '회전발 2인 1조 기본발차기 한줄서서 돌려차기, 후리기 이어 차기 한줄서서 후리고 돌려차기, 이어차기(미트) 2. 기계체조-하우스벨트 제자리 선자하며',
-    },
-    {
-      noteTite: '코치님 Says',
-      noteSubtitle: '훈련 중 코치님이 어떤 말씀을 해주셨나요?',
-      content: '피카츄',
-    },
-    {
-      noteTite: '잘한 점',
-      noteSubtitle: '오늘 훈련에서 잘한 점은 무엇인가요?',
-      content:
-        '길어지면 어떻게 될까요회전발 2인 1조 기본발차기 한줄서서 돌려차기, 후리기 이어 차기 한줄서서 후리고 돌려차기, 이어차기(미트) 2. 기계체조-하우스벨트 제자리 선자하며회전발 2인 1조 기본발차기 한줄서서 돌려차기, 후리기 이어 차기 한줄서서 후리고 돌려차기, 이어차기(미트) 2. 기계체조-하우스벨트 제자리 선자하며회전발 2인 1조 기본발차기 한줄서서 돌려차기, 후리기 이어 차기 한줄서서 후리고 돌려차기, 이어차기(미트) 2. 기계체조-하우스벨트 제자리 선자하며 어쩌구저쩌구',
-    },
-    {
-      noteTite: '보완할 점',
-      noteSubtitle: '오늘 어떤 훈련을 했나요?',
-      content: null,
-    },
-    {
-      noteTite: '훈련내용33',
-      noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
-      content: 'wer',
-    },
-    {
-      noteTite: '훈련내용33',
-      noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
-      content: 'fff',
-    },
-    {
-      noteTite: '훈련내용33',
-      noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',
-      content: null,
-    },
-  ];
+function TrainingNoteScreen({navigation, route}) {
+  // 컴포넌트가 생성될 때 디비에서 저장된 글을 불러오는 요청을 한 번 한다
+  // 그 후 noteTitleList의 content에 넣어주고 새로운 배열을 DreamWirtingCard 컴포넌트로 넘겨줌
+  const arr = ['테스트', null, null, null];
 
-  // const routineInfo = [{
-  //   title:'루틴체크'
-  //   subtitle:'운동 전 후 폼롤러 하기'
-  // },{
-  //   title:'루틴체크'
-  //   subtitle:'물마시기'
-  // }]
+  const [notelist, setNotelist] = useState(noteTitleList);
+
+  useEffect(() => {
+    const addContentNotelist = noteTitleList.map((data, index, _source) => {
+      data.content = arr[index];
+      return noteTitleList[index];
+    });
+    setNotelist(addContentNotelist);
+  }, []);
+
+  const test = () => {
+    const addContentNotelist = noteTitleList.map((data, index, _source) => {
+      if (data.noteTitle === route.params.noteTitle) {
+        data.content = route.params.content;
+      }
+      return noteTitleList[index];
+    });
+    setNotelist(addContentNotelist);
+  };
 
   return (
-    <SafeAreaView style={{height:'100%'}} >
+    <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
       <ScrollView>
         <View style={styles.alignList}>
-          <DreamRoutine routine='운동 후 폼롤러 하기'/>
-          <DreamAccordion noteInfo={noteInfo} isRoutineComplete={false} />
+          <DreamRoutine routine="운동 후 폼롤러 하기" />
+          <DreamWirtingCard noteInfo={notelist} isRoutineComplete={false} />
         </View>
       </ScrollView>
+      <TouchableOpacity
+        onPress={() => {
+          test();
+        }}>
+        <Text>test</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

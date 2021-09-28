@@ -24,7 +24,7 @@ function HomeScreen(props) {
         </Text>
         <DreamPartCard
           onPress={() => {
-            props.navigation.navigate('TrainingNote');
+            props.navigation.push('TrainingNote');
           }}
           partCardImg={images.trainingPart}
           partTitle="트레이닝 파트"
@@ -32,7 +32,7 @@ function HomeScreen(props) {
         />
         <DreamPartCard
           onPress={() => {
-            props.navigation.navigate('ConditioningNote');
+            props.navigation.push('ConditioningNote');
           }}
           partCardImg={images.conditioningPart}
           partTitle="컨디셔닝 파트"

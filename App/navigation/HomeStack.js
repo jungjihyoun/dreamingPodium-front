@@ -7,6 +7,9 @@ import ConditioningNoteScreen from '../screens/Depth/ConditioningNoteScreen';
 import WritingScreen from '../screens/Depth/WritingScreen';
 
 const StackHome = createStackNavigator();
+
+import {colors} from '../config/globalStyles';
+
 const navOptionHandler = () => ({
   headerShown: false,
 });
@@ -32,7 +35,20 @@ const HomeStack = ({navigation, route}) => {
       <StackHome.Screen
         name="WritingScreen"
         component={WritingScreen}
-        options={navOptionHandler}
+        options={{
+          title: '글 작성하기',
+          headerTintColor: colors.primary,
+          headerTitleStyle: {
+            lineHeight: 22,
+            letterSpacing: -0.6,
+            color: colors.primary,
+          },
+          headerBackTitle: ' ',
+          headerBackTitleStyle: {
+            marginLeft: 10,
+            width: 10,
+          },
+        }}
       />
     </StackHome.Navigator>
   );

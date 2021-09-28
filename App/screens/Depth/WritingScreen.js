@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -14,20 +14,36 @@ import {colors, images, width, height} from '../../config/globalStyles';
 
 import {SocialButton} from '../../components/SocialButton';
 
-function WritingScreen({navigation}) {
-  const textEx =
-    '코치님이 하신 모든 말씀과 , 조언을 바탕으로 내가 무엇을 해야 하는 지들을 작성해주세요. 기록을 통해 또 한번 기억하면 내일은 더 잘할 수 있을 거에요.';
+import {submitPost} from '../../reducer/postingSlice';
+import {useDispatch} from 'react-redux';
+
+function WritingScreen({navigation, route}) {
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(submitPost({content: '123'}));
+  // }, []);
+
+  const [content, setContent] = useState('');
+
+  useEffect(() => {
+    console.log(content);
+  }, [content]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>훈련 중 코치님이 어떤 조언을 해주셨나요?</Text>
+      <Text style={styles.title}>{route.params.title}</Text>
 
       <ScrollView style={{height: '100%'}}>
         <View style={styles.inputBox}>
           <TextInput
             style={styles.input}
             multiline={true}
-            placeholder={textEx}
+            placeholder={route.params.placeholder}
             returnKeyType="next"
+            onChange={event => {
+              const {eventCount, target, text} = event.nativeEvent;
+              setContent(text);
+            }}
           />
         </View>
 
@@ -35,7 +51,14 @@ function WritingScreen({navigation}) {
           style={{
             alignItems: 'flex-end',
           }}>
-          <TouchableOpacity style={styles.submitButton}>
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={() => {
+              navigation.navigate('TrainingNote', {
+                content: content,
+                noteTitle: route.params.title,
+              });
+            }}>
             <Text
               style={{
                 color: colors.white,
@@ -61,6 +84,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginTop: 40,
+    marginBottom: 20,
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.lightGrey,

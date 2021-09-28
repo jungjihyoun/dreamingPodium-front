@@ -13,18 +13,21 @@ import {
 } from 'react-native';
 import {width, height, colors, images} from '../config/globalStyles';
 
-const DreamAccordion = ({style, onPress, ...props}) => {
+const DreamWirtingCard = ({style, onPress, ...props}) => {
   const navigation = useNavigation();
-
   const [state, setState] = useState({activeSections: []});
 
   const titleArea = (section, index, isActive, sections) => {
-    // 글쓰기로 이동
+    // ###################  글쓰기 스크린으로 이동 #######################
     if (section.content === null) {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.push('WritingScreen');
+            navigation.push('WritingScreen', {
+              title: section.noteTitle,
+              placeholder: section.notePlaceholder,
+              noteId: props.noteInfo.noteId,
+            });
           }}>
           <View
             style={isActive ? styles.boxContainerActive : styles.boxContainer}>
@@ -35,7 +38,7 @@ const DreamAccordion = ({style, onPress, ...props}) => {
               />
             </View>
             <View>
-              <Text style={styles.titleText}>{section.noteTite}</Text>
+              <Text style={styles.titleText}>{section.noteTitle}</Text>
               <Text style={styles.subtitleText}>{section.noteSubtitle}</Text>
             </View>
           </View>
@@ -43,7 +46,7 @@ const DreamAccordion = ({style, onPress, ...props}) => {
       );
     }
 
-    // 글 확인 drop
+    // ###################  쓰여진 글 확인 drop 박스  #######################
     return (
       <View style={isActive ? styles.boxContainerActive : styles.boxContainer}>
         <View style={styles.checkbox}>
@@ -58,7 +61,7 @@ const DreamAccordion = ({style, onPress, ...props}) => {
         </View>
 
         <View>
-          <Text style={styles.titleText}>{section.noteTite}</Text>
+          <Text style={styles.titleText}>{section.noteTitle}</Text>
           <Text style={styles.subtitleText}>{section.noteSubtitle}</Text>
         </View>
 
@@ -78,6 +81,7 @@ const DreamAccordion = ({style, onPress, ...props}) => {
     );
   };
 
+  // ###################  작성한 글  UI #######################
   const contentArea = (section, index, isActive, sections) => {
     return (
       <View
@@ -108,9 +112,9 @@ const DreamAccordion = ({style, onPress, ...props}) => {
 
   return (
     <Accordion
+      sections={props.noteInfo}
       containerStyle={styles.accordionStyle}
       underlayColor="#f0f0f0"
-      sections={props.noteInfo}
       activeSections={state.activeSections}
       renderHeader={titleArea}
       renderContent={contentArea}
@@ -211,4 +215,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamAccordion;
+export default DreamWirtingCard;
