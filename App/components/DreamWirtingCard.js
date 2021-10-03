@@ -46,7 +46,7 @@ const DreamWirtingCard = ({style, onPress, ...props}) => {
       );
     }
 
-    // ###################  쓰여진 글 확인 drop 박스  #######################
+    // ###################  작성한 글 확인 drop 박스 열림  #######################
     return (
       <View style={isActive ? styles.boxContainerActive : styles.boxContainer}>
         <View style={styles.checkbox}>

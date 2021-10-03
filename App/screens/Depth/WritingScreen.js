@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  Button,
 } from 'react-native';
 
 import {colors, images, width, height} from '../../config/globalStyles';
@@ -17,11 +18,30 @@ import {SocialButton} from '../../components/SocialButton';
 import {submitPost} from '../../reducer/postingSlice';
 import {useDispatch} from 'react-redux';
 
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+
+// import ImagePicker from 'react-native-image-picker';
+
 function WritingScreen({navigation, route}) {
   // const dispatch = useDispatch();
   // useEffect(() => {
   //   dispatch(submitPost({content: '123'}));
   // }, []);
+
+  // const ImagePicker = require('react-native-image-picker');
+  const [state, setState] = useState({
+    avatar: '',
+  });
+
+  const showImage = () => {
+    launchImageLibrary({mediaType: 'video'}, response => {
+      alert(response.assets[0]);
+
+      setState({
+        avatar: response.assets[0].uri,
+      });
+    });
+  };
 
   const [content, setContent] = useState('');
 
@@ -32,6 +52,15 @@ function WritingScreen({navigation, route}) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{route.params.title}</Text>
+
+      <Button title="add" onPress={() => showImage()} />
+
+      <Image
+        source={{uri: state.avatar}}
+        resizeMode="cover"
+        resizeMethod="scale"
+        style={{width: 200, height: 200}}
+      />
 
       <ScrollView style={{height: '100%'}}>
         <View style={styles.inputBox}>
