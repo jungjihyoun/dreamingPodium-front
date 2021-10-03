@@ -34,6 +34,7 @@ export const images = {
   home: require('../assets/images/home.png'),
   dream: require('../assets/images/dream.png'),
   profile: require('../assets/images/profile.png'),
+  profileImgGroup: require('../assets/images/profileImgGroup.png'),
   logo: require('../assets/images/dreamingLogo.png'),
   trainingPart: require('../assets/images/trainingPart.png'),
   conditioningPart: require('../assets/images/conditioningPart.png'),
