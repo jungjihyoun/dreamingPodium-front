@@ -33,7 +33,6 @@ function DreamScreen(props) {
       style={{
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#E5E5E5',
       }}>
       <View>
         <Text style={styles.dreamTitle}>목표 설정</Text>
@@ -43,7 +42,7 @@ function DreamScreen(props) {
         <View>
           <DreamObjectCard
             title="나의 최종 목표"
-            addListButton={text => {
+            handleAddText={text => {
               setState({
                 object: [...state.object, text],
                 capability: [...state.capability],
@@ -64,7 +63,7 @@ function DreamScreen(props) {
           />
           <DreamObjectCard
             title="필요한 자질"
-            addListButton={text => {
+            handleAddText={text => {
               setState({
                 object: [...state.object],
                 capability: [...state.capability, text],
@@ -84,7 +83,7 @@ function DreamScreen(props) {
           />
           <DreamObjectCard
             title="매일 해야 하는 노력"
-            addListButton={text => {
+            handleAddText={text => {
               setState({
                 object: [...state.object],
                 capability: [...state.capability],
@@ -104,7 +103,7 @@ function DreamScreen(props) {
           />
           <DreamObjectCard
             title="루틴 설정"
-            addListButton={text => {
+            handleAddText={text => {
               setState({
                 object: [...state.object],
                 capability: [...state.capability],
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     width: width * 341,
-    minHeight: height * 71,
+    minHeight: height * 100,
 
     borderStyle: 'solid',
     borderRadius: 4,
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
     marginRight: 23,
   },
 
-  addListButton: {
+  handleAddText: {
     fontSize: 18,
     color: colors.darkGrey,
     fontWeight: 'bold',

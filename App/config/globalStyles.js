@@ -42,6 +42,7 @@ export const images = {
   dropButton: require('../assets/images/dropButton.png'),
   upButton: require('../assets/images/upButton.png'),
   kakao: require('../assets//images/kakaoLogin.png'),
+  apple: require('../assets//images/appleLogin.png'),
 };
 
 export const height = (

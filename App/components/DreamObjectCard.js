@@ -12,9 +12,10 @@ import {
 import {colors, images, width, height} from '../config/globalStyles';
 
 function DreamObjectCard({multiple = true, ...props}) {
-  const [addInputList, setAddInputList] = useState(true);
+  const [showAddButton, setShowAddButton] = useState(true);
 
-  const isAddButton = addInputList ? '추가' : '완료';
+  // add button UI 제어
+  const addButton = showAddButton ? '추가' : '완료';
 
   const [text, setText] = useState('');
   const saveText = event => {
@@ -31,29 +32,40 @@ function DreamObjectCard({multiple = true, ...props}) {
             <TouchableOpacity
               style={styles.addButtonUI}
               onPress={
-                addInputList
+                showAddButton
                   ? () => {
-                      setAddInputList(false);
+                      setShowAddButton(false);
                     }
                   : () => {
-                      [props.addListButton(text), setAddInputList(true)];
+                      [
+                        props.handleAddText(text),
+                        setShowAddButton(true),
+                        setText(''),
+                      ];
                     }
               }>
-              <Text style={styles.addListButton}>{isAddButton}</Text>
+              <Text style={styles.handleAddText}>{addButton}</Text>
             </TouchableOpacity>
 
-            {addInputList ? (
-              <Text></Text>
+            {showAddButton ? (
+              <></>
             ) : (
               <TextInput
                 onChangeText={saveText}
                 style={styles.inputHolder}
                 placeholder="입력해주세요"
                 clearTextOnFocus={true}
+                autoFocus={true}
+                onSubmitEditing={() => [
+                  props.handleAddText(text),
+                  setShowAddButton(true),
+                  setText(''),
+                ]}
               />
             )}
           </View>
 
+          {/* 작성된 리스트 UI */}
           <View style={{alignItems: 'center'}}>
             {props.state ? (
               props.state.map((data, index, _source) => {
@@ -88,21 +100,12 @@ function DreamObjectCard({multiple = true, ...props}) {
 }
 
 const styles = StyleSheet.create({
-  dreamTitle: {
-    fontSize: 16,
-    color: colors.lightGrey,
-    fontWeight: 'bold',
-    marginTop: 28,
-  },
-
   boxContainer: {
     position: 'relative',
     paddingHorizontal: 16,
-    marginTop: 30,
-    marginBottom: 20,
-
+    marginVertical: 20,
     width: width * 341,
-    minHeight: height * 100,
+    minHeight: height * 120,
 
     borderStyle: 'solid',
     borderRadius: 4,
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.lightGrey,
-    marginBottom: 10,
+    marginVertical: 10,
     textAlign: 'center',
     alignItems: 'center',
   },
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
 
-  addListButton: {
+  handleAddText: {
     fontSize: 18,
     color: colors.darkGrey,
     fontWeight: 'bold',
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
     minHeight: height * 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.lightGrey,
-    // marginLeft: 20,
+    textAlign: 'center',
   },
   deleteButton: {
     position: 'absolute',
