@@ -41,10 +41,10 @@ function DreamTextInputLine(props) {
 const styles = StyleSheet.create({
   inputArea: {
     alignItems: 'center',
+    height: height * 68,
   },
   inputHolder: {
     // width: width * 200,
-    // height: height * 38,
     marginRight: 30,
   },
   inputName: {
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   inputGroup: {
-    paddingBottom: 10,
-    paddingTop: 30,
+    // paddingBottom: 10,
+    // paddingTop: 30,
     width: width * 325,
     borderBottomWidth: 1,
     borderStyle: 'solid',

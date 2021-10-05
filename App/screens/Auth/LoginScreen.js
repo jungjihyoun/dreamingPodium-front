@@ -23,6 +23,7 @@ function LoginScreen({navigation}) {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: colors.white,
         },
       ]}>
       <View style={{flex: 2}}>
@@ -86,7 +87,7 @@ function LoginScreen({navigation}) {
         </SocialButton>
         {Platform.OS === 'ios' && (
           <SocialButton>
-            <Image style={styles.socialIcon} source={images.kakao} />
+            <Image style={styles.socialIcon} source={images.apple} />
             <Text style={styles.socialText}>애플아이디로 로그인하기</Text>
           </SocialButton>
         )}
@@ -129,6 +130,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: colors.borderGrey,
     marginBottom: 16,
+    paddingLeft: 16,
   },
   loginButton: {
     backgroundColor: colors.primary,

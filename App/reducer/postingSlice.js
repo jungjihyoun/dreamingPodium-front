@@ -16,9 +16,10 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
 
 export const postingSlice = createSlice({
   name: 'posting',
+
+  // { 0901: [{noteId:'qwe, noteTitle:'tes},noteSubTitle:'tes', routine:true}] ,
   initialState: {
     notePlacehold: '',
-
     noteId: '',
     noteTitle: '',
     noteSubTitle: '',
