@@ -7,28 +7,30 @@ import {width, height, colors, images} from '../config/globalStyles';
 const CollapsibleTitle = ({
   style,
   onPress,
-  section,
-  index,
+  title,
+  subtitle,
+  content,
+  noteIdx,
+  placeholder,
   isActive,
-  sections,
+
   ...props
 }) => {
   const navigation = useNavigation();
 
   const titleArea = () => {
     // #### content가 없을 경우 글쓰기 스크린으로 이동 합니다 #####
-    if (section.content === null) {
+    if (content === null) {
       return (
         <TouchableOpacity
           onPress={() => {
             navigation.push('WritingScreen', {
-              title: section.noteTitle,
-              placeholder: section.notePlaceholder,
-              noteId: props.noteInfo.noteId,
+              title: title,
+              placeholder: placeholder,
+              noteIdx: noteIdx,
             });
           }}>
-          <View
-            style={isActive ? styles.boxContainerActive : styles.boxContainer}>
+          <View style={styles.boxContainer}>
             <View style={styles.checkbox}>
               <Image
                 style={[styles.unchecking, {width: 20, height: 15}]}
@@ -36,8 +38,8 @@ const CollapsibleTitle = ({
               />
             </View>
             <View>
-              <Text style={styles.titleText}>{section.noteTitle}</Text>
-              <Text style={styles.subtitleText}>{section.noteSubtitle}</Text>
+              <Text style={styles.titleText}>{title}</Text>
+              <Text style={styles.subtitleText}>{subtitle}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -50,7 +52,7 @@ const CollapsibleTitle = ({
         <View style={styles.checkbox}>
           <Image
             style={
-              section.content
+              content
                 ? {width: 20, height: 15}
                 : [styles.unchecking, {width: 20, height: 15}]
             }
@@ -59,20 +61,13 @@ const CollapsibleTitle = ({
         </View>
 
         <View>
-          <Text style={styles.titleText}>{section.noteTitle}</Text>
-          <Text style={styles.subtitleText}>{section.noteSubtitle}</Text>
+          <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles.subtitleText}>{subtitle}</Text>
         </View>
 
         {!isActive && (
           <View style={styles.dropButton}>
-            <Image
-              style={
-                props.isOpened
-                  ? {width: 18, height: 18}
-                  : {width: 18, height: 18}
-              }
-              source={images.dropButton}
-            />
+            <Image style={{width: 18, height: 18}} source={images.dropButton} />
           </View>
         )}
       </View>

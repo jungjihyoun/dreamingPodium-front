@@ -1,64 +1,47 @@
 import React, {useState} from 'react';
-import Accordion from 'react-native-collapsible/Accordion';
-
 import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ImageBackground,
-  View,
-  Image,
-  ScrollView,
-} from 'react-native';
+  Collapse,
+  CollapseHeader,
+  CollapseBody,
+} from 'accordion-collapse-react-native';
+
+import {StyleSheet} from 'react-native';
+
 import {width, height, colors, images} from '../config/globalStyles';
 import CollapsibleTitle from './CollapsibleTitle';
 import CollapsibleContent from './CollapsibleContent';
 
 const CollapsibleCard = ({style, onPress, ...props}) => {
-  const [state, setState] = useState({activeSections: []});
+  const [isActive, setIsActive] = useState(false);
 
-  const titleArea = (section, index, isActive, sections) => (
+  const titleArea = () => (
     <CollapsibleTitle
-      section={section}
-      index={index}
-      isActive={isActive}
-      sections={sections}
-      noteInfo={props.noteInfo}
+      content={props.content}
+      title={props.title}
+      subtitle={props.subtitle}
+      placeholder={props.placeholder}
+      noteIdx={props.noteIdx}
     />
   );
 
-  const contentArea = (section, index, isActive, sections) => {
-    return (
-      <CollapsibleContent
-        section={section}
-        index={index}
-        isActive={isActive}
-        sections={sections}
-        noteInfo={props.noteInfo}
-      />
-    );
-  };
-
-  const updateSections = activeSections => {
-    setState({activeSections});
+  const contentArea = () => {
+    return <CollapsibleContent content={props.content} isActive={isActive} />;
   };
 
   return (
-    <Accordion
-      sections={props.noteInfo}
-      containerStyle={styles.accordionStyle}
-      underlayColor="#f0f0f0"
-      activeSections={state.activeSections}
-      renderHeader={titleArea}
-      renderContent={contentArea}
-      onChange={updateSections}
-    />
+    <>
+      <Collapse
+        onToggle={() => {
+          setIsActive(!isActive);
+        }}>
+        <CollapseHeader>{titleArea()}</CollapseHeader>
+        <CollapseBody>{contentArea()}</CollapseBody>
+      </Collapse>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  accordionStyle: {backgroundColor: '#f0f0f0'},
-
   boxContainer: {
     paddingHorizontal: 16,
     paddingLeft: 19,

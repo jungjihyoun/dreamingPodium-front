@@ -21,7 +21,7 @@ const DreamCalendar = () => {
     <View style={styles.container}>
       <CalendarStrip
         onDateSelected={selectedDate => {
-          alert(selectedDate.toDate());
+          alert(selectedDate.toDate().toLocaleDateString());
         }}
         selectedDate={moment()}
         scrollable

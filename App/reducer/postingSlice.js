@@ -17,14 +17,14 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
 export const postingSlice = createSlice({
   name: 'posting',
 
-  // { 0901: [{noteId:'qwe, noteTitle:'tes},noteSubTitle:'tes', routine:true}] ,
   initialState: {
-    notePlacehold: '',
-    noteId: '',
-    noteTitle: '',
-    noteSubTitle: '',
-    noteContent: '',
-    status: 'success', //정보 불러오기 상태
+    writtenNote: [
+      {
+        date: '',
+        noteIdx: '',
+        noteContent: '',
+      },
+    ],
   },
 
   reducers: {
@@ -35,6 +35,7 @@ export const postingSlice = createSlice({
   },
 });
 
-export const {submitPost} = postingSlice.actions; //액션들을 익스포트
+export const {submitPost} = postingSlice.actions;
+export const selectWrittenNote = state => state.posting.writtenNote;
 
 export default postingSlice.reducer;
