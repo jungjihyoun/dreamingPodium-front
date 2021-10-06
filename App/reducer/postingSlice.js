@@ -15,14 +15,29 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
 // # 자동 저장 함수?
 
 export const postingSlice = createSlice({
+  posting: null,
   name: 'posting',
 
   initialState: {
+    todayDate: new Date().toLocaleDateString(),
     writtenNote: [
       {
-        date: '',
-        noteIdx: '',
-        noteContent: '',
+        date: '2021. 10. 6.',
+        noteContentGroup: [
+          {noteIdx: 'tr001', noteContent: '첫번째'},
+          {noteIdx: 'tr002', noteContent: '두번째'},
+          {noteIdx: 'tr003', noteContent: '세-'},
+          {noteIdx: 'tr004', noteContent: 'ㄴㄴ'},
+        ],
+      },
+      {
+        date: '2021. 10. 2.',
+        noteContentGroup: [
+          {noteIdx: 'tr001', noteContent: 'efeee'},
+          {noteIdx: 'tr002', noteContent: 'eee'},
+          {noteIdx: 'tr003', noteContent: null},
+          {noteIdx: 'tr004', noteContent: 'ㄴㄴ'},
+        ],
       },
     ],
   },
@@ -32,10 +47,17 @@ export const postingSlice = createSlice({
       // 작성 완료
       state.noteContent = action.payload.content;
     },
+    clickCalendar: (state, action) => {
+      state.todayDate = action.payload.date;
+    },
   },
 });
 
-export const {submitPost} = postingSlice.actions;
+export const {submitPost, clickCalendar} = postingSlice.actions;
+
+export const selectLogin = state => state.posting.loggedIn;
+export const selectToken = state => state.posting.token;
 export const selectWrittenNote = state => state.posting.writtenNote;
+export const selectTodayDate = state => state.posting.todayDate;
 
 export default postingSlice.reducer;

@@ -14,7 +14,7 @@ import DreamCalendar from '../../components/DreamCalendar';
 import CollapsibleCard from '../../components/CollapsibleCard';
 import {DreamRoutine} from '../../components/DreamRoutine';
 
-// import {writtenNote} from '../../reducer/postingSlice';
+import {writtenNote} from '../../reducer/postingSlice';
 
 import {noteTitleList} from '../../config/noteTitleList';
 import {height} from '../../config/globalStyles';
@@ -24,20 +24,26 @@ import {height} from '../../config/globalStyles';
 function TrainingNoteScreen({navigation, route}) {
   // 컴포넌트가 생성될 때 디비에서 저장된 글을 불러오는 요청을 한 번 한다
   // 그 후 noteTitleList의 content에 넣어주고 새로운 배열을 DreamWirtingCard
-  const writtenNote = useSelector(state => state.writtenNote);
+  const writtenNote = useSelector(state => state.posting.writtenNote);
+  const todayDate = useSelector(state => state.posting.todayDate);
+
   const AppDispatch = useDispatch();
 
-  // const [notelist, setNotelist] = useState(noteTitleList);
+  const test = temp => {
+    var a = writtenNote.filter(data => {
+      return data.date === todayDate;
+    })[0];
 
-  // const test = () => {
-  //   const addContentNotelist = writtenNote.map((data, index, _source) => {
-  //     if (data.noteIdx === route.params.noteIdx) {
-  //       data.content = route.params.content;
-  //     }
-  //     return writtenNote[index];
-  //   });
-  //   // dispatch;
-  // };
+    if (a !== undefined) {
+      a = a.noteContentGroup.filter(data => {
+        return data.noteIdx === temp;
+      })[0].noteContent;
+    }
+
+    console.log('todayDate:', a);
+
+    return a;
+  };
 
   return (
     <SafeAreaView style={{height: '100%'}}>
@@ -48,11 +54,12 @@ function TrainingNoteScreen({navigation, route}) {
           {noteTitleList.map(data => {
             return (
               <CollapsibleCard
+                key={data.noteIdx}
                 noteIdx={data.noteIdx}
                 title={data.noteTitle}
                 subtitle={data.noteSubtitle}
                 placeholder={data.notePlaceholder}
-                content="TODO : content 추가합니다 "
+                content={test(data.noteIdx)}
                 isRoutineComplete={false}
               />
             );
