@@ -1,8 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {Component, useEffect, useState} from 'react';
+
+import React, {Component, useEffect, useState, useContext} from 'react';
 import {AppRegistry, View, Text, StyleSheet} from 'react-native';
 import moment from 'moment';
 import 'moment/locale/ko';
+
+import {clickCalendar} from '../reducer/postingSlice';
+import {useDispatch} from 'react-redux';
 
 import CalendarStrip from 'react-native-calendar-strip';
 import {colors} from '../config/globalStyles';
@@ -10,6 +15,8 @@ import {colors} from '../config/globalStyles';
 // TOPO : 최적화 시키기
 
 const DreamCalendar = () => {
+  const dispatch = useDispatch();
+
   const datesWhitelist = [
     {
       start: new Date().getDate(), // 오늘 날짜 이전까지만 활성화
@@ -17,11 +24,15 @@ const DreamCalendar = () => {
     },
   ];
 
+  const toggle = selectedDate => {
+    dispatch(clickCalendar({date: selectedDate.toDate().toLocaleDateString()}));
+  };
+
   return (
     <View style={styles.container}>
       <CalendarStrip
         onDateSelected={selectedDate => {
-          alert(selectedDate.toDate().toLocaleDateString());
+          toggle(selectedDate);
         }}
         selectedDate={moment()}
         scrollable
