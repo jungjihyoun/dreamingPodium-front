@@ -1,24 +1,22 @@
 import React, {useState} from 'react';
-import Accordion from 'react-native-collapsible/Accordion';
 import {useNavigation} from '@react-navigation/native';
 
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ImageBackground,
-  View,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
 import {width, height, colors, images} from '../config/globalStyles';
 
-const DreamWirtingCard = ({style, onPress, ...props}) => {
+const CollapsibleTitle = ({
+  style,
+  onPress,
+  section,
+  index,
+  isActive,
+  sections,
+  ...props
+}) => {
   const navigation = useNavigation();
-  const [state, setState] = useState({activeSections: []});
 
-  const titleArea = (section, index, isActive, sections) => {
-    // ###################  글쓰기 스크린으로 이동 #######################
+  const titleArea = () => {
+    // #### content가 없을 경우 글쓰기 스크린으로 이동 합니다 #####
     if (section.content === null) {
       return (
         <TouchableOpacity
@@ -46,7 +44,7 @@ const DreamWirtingCard = ({style, onPress, ...props}) => {
       );
     }
 
-    // ###################  작성한 글 확인 drop 박스 열림  #######################
+    // #### Content가 있을 경우 작성한 글 확인. 아래로 펼쳐집니다.  ####
     return (
       <View style={isActive ? styles.boxContainerActive : styles.boxContainer}>
         <View style={styles.checkbox}>
@@ -81,69 +79,10 @@ const DreamWirtingCard = ({style, onPress, ...props}) => {
     );
   };
 
-  // ###################  작성한 글  UI #######################
-  const contentArea = (section, index, isActive, sections) => {
-    return (
-      <View
-        style={
-          isActive ? [styles.content, styles.contentActive] : styles.content
-        }>
-        <Text multiline={true}>{section.content}</Text>
-
-        {isActive && (
-          <View style={styles.dropButton}>
-            <Image
-              style={
-                props.isOpened
-                  ? {width: 18, height: 18}
-                  : {width: 18, height: 18}
-              }
-              source={images.upButton}
-            />
-          </View>
-        )}
-      </View>
-    );
-  };
-
-  const updateSections = activeSections => {
-    setState({activeSections});
-  };
-
-  return (
-    <Accordion
-      sections={props.noteInfo}
-      containerStyle={styles.accordionStyle}
-      underlayColor="#f0f0f0"
-      activeSections={state.activeSections}
-      renderHeader={titleArea}
-      renderContent={contentArea}
-      onChange={updateSections}
-    />
-  );
+  return <>{titleArea()}</>;
 };
 
 const styles = StyleSheet.create({
-  accordionStyle: {backgroundColor: '#f0f0f0'},
-
-  content: {
-    padding: 10,
-    flexDirection: 'row',
-    flexShrink: 1,
-    alignItems: 'center',
-    width: width * 341,
-    height: '100%',
-    borderStyle: 'solid',
-    borderRadius: 4,
-    backgroundColor: '#ffffff',
-  },
-  contentActive: {
-    borderBottomWidth: 2,
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    borderColor: '#ffffff',
-  },
-
   boxContainer: {
     paddingHorizontal: 16,
     paddingLeft: 19,
@@ -215,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamWirtingCard;
+export default CollapsibleTitle;

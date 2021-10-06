@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import DreamCalendar from '../../components/DreamCalendar';
-import DreamWirtingCard from '../../components/DreamWirtingCard';
+import CollapsibleCard from '../../components/CollapsibleCard';
 import {DreamRoutine} from '../../components/DreamRoutine';
 
 import {noteTitleList} from '../../config/noteTitleList';
@@ -49,7 +49,7 @@ function TrainingNoteScreen({navigation, route}) {
       <ScrollView>
         <View style={styles.alignList}>
           <DreamRoutine routine="운동 후 폼롤러 하기" />
-          <DreamWirtingCard noteInfo={notelist} isRoutineComplete={false} />
+          <CollapsibleCard noteInfo={notelist} isRoutineComplete={false} />
         </View>
       </ScrollView>
       <TouchableOpacity
