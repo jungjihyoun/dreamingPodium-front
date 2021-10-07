@@ -23,6 +23,18 @@ export const postingSlice = createSlice({
     writtenNote: [
       {
         date: '2021. 10. 6.',
+        routine: [
+          {
+            routineName: '어쩌고  ggg',
+            routineIdx: 'rt001',
+            rountineState: true,
+          },
+          {
+            routineName: '어쩌고 저쩌고 하기',
+            routineIdx: 'rt002',
+            rountineState: false,
+          },
+        ],
         noteContentGroup: [
           {noteIdx: 'tr001', noteContent: '첫번째'},
           {noteIdx: 'tr002', noteContent: '두번째'},
