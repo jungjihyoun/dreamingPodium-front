@@ -3,8 +3,9 @@
 
 import React, {Component, useEffect, useState, useContext} from 'react';
 import {AppRegistry, View, Text, StyleSheet} from 'react-native';
-import moment from 'moment';
-import 'moment/locale/ko';
+
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 import {clickCalendar} from '../reducer/postingSlice';
 import {useDispatch} from 'react-redux';
@@ -17,13 +18,6 @@ import {colors} from '../config/globalStyles';
 const DreamCalendar = () => {
   const dispatch = useDispatch();
 
-  const datesWhitelist = [
-    {
-      start: new Date().getDate(), // 오늘 날짜 이전까지만 활성화
-      end: moment(),
-    },
-  ];
-
   const toggle = selectedDate => {
     dispatch(clickCalendar({date: selectedDate.toDate().toLocaleDateString()}));
   };
@@ -32,9 +26,10 @@ const DreamCalendar = () => {
     <View style={styles.container}>
       <CalendarStrip
         onDateSelected={selectedDate => {
+          // alert(dayjs(selectedDate).format('YYYY. MM. DD. dddd'));
           toggle(selectedDate);
         }}
-        selectedDate={moment()}
+        selectedDate={dayjs()}
         scrollable
         style={{
           height: 120,
@@ -43,8 +38,8 @@ const DreamCalendar = () => {
         }}
         calendarHeaderStyle={styles.innerText}
         dateNumberStyle={styles.innerText}
-        dateNameStyle={[styles.innerText, {marginBottom: 10}]}
-        highlightDateNameStyle={[styles.innerText, {marginBottom: 10}]}
+        dateNameStyle={[styles.dayNameText, {marginBottom: 3}]}
+        highlightDateNameStyle={[styles.dayNameText, {marginBottom: 3}]}
         highlightDateNumberStyle={[
           styles.innerText,
           {
@@ -69,7 +64,6 @@ const DreamCalendar = () => {
           {marginBottom: 10},
         ]}
         disabledDateNumberStyle={[styles.innerText, {color: colors.lightGrey}]}
-        datesWhitelist={datesWhitelist}
         leftSelector={[]}
         rightSelector={[]}
         innerStyle={{flex: 1.5}}
@@ -82,6 +76,11 @@ const styles = StyleSheet.create({
   container: {width: '100%'},
   innerText: {
     fontSize: 16,
+    color: colors.lightGrey,
+    fontWeight: 'bold',
+  },
+  dayNameText: {
+    fontSize: 12,
     color: colors.lightGrey,
     fontWeight: 'bold',
   },
