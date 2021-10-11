@@ -26,13 +26,14 @@ const CollapsibleContent = ({style, onPress, isActive, content, ...props}) => {
 
 const styles = StyleSheet.create({
   content: {
-    padding: 10,
+    padding: 15,
     flexDirection: 'row',
     flexShrink: 1,
     alignItems: 'center',
     width: width * 341,
     borderStyle: 'solid',
-    borderRadius: 4,
+    borderBottomRightRadius: 4,
+    borderBottomLeftRadius: 4,
     backgroundColor: '#ffffff',
   },
 

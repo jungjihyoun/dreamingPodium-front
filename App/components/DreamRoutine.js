@@ -14,23 +14,24 @@ import {width, height, colors, images} from '../config/globalStyles';
 export const DreamRoutine = ({
   style,
   onPress,
+  routineIdx,
   routine,
   ...props
 }) => {
-  const [isRoutineComplete, setIsRoutineComplete] = useState(false);
-  const successRoutine = () => {
-    setIsRoutineComplete(!isRoutineComplete);
-  };
+  // const [isRoutineComplete, setIsRoutineComplete] = useState(false);
+  // const successRoutine = () => {
+  //   setIsRoutineComplete(!isRoutineComplete);
+  // };
 
   return (
     <TouchableOpacity
-      onPress={() => successRoutine()}
+      onPress={() => onPress(routineIdx)}
       style={styles.dreamNoteGroup}>
       <View style={styles.sectionContainer}>
         <View style={styles.checkbox}>
           <Image
             style={
-              isRoutineComplete
+              props.routineState
                 ? {width: 20, height: 15}
                 : [styles.unchecking, {width: 20, height: 15}]
             }
@@ -39,11 +40,9 @@ export const DreamRoutine = ({
         </View>
 
         <View>
-        <Text style={styles.titleText}>루틴 체크</Text>
+          <Text style={styles.titleText}>루틴 체크</Text>
           <Text style={styles.subtitleText}>{routine}</Text>
         </View>
-
-
       </View>
     </TouchableOpacity>
   );
@@ -106,6 +105,3 @@ const styles = StyleSheet.create({
     color: '#ABBABC',
   },
 });
-
-
-

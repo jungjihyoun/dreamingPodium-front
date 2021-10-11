@@ -29,14 +29,41 @@ function TrainingNoteScreen({navigation, route}) {
 
   const AppDispatch = useDispatch();
 
-  const test = temp => {
+  const filterRoutineGroup = () => {
+    var a = writtenNote.filter(data => {
+      return data.date === todayDate;
+    })[0];
+
+    if (a !== undefined) {
+      a = a.routine.filter(data => {
+        return data.routineName;
+      });
+    }
+
+    console.log('routine list: ', a);
+    return a;
+  };
+  const routineName = filterRoutineGroup() ? filterRoutineGroup() : [];
+
+  const handleRoutineState = routineIdx => {
+    // dispatch routine state 변하게 하고 post 보내기
+    var test = routineName.filter(data => {
+      return data.routineIdx === routineIdx;
+    });
+
+    test = test[0].routineState;
+
+    console.log('routine state test', test);
+  };
+
+  const filterContentGroup = noteIdx => {
     var a = writtenNote.filter(data => {
       return data.date === todayDate;
     })[0];
 
     if (a !== undefined) {
       a = a.noteContentGroup.filter(data => {
-        return data.noteIdx === temp;
+        return data.noteIdx === noteIdx;
       })[0].noteContent;
     }
 
@@ -50,7 +77,17 @@ function TrainingNoteScreen({navigation, route}) {
       <DreamCalendar />
       <ScrollView>
         <View style={styles.alignList}>
-          <DreamRoutine routine="운동 후 폼롤러 하기" />
+          {routineName.map(data => {
+            return (
+              <DreamRoutine
+                routine={data.routineName}
+                onPress={handleRoutineState}
+                routineIdx={data.routineIdx}
+                routineState={data.routineState}
+              />
+            );
+          })}
+
           {noteTitleList.map(data => {
             return (
               <CollapsibleCard
@@ -59,7 +96,7 @@ function TrainingNoteScreen({navigation, route}) {
                 title={data.noteTitle}
                 subtitle={data.noteSubtitle}
                 placeholder={data.notePlaceholder}
-                content={test(data.noteIdx)}
+                content={filterContentGroup(data.noteIdx)}
                 isRoutineComplete={false}
               />
             );

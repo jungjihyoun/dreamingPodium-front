@@ -20,7 +20,7 @@ const CollapsibleTitle = ({
 
   const titleArea = () => {
     // #### content가 없을 경우 글쓰기 스크린으로 이동 합니다 #####
-    if (content === null) {
+    if (content === undefined) {
       return (
         <TouchableOpacity
           onPress={() => {
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: width * 341,
     height: height * 71,
-    borderStyle: 'solid',
-    borderColor: '#ffffff',
+    // borderStyle: 'solid',
+    // borderColor: '#ffffff',
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
     backgroundColor: '#ffffff',

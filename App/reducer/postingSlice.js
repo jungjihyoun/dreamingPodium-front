@@ -1,4 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
+
+import {tempList} from './tempList';
 // import AsyncStorage from '@react-native-community/async-storage';
 
 // 자동 저장 함수
@@ -17,42 +19,24 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
 export const postingSlice = createSlice({
   posting: null,
   name: 'posting',
+  initialState: tempList,
 
-  initialState: {
-    todayDate: new Date().toLocaleDateString(),
-    writtenNote: [
-      {
-        date: '2021. 10. 6.',
-        routine: [
-          {
-            routineName: '어쩌고  ggg',
-            routineIdx: 'rt001',
-            rountineState: true,
-          },
-          {
-            routineName: '어쩌고 저쩌고 하기',
-            routineIdx: 'rt002',
-            rountineState: false,
-          },
-        ],
-        noteContentGroup: [
-          {noteIdx: 'tr001', noteContent: '첫번째'},
-          {noteIdx: 'tr002', noteContent: '두번째'},
-          {noteIdx: 'tr003', noteContent: '세-'},
-          {noteIdx: 'tr004', noteContent: 'ㄴㄴ'},
-        ],
-      },
-      {
-        date: '2021. 10. 2.',
-        noteContentGroup: [
-          {noteIdx: 'tr001', noteContent: 'efeee'},
-          {noteIdx: 'tr002', noteContent: 'eee'},
-          {noteIdx: 'tr003', noteContent: null},
-          {noteIdx: 'tr004', noteContent: 'ㄴㄴ'},
-        ],
-      },
-    ],
-  },
+  // initialState: {
+  //   todayDate: new Date().toLocaleDateString(),
+  //   writtenNote: [
+  //     {
+  //       date: '2021. 10. 6.',
+  //       routine: [
+  //         {
+  //           routineName: '',
+  //           routineIdx: '',
+  //           rountineState: '',
+  //         },
+  //       ],
+  //       noteContentGroup: [],
+  //     },
+  //   ],
+  // },
 
   reducers: {
     submitPost: (state, action) => {
