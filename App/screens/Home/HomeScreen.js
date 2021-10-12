@@ -8,17 +8,24 @@ import {
   Image,
 } from 'react-native';
 
-import DreamCalendar from '../../components/DreamCalendar';
 import {DreamPartCard} from '../../components/DreamPartCard';
 
 import {colors, images} from '../../config/globalStyles';
 
 function HomeScreen(props) {
+  const zero = num => {
+    return num < 10 && num >= 0 ? '0' + num : num;
+  };
+  const dateKo = date => {
+    return `${date.getFullYear()}년 ${zero(date.getMonth() + 1)}월 ${zero(
+      date.getDate(),
+    )}일`;
+  };
+
   return (
     <SafeAreaView>
-      <DreamCalendar />
-
       <View style={styles.dreamPartCard}>
+        <Text style={styles.DateTitle}>{dateKo(new Date())}</Text>
         <Text style={styles.homeTitle}>
           오늘의 훈련은 어땠나요? 당신의 기록을 남겨주세요 !
         </Text>
@@ -44,11 +51,18 @@ function HomeScreen(props) {
 }
 
 const styles = StyleSheet.create({
+  DateTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    // color: colors.lightGrey,
+    paddingTop: 48,
+    paddingBottom: 28,
+  },
   homeTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.lightGrey,
-    paddingTop: 25,
+    // paddingTop: 95,
     paddingBottom: 48,
   },
   dreamPartCard: {
