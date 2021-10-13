@@ -7,7 +7,7 @@ import {AppRegistry, View, Text, StyleSheet} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
-import {clickCalendar} from '../reducer/postingSlice';
+import {selectDate} from '../reducer/postingSlice';
 import {useDispatch} from 'react-redux';
 
 import CalendarStrip from 'react-native-calendar-strip';
@@ -19,7 +19,7 @@ const DreamCalendar = () => {
   const dispatch = useDispatch();
 
   const toggle = selectedDate => {
-    dispatch(clickCalendar({date: selectedDate.toDate().toLocaleDateString()}));
+    dispatch(selectDate({date: selectedDate.toDate().toLocaleDateString()}));
   };
 
   return (
