@@ -54,7 +54,6 @@ function TrainingNoteScreen({navigation, route}) {
         routineState: !_pickedRoutine.routineState,
       }),
     );
-    console.log('routine Success', _pickedRoutine.routineState);
   };
 
   //TODO : 작성된 글 불러오기 코드정리
@@ -83,7 +82,7 @@ function TrainingNoteScreen({navigation, route}) {
                 routine={data.routineName}
                 onPress={handleRoutineState}
                 routineIdx={data.routineIdx}
-                routineState={!data.routineState}
+                routineState={data.routineState}
               />
             );
           })}

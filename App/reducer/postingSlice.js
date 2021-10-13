@@ -51,13 +51,14 @@ export const postingSlice = createSlice({
     },
     // 루틴 체크
     checkRoutine: (state, action) => {
-      const a = state.writtenNote.filter(data => {
+      const [checkRoutine] = state.writtenNote.filter(data => {
         return data.date === state.todayDate;
-      })[0];
+      });
 
-      a.routine.map(data => {
+      checkRoutine.routine.map(data => {
         if (data.routineName === action.payload.routineName) {
           data.routineState = action.payload.routineState;
+          console.log('routine State check in redux action', data.routineState);
         }
       });
     },
