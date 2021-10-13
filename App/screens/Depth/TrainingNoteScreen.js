@@ -16,7 +16,7 @@ import CollapsibleCard from '../../components/CollapsibleCard';
 import {DreamRoutine} from '../../components/DreamRoutine';
 
 // REDUX
-import {writtenNote, checkRoutine} from '../../reducer/postingSlice';
+import {checkRoutine} from '../../reducer/postingSlice';
 
 // CONFIG
 import {noteTitleList} from '../../config/noteTitleList';

@@ -1,4 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useContext, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   SafeAreaView,
   View,
@@ -10,25 +12,21 @@ import {
   ScrollView,
   Button,
 } from 'react-native';
-
-import {colors, images, width, height} from '../../config/globalStyles';
-
-import {SocialButton} from '../../components/SocialButton';
-
-import {submitPost} from '../../reducer/postingSlice';
-import {useDispatch} from 'react-redux';
-
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
-// import ImagePicker from 'react-native-image-picker';
+// COMPONENT
+import {SocialButton} from '../../components/SocialButton';
+
+// REDUX
+import {submitNote} from '../../reducer/postingSlice';
+
+// CONFIG
+import {colors, images, width, height} from '../../config/globalStyles';
 
 function WritingScreen({navigation, route}) {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(submitPost({content: '123'}));
-  // }, []);
-
-  // const ImagePicker = require('react-native-image-picker');
+  const writtenNote = useSelector(state => state.posting.writtenNote);
+  const todayDate = useSelector(state => state.posting.todayDate);
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     avatar: '',
   });
@@ -52,7 +50,7 @@ function WritingScreen({navigation, route}) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{route.params.title}</Text>
-
+      {/* 
       <Button title="add" onPress={() => showImage()} />
 
       <Image
@@ -60,7 +58,7 @@ function WritingScreen({navigation, route}) {
         resizeMode="cover"
         resizeMethod="scale"
         style={{width: 200, height: 200}}
-      />
+      /> */}
 
       <ScrollView style={{height: '100%'}}>
         <View style={styles.inputBox}>
@@ -83,6 +81,13 @@ function WritingScreen({navigation, route}) {
           <TouchableOpacity
             style={styles.submitButton}
             onPress={() => {
+              dispatch(
+                submitNote({
+                  date: todayDate,
+                  noteIdx: route.params.noteIdx,
+                  content: content,
+                }),
+              );
               navigation.navigate('TrainingNote', {
                 content: content,
                 noteTitle: route.params.title,

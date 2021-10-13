@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
 import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
@@ -16,6 +17,8 @@ const CollapsibleTitle = ({
 
   ...props
 }) => {
+  const todayDate = useSelector(state => state.posting.todayDate);
+
   const navigation = useNavigation();
 
   const titleArea = () => {
