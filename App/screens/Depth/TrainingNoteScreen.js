@@ -80,6 +80,7 @@ function TrainingNoteScreen({navigation, route}) {
           {routineName.map(data => {
             return (
               <DreamRoutine
+                key={data.routineIdx}
                 routine={data.routineName}
                 onPress={handleRoutineState}
                 routineIdx={data.routineIdx}

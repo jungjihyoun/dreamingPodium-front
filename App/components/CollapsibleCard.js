@@ -27,11 +27,12 @@ const CollapsibleCard = ({style, onPress, ...props}) => {
       subtitle={props.subtitle}
       placeholder={props.placeholder}
       noteIdx={props.noteIdx}
+      isActive={expanded}
     />
   );
 
   const contentArea = () => {
-    return <CollapsibleContent content={props.content} />;
+    return <CollapsibleContent content={props.content} isActive={expanded} />;
   };
 
   return (

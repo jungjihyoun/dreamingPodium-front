@@ -41,11 +41,11 @@ const styles = StyleSheet.create({
   contentActive: {
     backgroundColor: '#ffffff',
     shadowColor: '#000000',
-    shadowOpacity: 0.22,
-    shadowRadius: 2.65,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.65,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 5,
     },
     // android
     elevation: 3,

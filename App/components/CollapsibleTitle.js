@@ -110,8 +110,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: width * 341,
     height: height * 71,
-    // borderStyle: 'solid',
-    // borderColor: '#ffffff',
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
     backgroundColor: '#ffffff',

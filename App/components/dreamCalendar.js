@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, {Component, useEffect, useState, useContext} from 'react';
+import React from 'react';
 import {AppRegistry, View, Text, StyleSheet} from 'react-native';
 
 import dayjs from 'dayjs';
@@ -22,21 +22,13 @@ const DreamCalendar = () => {
     dispatch(selectDate({date: selectedDate.toDate().toLocaleDateString()}));
   };
 
-  const datesWhitelist = [
-    {
-      start: new Date().getDate(),
-      end: dayjs(),
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <CalendarStrip
-        // datesWhitelist={datesWhitelist}
+        selectedDate={dayjs(new Date().getDate())}
         onDateSelected={selectedDate => {
           toggle(selectedDate);
         }}
-        selectedDate={dayjs()}
         scrollable
         style={{
           height: 120,
