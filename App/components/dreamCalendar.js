@@ -19,7 +19,7 @@ const DreamCalendar = () => {
   const dispatch = useDispatch();
 
   const toggle = selectedDate => {
-    dispatch(selectDate({date: selectedDate.toDate().toLocaleDateString()}));
+    dispatch(selectDate({date: selectedDate.toDate().toDateString()}));
   };
 
   return (

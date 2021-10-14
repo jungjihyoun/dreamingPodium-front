@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {setDepartment, setGames} from '../../reducer/userSlice';
+import {setDepartment, setField} from '../../reducer/userSlice';
 
 import DreamTextInputLine from '../../components/DreamTextInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
@@ -46,7 +46,7 @@ function ProfileScreen(props) {
         <DreamTextInputLine
           inputName="종목"
           onChangeText={event => {
-            dispatch(setGames(event));
+            dispatch(setField(event));
           }}
         />
       </View>

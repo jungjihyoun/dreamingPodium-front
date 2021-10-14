@@ -38,6 +38,8 @@ function TrainingNoteScreen({navigation, route}) {
         return data.routineName;
       });
     }
+
+    console.log('today', todayDate);
     console.log('routine list: ', _routineGroup);
     return _routineGroup;
   };

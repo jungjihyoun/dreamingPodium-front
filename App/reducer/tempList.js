@@ -1,9 +1,9 @@
 export const tempList = {
-  todayDate: new Date().toLocaleDateString(),
+  todayDate: new Date().toDateString(),
   isActive: false,
   writtenNote: [
     {
-      date: '2021. 10. 14.',
+      date: 'Thu Oct 14 2021',
       routine: [
         {
           routineName: '발차기 하기',
@@ -24,7 +24,7 @@ export const tempList = {
       ],
     },
     {
-      date: '2021. 10. 13.',
+      date: 'Wed Oct 13 2021',
       routine: [
         {
           routineName: '발차기 하기',
@@ -45,7 +45,7 @@ export const tempList = {
       ],
     },
     {
-      date: '2021. 10. 12.',
+      date: 'Tue Oct 12 2021',
       routine: [
         {
           routineName: '발차기 하기',
@@ -66,7 +66,7 @@ export const tempList = {
       ],
     },
     {
-      date: '2021. 10. 6.',
+      date: 'Sat Oct 09 2021',
       routine: [
         {
           routineName: '발차기 하기',
@@ -87,7 +87,7 @@ export const tempList = {
       ],
     },
     {
-      date: '2021. 10. 2.',
+      date: 'Sat Oct 02 2021',
       routine: [
         {
           routineName: '발차기 하기',
@@ -108,7 +108,7 @@ export const tempList = {
       ],
     },
     {
-      date: '2021. 10. 11.',
+      date: 'Fri Oct 01 2021',
       routine: [],
       noteContentGroup: [
         {noteIdx: 'tr001', noteContent: 'testets'},

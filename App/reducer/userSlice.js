@@ -15,11 +15,12 @@ export const userSlice = createSlice({
   initialState: {
     user: null, //유저 정보가 모두 담기는 변수
     loggedIn: false,
-    // routine: [],
     // gender: null,
     // birth: null,
     department: null,
-    games: null,
+    field: null,
+
+    // ### 첫 접속 여부 판단 넣기
   },
 
   // action 로직
@@ -50,9 +51,9 @@ export const userSlice = createSlice({
       console.log('department submit success', state, action);
       state.department = action.payload;
     },
-    setGames: (state, action) => {
-      console.log('games submit success', state, action);
-      state.games = action.payload;
+    setField: (state, action) => {
+      console.log('field submit success', state, action);
+      state.field = action.payload;
     },
 
     // clearReserve: state => {
@@ -61,7 +62,7 @@ export const userSlice = createSlice({
     // },
   },
 });
-export const {login, setUser, logout, register, setDepartment, setGames} =
+export const {login, setUser, logout, register, setDepartment, setField} =
   userSlice.actions; //액션들을 익스포트
 
 export const selectLogin = state => state.user.loggedIn;
