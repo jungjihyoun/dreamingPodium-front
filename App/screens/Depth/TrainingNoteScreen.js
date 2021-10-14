@@ -74,6 +74,7 @@ function TrainingNoteScreen({navigation, route}) {
   return (
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
+
       <ScrollView>
         <View style={styles.alignList}>
           {routineName.map(data => {
@@ -102,12 +103,6 @@ function TrainingNoteScreen({navigation, route}) {
           })}
         </View>
       </ScrollView>
-      <TouchableOpacity
-        onPress={() => {
-          // test();
-        }}>
-        <Text>test</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }

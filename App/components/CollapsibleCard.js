@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   Collapse,
   CollapseHeader,
@@ -12,7 +13,12 @@ import CollapsibleTitle from './CollapsibleTitle';
 import CollapsibleContent from './CollapsibleContent';
 
 const CollapsibleCard = ({style, onPress, ...props}) => {
-  const [isActive, setIsActive] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const todayDate = useSelector(state => state.posting.todayDate);
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [todayDate]);
 
   const titleArea = () => (
     <CollapsibleTitle
@@ -25,14 +31,15 @@ const CollapsibleCard = ({style, onPress, ...props}) => {
   );
 
   const contentArea = () => {
-    return <CollapsibleContent content={props.content} isActive={isActive} />;
+    return <CollapsibleContent content={props.content} />;
   };
 
   return (
     <>
       <Collapse
-        onToggle={() => {
-          setIsActive(!isActive);
+        isExpanded={expanded}
+        onToggle={isExpanded => {
+          setExpanded(isExpanded);
         }}>
         <CollapseHeader>{titleArea()}</CollapseHeader>
         <CollapseBody>{contentArea()}</CollapseBody>

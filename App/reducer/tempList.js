@@ -1,6 +1,28 @@
 export const tempList = {
   todayDate: new Date().toLocaleDateString(),
+  isActive: false,
   writtenNote: [
+    {
+      date: '2021. 10. 14.',
+      routine: [
+        {
+          routineName: '발차기 하기',
+          routineIdx: 'rt001',
+          routineState: false,
+        },
+        {
+          routineName: '어쩌고 저쩌고 하기',
+          routineIdx: 'rt002',
+          routineState: false,
+        },
+      ],
+      noteContentGroup: [
+        {noteIdx: 'tr001', noteContent: undefined},
+        {noteIdx: 'tr002', noteContent: undefined},
+        {noteIdx: 'tr003', noteContent: undefined},
+        {noteIdx: 'tr004', noteContent: undefined},
+      ],
+    },
     {
       date: '2021. 10. 13.',
       routine: [

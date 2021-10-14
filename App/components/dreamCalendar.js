@@ -22,11 +22,18 @@ const DreamCalendar = () => {
     dispatch(selectDate({date: selectedDate.toDate().toLocaleDateString()}));
   };
 
+  const datesWhitelist = [
+    {
+      start: new Date().getDate(),
+      end: dayjs(),
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <CalendarStrip
+        // datesWhitelist={datesWhitelist}
         onDateSelected={selectedDate => {
-          // alert(dayjs(selectedDate).format('YYYY. MM. DD. dddd'));
           toggle(selectedDate);
         }}
         selectedDate={dayjs()}

@@ -32,10 +32,11 @@ export const postingSlice = createSlice({
   //     //     {
   //     //       routineName: '',
   //     //       routineIdx: '',
-  //     //       rountineState: '',
+  //     //       routineState: '',
   //     //     },
   //     //   ],
-  //     //   noteContentGroup: [],
+  //     //   noteContentGroup: [ noteIdx: '' , noteContent:''],
+  //          conditionGroup: [ {condition:''} , {feel: ''}, {hurt: []} ],
   //     // },
   //   ],
   // },
