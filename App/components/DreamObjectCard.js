@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -12,10 +13,7 @@ import {
 import {colors, images, width, height} from '../config/globalStyles';
 
 function DreamObjectCard({multiple = true, ...props}) {
-  const [showAddButton, setShowAddButton] = useState(true);
-
-  // add button UI 제어
-  const addButton = showAddButton ? '추가' : '완료';
+  const [showInputBox, setShowInputBox] = useState(false);
 
   const [text, setText] = useState('');
   const saveText = event => {
@@ -26,65 +24,47 @@ function DreamObjectCard({multiple = true, ...props}) {
     <View>
       <View style={styles.boxContainer}>
         <View>
-          <Text style={styles.titleText}>{props.title}</Text>
-
           <View style={styles.addArea}>
-            <TouchableOpacity
-              style={styles.addButtonUI}
-              onPress={
-                showAddButton
-                  ? () => {
-                      setShowAddButton(false);
-                    }
-                  : () => {
-                      [
-                        props.handleAddText(text),
-                        setShowAddButton(true),
-                        setText(''),
-                      ];
-                    }
-              }>
-              <Text style={styles.handleAddText}>{addButton}</Text>
+            <Text style={styles.titleText}>{props.title}</Text>
+            <TouchableOpacity onPress={() => setShowInputBox(true)}>
+              <Image source={images.addButton} />
             </TouchableOpacity>
-
-            {showAddButton ? (
-              <></>
-            ) : (
-              <TextInput
-                onChangeText={saveText}
-                style={styles.inputHolder}
-                placeholder="입력해주세요"
-                clearTextOnFocus={true}
-                autoFocus={true}
-                onSubmitEditing={() => [
-                  props.handleAddText(text),
-                  setShowAddButton(true),
-                  setText(''),
-                ]}
-              />
-            )}
           </View>
 
+          {showInputBox ? (
+            <TextInput
+              onChangeText={saveText}
+              style={styles.inputHolder}
+              placeholder="입력해주세요"
+              clearTextOnFocus={true}
+              autoFocus={true}
+              onSubmitEditing={() => [
+                props.handleAddText(text),
+                setShowInputBox(false),
+                setText(''),
+              ]}
+            />
+          ) : (
+            <></>
+          )}
+
           {/* 작성된 리스트 UI */}
-          <View style={{alignItems: 'center'}}>
+          <View>
             {props.state ? (
               props.state.map((data, index, _source) => {
                 return (
-                  <View
-                    key={index}
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      width: '100%',
-                      position: 'relative',
-                    }}>
+                  <View style={styles.savedTextArea} key={index}>
                     <Text style={styles.savedText}>{data}</Text>
+
                     <TouchableOpacity
                       onPress={() => {
                         props.deleteListButton(data, props.state);
                       }}
                       style={styles.deleteButton}>
-                      <Text>삭제</Text>
+                      <Image
+                        style={styles.closeButton}
+                        source={images.closeButton}
+                      />
                     </TouchableOpacity>
                   </View>
                 );
@@ -102,54 +82,38 @@ function DreamObjectCard({multiple = true, ...props}) {
 const styles = StyleSheet.create({
   boxContainer: {
     position: 'relative',
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
     marginVertical: 20,
     width: width * 341,
     minHeight: height * 120,
-
-    borderStyle: 'solid',
-    borderRadius: 4,
-    backgroundColor: '#ffffff',
-    shadowColor: '#000000',
-    shadowOpacity: 0.22,
-    shadowRadius: 2.65,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    // android
-    elevation: 3,
   },
 
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.lightGrey,
-    marginVertical: 10,
-    textAlign: 'center',
-    alignItems: 'center',
+    marginBottom: 10,
+  },
+  savedTextArea: {
+    borderBottomWidth: 2,
+    borderBottomColor: colors.primary,
+    borderStyle: 'solid',
+    marginVertical: 6,
+    paddingLeft: 6,
   },
   savedText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.primary,
-
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    fontSize: 14,
+    marginBottom: 8,
   },
 
   addArea: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginRight: 23,
     width: '100%',
   },
 
-  addButtonUI: {
-    position: 'absolute',
-    left: 0,
+  closeButton: {
+    width: 22,
+    height: 22,
   },
 
   handleAddText: {
@@ -159,11 +123,10 @@ const styles = StyleSheet.create({
   },
 
   inputHolder: {
-    width: width * 220,
     minHeight: height * 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.lightGrey,
-    textAlign: 'center',
+    marginVertical: 10,
   },
   deleteButton: {
     position: 'absolute',
