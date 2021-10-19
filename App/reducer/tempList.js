@@ -3,6 +3,32 @@ export const tempList = {
   isActive: false,
   writtenNote: [
     {
+      date: 'Tue Oct 19 2021',
+      routine: [
+        {
+          routineName: '발차기 하기',
+          routineIdx: 'rt001',
+          routineState: false,
+        },
+        {
+          routineName: '어쩌고 저쩌고 하기',
+          routineIdx: 'rt002',
+          routineState: false,
+        },
+      ],
+      noteContentGroup: [
+        {noteIdx: 'tr001', noteContent: undefined},
+        {noteIdx: 'tr002', noteContent: undefined},
+        {noteIdx: 'tr003', noteContent: undefined},
+        {noteIdx: 'tr004', noteContent: undefined},
+      ],
+      conditionGroup: [
+        {conditionIdx: 'mind', content: ['정신이 번쩍', '우울해요']},
+        {conditionIdx: 'physical', content: ['살이 쪘어요']},
+        {conditionIdx: 'injury', content: ['오른쪽 어깨']},
+      ],
+    },
+    {
       date: 'Thu Oct 14 2021',
       routine: [
         {
@@ -21,6 +47,11 @@ export const tempList = {
         {noteIdx: 'tr002', noteContent: undefined},
         {noteIdx: 'tr003', noteContent: undefined},
         {noteIdx: 'tr004', noteContent: undefined},
+      ],
+      conditionGroup: [
+        {conditionIdx: 'mind', content: []},
+        {conditionIdx: 'physical', content: []},
+        {conditionIdx: 'injury', content: []},
       ],
     },
     {

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useReducer} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
@@ -9,40 +10,77 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 // COMPONENT
 import DreamCalendar from '../../components/DreamCalendar';
+import DreamConditionCard from '../../components/DreamConditionCard';
 // REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
 
 // CONFIG
 import {noteTitleList} from '../../config/noteTitleList';
-import {height} from '../../config/globalStyles';
+import {colors, images, width, height} from '../../config/globalStyles';
 
-function ConditioningNoteScreen({navigation, route}) {
-  const writtenNote = useSelector(state => state.posting.writtenNote);
-  const todayDate = useSelector(state => state.posting.todayDate);
-  const dispatch = useDispatch();
+function ConditioningNoteScreen({route}) {
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
-      <ScrollView>
-        <View>
-          <Text>컨디션</Text>
-        </View>
+      <ScrollView style={styles.boxContainer}>
+        <DreamConditionCard
+          title="컨디션"
+          subtitle="심리적"
+          idx="mind"
+          onPress={() => navigation.push('ConditionWriteScreen')}
+        />
+
+        <DreamConditionCard
+          subtitle="신체적"
+          idx="physical"
+          onPress={() => navigation.push('ConditionWriteScreen')}
+        />
+        <DreamConditionCard
+          title="부상"
+          style={{marginTop: 70}}
+          idx="injury"
+          onPress={() => navigation.push('ConditionWriteScreen')}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  alignList: {
-    flex: 0,
-    height: '100%',
-    backgroundColor: '#f0f0f0',
-    flexDirection: 'column',
-    alignItems: 'center',
+  boxContainer: {
+    paddingHorizontal: 24,
+    marginVertical: 20,
+    width: width * 341,
+    minHeight: height * 120,
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 10,
+    marginLeft: 10,
+    color: colors.lightGrey,
+  },
+  savedTextArea: {
+    marginVertical: 6,
+    paddingLeft: 6,
+    marginLeft: 10,
+  },
+  savedText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: colors.primary,
   },
 });
 
