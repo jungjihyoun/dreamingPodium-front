@@ -1,24 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect, useReducer} from 'react';
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import {colors, images, width, height} from '../config/globalStyles';
+import {colors, width, height} from '../../config/globalStyles';
 
 // REDUX
-import {checkRoutine} from '../reducer/postingSlice';
+import {checkRoutine} from '../../reducer/postingSlice';
+import {setModalVisible} from '../../reducer/modalSlice';
 
 function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   //content는 state 에서 관리하므로 prop으로 넘기지 맙시다
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
+
   const dispatch = useDispatch();
 
   const filterConditionGroup = idx => {
@@ -48,7 +43,9 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
       )}
       {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
 
-      <TouchableOpacity style={styles.savedTextArea}>
+      <TouchableOpacity
+        onPress={() => dispatch(setModalVisible())}
+        style={styles.savedTextArea}>
         {filterConditionGroup(idx) ? (
           filterConditionGroup(idx).map(data => {
             return (
@@ -58,7 +55,9 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
             );
           })
         ) : (
-          <Text style={styles.textInputButton}>입력해 주세요</Text>
+          <TouchableOpacity onPress={() => dispatch(setModalVisible())}>
+            <Text style={styles.textInputButton}>입력해 주세요</Text>
+          </TouchableOpacity>
         )}
       </TouchableOpacity>
     </>

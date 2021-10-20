@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 //custom imports
-import {width, height, colors, images} from '../config/globalStyles';
+import {width, height, colors, images} from '../../config/globalStyles';
 
 // TODO : 이미지를 벡터 아이콘으로 변경하기
 export const DreamRoutine = ({
@@ -18,11 +18,6 @@ export const DreamRoutine = ({
   routine,
   ...props
 }) => {
-  // const [isRoutineComplete, setIsRoutineComplete] = useState(false);
-  // const successRoutine = () => {
-  //   setIsRoutineComplete(!isRoutineComplete);
-  // };
-
   return (
     <TouchableOpacity
       onPress={() => onPress(routineIdx)}

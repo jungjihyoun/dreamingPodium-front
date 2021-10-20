@@ -2,10 +2,12 @@
 import {configureStore} from '@reduxjs/toolkit';
 import userReducer from './reducer/userSlice';
 import postingReducer from './reducer/postingSlice';
+import modalReducer from './reducer/modalSlice';
 
 export default configureStore({
   reducer: {
     posting: postingReducer,
     user: userReducer,
+    modal: modalReducer,
   },
 });
