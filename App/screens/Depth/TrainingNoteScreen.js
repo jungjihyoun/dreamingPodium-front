@@ -12,8 +12,8 @@ import {
 
 // COMPONENT
 import DreamCalendar from '../../components/DreamCalendar';
-import CollapsibleCard from '../../components/CollapsibleCard';
-import {DreamRoutine} from '../../components/DreamRoutine';
+import DreamCollapsibleCard from '../../components/training/DreamCollapsibleCard';
+import {DreamRoutine} from '../../components/training/DreamRoutine';
 
 // REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
@@ -93,7 +93,7 @@ function TrainingNoteScreen({navigation, route}) {
 
           {noteTitleList.map(data => {
             return (
-              <CollapsibleCard
+              <DreamCollapsibleCard
                 key={data.noteIdx}
                 noteIdx={data.noteIdx}
                 title={data.noteTitle}

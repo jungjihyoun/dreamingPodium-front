@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
 import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
-import {width, height, colors, images} from '../config/globalStyles';
+import {width, height, colors, images} from '../../config/globalStyles';
 
 const CollapsibleTitle = ({
   style,

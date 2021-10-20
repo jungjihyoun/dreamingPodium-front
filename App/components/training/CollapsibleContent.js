@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {StyleSheet, Text, View, Image} from 'react-native';
-import {width, height, colors, images} from '../config/globalStyles';
+import {width, height, colors, images} from '../../config/globalStyles';
 
 const CollapsibleContent = ({style, onPress, isActive, content, ...props}) => {
   const contentArea = () => {
