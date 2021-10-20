@@ -49,14 +49,17 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
       {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
 
       <TouchableOpacity style={styles.savedTextArea}>
-        {filterConditionGroup(idx) &&
+        {filterConditionGroup(idx) ? (
           filterConditionGroup(idx).map(data => {
             return (
-              <Text key={data.conditionIdx} style={styles.savedText}>
+              <Text style={styles.savedText} key={data.conditionIdx}>
                 {data}
               </Text>
             );
-          })}
+          })
+        ) : (
+          <Text style={styles.textInputButton}>입력해 주세요</Text>
+        )}
       </TouchableOpacity>
     </>
   );
@@ -91,6 +94,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     color: colors.primary,
+  },
+  textInputButton: {
+    color: colors.darkGrey,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 

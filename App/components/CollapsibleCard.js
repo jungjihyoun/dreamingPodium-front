@@ -61,15 +61,15 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderRadius: 4,
     backgroundColor: '#ffffff',
-    shadowColor: '#000000',
-    shadowOpacity: 0.22,
-    shadowRadius: 2.65,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    // android
-    elevation: 3,
+    // shadowColor: '#000000',
+    // shadowOpacity: 0.22,
+    // shadowRadius: 2.65,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+    // // android
+    // elevation: 3,
   },
 });
 
