@@ -1,26 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect, useReducer} from 'react';
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {SafeAreaView, Text, StyleSheet, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 // COMPONENT
 import DreamCalendar from '../../components/DreamCalendar';
-import DreamConditionCard from '../../components/DreamConditionCard';
+import DreamConditionCard from '../../components/conditioning/DreamConditionCard';
+import DreamModal from '../../components/DreamModal';
 // REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
 
 // CONFIG
-import {noteTitleList} from '../../config/noteTitleList';
-import {colors, images, width, height} from '../../config/globalStyles';
+import {colors, width, height} from '../../config/globalStyles';
 
 function ConditioningNoteScreen({route}) {
   const navigation = useNavigation();
@@ -29,13 +22,7 @@ function ConditioningNoteScreen({route}) {
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
       <ScrollView style={styles.boxContainer}>
-        <DreamConditionCard
-          title="컨디션"
-          subtitle="심리적"
-          idx="mind"
-          onPress={() => navigation.push('ConditionWriteScreen')}
-        />
-
+        <DreamConditionCard title="컨디션" subtitle="심리적" idx="mind" />
         <DreamConditionCard
           subtitle="신체적"
           idx="physical"
@@ -47,6 +34,10 @@ function ConditioningNoteScreen({route}) {
           idx="injury"
           onPress={() => navigation.push('ConditionWriteScreen')}
         />
+
+        <DreamModal>
+          <Text>hello</Text>
+        </DreamModal>
       </ScrollView>
     </SafeAreaView>
   );
