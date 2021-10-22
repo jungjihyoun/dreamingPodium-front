@@ -19,11 +19,11 @@ function ConditioningNoteScreen(props) {
   const modalInnerScreen = () => {
     switch (modalInner) {
       case 'mind':
-        return <DreamConditionSelect />;
+        return <DreamConditionSelect title="심리" idx="mind" />;
       case 'physical':
-        return <DreamConditionSelect />;
+        return <DreamConditionSelect title="신체" idx="physical" />;
       case 'injury':
-        return <DreamInjurySelect />;
+        return <DreamInjurySelect title="부상" idx="injury" />;
       default:
         break;
     }
