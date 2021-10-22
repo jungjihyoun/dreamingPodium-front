@@ -36,7 +36,7 @@ export const postingSlice = createSlice({
   //     //     },
   //     //   ],
   //     //   noteContentGroup: [ noteIdx: '' , noteContent:''],
-  //          conditionGroup: [ {condition:''} , {feel: ''}, {hurt: []} ],
+  //          conditionGroup: [ {condition:''} , {feel: ''}, {injury: []} ],
   //     // },
   //   ],
   // },

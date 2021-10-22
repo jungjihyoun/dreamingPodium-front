@@ -6,8 +6,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {colors, width, height} from '../../config/globalStyles';
 
 // REDUX
-import {checkRoutine} from '../../reducer/postingSlice';
-import {setModalVisible} from '../../reducer/modalSlice';
+import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
 function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   //content는 state 에서 관리하므로 prop으로 넘기지 맙시다
@@ -44,7 +43,10 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
       {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
 
       <TouchableOpacity
-        onPress={() => dispatch(setModalVisible())}
+        onPress={() => {
+          dispatch(setModalVisible());
+          dispatch(setModalInner({modalInner: idx}));
+        }}
         style={styles.savedTextArea}>
         {filterConditionGroup(idx) ? (
           filterConditionGroup(idx).map(data => {
@@ -55,7 +57,11 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
             );
           })
         ) : (
-          <TouchableOpacity onPress={() => dispatch(setModalVisible())}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(setModalVisible());
+              dispatch(setModalInner({modalInner: idx}));
+            }}>
             <Text style={styles.textInputButton}>입력해 주세요</Text>
           </TouchableOpacity>
         )}
@@ -65,12 +71,6 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
 }
 
 const styles = StyleSheet.create({
-  boxContainer: {
-    paddingHorizontal: 24,
-    marginVertical: 20,
-    width: width * 341,
-    minHeight: height * 120,
-  },
   titleText: {
     fontSize: 22,
     fontWeight: 'bold',

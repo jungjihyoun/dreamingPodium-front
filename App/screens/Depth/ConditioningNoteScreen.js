@@ -1,44 +1,46 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {SafeAreaView, Text, StyleSheet, ScrollView} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
 // COMPONENT
 import DreamCalendar from '../../components/DreamCalendar';
 import DreamConditionCard from '../../components/conditioning/DreamConditionCard';
 import DreamModal from '../../components/DreamModal';
+import DreamConditionSelect from '../../components/conditioning/DreamConditionSelect';
+import DreamInjurySelect from '../../components/conditioning/DreamInjurySelect';
+
 // REDUX
-import {checkRoutine} from '../../reducer/postingSlice';
 
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
-function ConditioningNoteScreen({route}) {
-  const navigation = useNavigation();
+function ConditioningNoteScreen(props) {
+  const modalInnerScreen = () => {
+    switch (modalInner) {
+      case 'mind':
+        return <DreamConditionSelect />;
+      case 'physical':
+        return <DreamConditionSelect />;
+      case 'injury':
+        return <DreamInjurySelect />;
+      default:
+        break;
+    }
+  };
+
+  const modalInner = useSelector(state => state.modal.modalInner);
 
   return (
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
       <ScrollView style={styles.boxContainer}>
         <DreamConditionCard title="컨디션" subtitle="심리적" idx="mind" />
-        <DreamConditionCard
-          subtitle="신체적"
-          idx="physical"
-          onPress={() => navigation.push('ConditionWriteScreen')}
-        />
-        <DreamConditionCard
-          title="부상"
-          style={{marginTop: 70}}
-          idx="injury"
-          onPress={() => navigation.push('ConditionWriteScreen')}
-        />
-
-        <DreamModal>
-          <Text>hello</Text>
-        </DreamModal>
+        <DreamConditionCard subtitle="신체적" idx="physical" />
+        <DreamConditionCard title="부상" style={{marginTop: 70}} idx="injury" />
       </ScrollView>
+
+      <DreamModal>{modalInnerScreen()}</DreamModal>
     </SafeAreaView>
   );
 }
@@ -49,29 +51,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     width: width * 341,
     minHeight: height * 120,
-  },
-  titleText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginVertical: 10,
-    marginLeft: 10,
-    color: colors.lightGrey,
-  },
-  savedTextArea: {
-    marginVertical: 6,
-    paddingLeft: 6,
-    marginLeft: 10,
-  },
-  savedText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: colors.primary,
   },
 });
 

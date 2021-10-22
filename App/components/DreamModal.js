@@ -13,7 +13,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import {colors, images, width, height} from '../config/globalStyles';
 
-import {setModalHidden, setModalVisible} from '../reducer/modalSlice';
+import {setModalHidden} from '../reducer/modalSlice';
 
 const DreamModal = props => {
   const modalVisible = useSelector(state => state.modal.modalVisible);
