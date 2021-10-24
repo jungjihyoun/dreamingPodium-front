@@ -27,7 +27,10 @@ function DreamConditionSelect({title, idx, ...props}) {
       </View>
 
       <Text style={styles.selectSection}>
-        <View>
+        <View
+          style={{
+            width: width * 410,
+          }}>
           <Text style={{fontSize: 22}}> 🙂 </Text>
           <Text>
             {selectList.map(val => {
@@ -42,7 +45,10 @@ function DreamConditionSelect({title, idx, ...props}) {
           </Text>
         </View>
 
-        <View>
+        <View
+          style={{
+            width: width * 410,
+          }}>
           <Text style={{fontSize: 22}}> 😥 </Text>
           <Text>
             {selectList.map(val => {

@@ -26,7 +26,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
         return data.conditionIdx === idx;
       });
 
-      if (_conditionGroup.content !== undefined) {
+      if (_conditionGroup !== undefined) {
         console.log('_conditionGroup list: ', _conditionGroup.content);
         return _conditionGroup.content;
       }
