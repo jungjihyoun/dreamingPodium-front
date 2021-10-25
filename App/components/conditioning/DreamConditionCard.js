@@ -9,10 +9,8 @@ import {colors, width, height} from '../../config/globalStyles';
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
 function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
-  //content는 state 에서 관리하므로 prop으로 넘기지 맙시다
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
-
   const dispatch = useDispatch();
 
   const filterConditionGroup = idx => {
@@ -21,12 +19,12 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     });
     console.log('today', todayDate);
 
-    if (_conditionGroup !== undefined) {
+    if (_conditionGroup !== [] && _conditionGroup !== undefined) {
       [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
         return data.conditionIdx === idx;
       });
 
-      if (_conditionGroup !== undefined) {
+      if (_conditionGroup !== [] && _conditionGroup !== undefined) {
         console.log('_conditionGroup list: ', _conditionGroup.content);
         return _conditionGroup.content;
       }
@@ -49,9 +47,9 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
         }}
         style={styles.savedTextArea}>
         {filterConditionGroup(idx) ? (
-          filterConditionGroup(idx).map(data => {
+          filterConditionGroup(idx).map((data, index) => {
             return (
-              <Text style={styles.savedText} key={data.conditionIdx}>
+              <Text style={styles.savedText} key={index}>
                 {data}
               </Text>
             );

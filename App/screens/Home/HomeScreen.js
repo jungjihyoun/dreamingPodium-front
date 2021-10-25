@@ -10,9 +10,14 @@ import {
 
 import {DreamPartCard} from '../../components/DreamPartCard';
 
+import {useDispatch} from 'react-redux';
+import {selectDate} from '../../reducer/postingSlice';
+
 import {colors, images} from '../../config/globalStyles';
 
 function HomeScreen(props) {
+  const dispatch = useDispatch();
+
   const zero = num => {
     return num < 10 && num >= 0 ? '0' + num : num;
   };
@@ -31,6 +36,7 @@ function HomeScreen(props) {
         </Text>
         <DreamPartCard
           onPress={() => {
+            dispatch(selectDate({date: new Date().toDateString()}));
             props.navigation.push('TrainingNote');
           }}
           partCardImg={images.trainingPart}
@@ -39,6 +45,7 @@ function HomeScreen(props) {
         />
         <DreamPartCard
           onPress={() => {
+            dispatch(selectDate({date: new Date().toDateString()}));
             props.navigation.push('ConditioningNote');
           }}
           partCardImg={images.conditioningPart}
