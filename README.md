@@ -1,5 +1,5 @@
 # Wright App _ front               
-dreamingPodium test
+dreamingPodium
 
 
 ## Installation    
