@@ -20,7 +20,7 @@ function ProfileScreen(props) {
 
   const submitUserProfile = () => {
     console.log(user.department);
-    console.log(user.games);
+    console.log(user.field);
   };
 
   return (
