@@ -12,7 +12,7 @@ import {checkRoutine, submitCondition} from '../../reducer/postingSlice';
 import {setModalVisible} from '../../reducer/modalSlice';
 
 function DreamSelectPane({title, idx, ...props}) {
-  const [select, setSelect] = useState(true);
+  const [select, setSelect] = useState(false);
   const [seletList, setSelectList] = useState([]);
   const dispatch = useDispatch();
 
@@ -34,12 +34,17 @@ function DreamSelectPane({title, idx, ...props}) {
         if (_conditionGroup.content.length === 0) {
           return false;
         }
+
+        if (_conditionGroup.content.includes(props.children)) {
+          setSelect(true);
+        }
+
         console.log('패인', _conditionGroup.content);
         return _conditionGroup.content;
       }
     };
     filterConditionGroup(idx);
-  }, [idx, todayDate, writtenNote]);
+  }, [idx, title, todayDate, writtenNote]);
 
   return (
     <TouchableOpacity
@@ -56,7 +61,7 @@ function DreamSelectPane({title, idx, ...props}) {
       }}>
       <Text
         style={
-          !select
+          select
             ? {
                 ...styles.paneText,
                 backgroundColor: colors.primary,
