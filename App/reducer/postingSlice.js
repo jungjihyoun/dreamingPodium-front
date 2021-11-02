@@ -66,7 +66,12 @@ export const postingSlice = createSlice({
 
       noteContent.conditionGroup.map(data => {
         if (data.conditionIdx === action.payload.conditionIdx) {
-          data.content.push(action.payload.content);
+          if (data.content.includes(action.payload.content)) {
+            const index = data.content.indexOf(action.payload.content);
+            data.content.splice(index, 1);
+          } else {
+            data.content.push(action.payload.content);
+          }
         }
       });
     },

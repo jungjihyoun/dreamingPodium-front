@@ -16,7 +16,30 @@ function DreamSelectPane({title, idx, ...props}) {
   const [seletList, setSelectList] = useState([]);
   const dispatch = useDispatch();
 
+  const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
+
+  // 생성될 때, content 리스트에서 해당 값 있으면 true로 바꿔주기
+
+  useEffect(() => {
+    const filterConditionGroup = idx => {
+      var [_conditionGroup] = writtenNote.filter(data => {
+        return data.date === todayDate;
+      });
+
+      if (_conditionGroup !== [] && _conditionGroup !== undefined) {
+        [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
+          return data.conditionIdx === idx;
+        });
+        if (_conditionGroup.content.length === 0) {
+          return false;
+        }
+        console.log('패인', _conditionGroup.content);
+        return _conditionGroup.content;
+      }
+    };
+    filterConditionGroup(idx);
+  }, [idx, todayDate, writtenNote]);
 
   return (
     <TouchableOpacity
