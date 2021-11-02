@@ -36,7 +36,7 @@ function DreamConditionSelect({title, idx, ...props}) {
             {selectList.map(val => {
               if (!val.selectId.includes('f')) {
                 return (
-                  <DreamSelectPane key={val.selectId}>
+                  <DreamSelectPane idx={idx} key={val.selectId}>
                     {val.selectTitle}
                   </DreamSelectPane>
                 );
@@ -54,7 +54,7 @@ function DreamConditionSelect({title, idx, ...props}) {
             {selectList.map(val => {
               if (val.selectId.includes('f')) {
                 return (
-                  <DreamSelectPane key={val.selectId}>
+                  <DreamSelectPane idx={idx} key={val.selectId}>
                     {val.selectTitle}
                   </DreamSelectPane>
                 );

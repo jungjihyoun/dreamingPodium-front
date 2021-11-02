@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
@@ -8,24 +8,32 @@ import {colors, width, height} from '../../config/globalStyles';
 import {mindSelectList, physicalList} from '../../config/conditionSelectList';
 
 // REDUX
-import {checkRoutine} from '../../reducer/postingSlice';
+import {checkRoutine, submitCondition} from '../../reducer/postingSlice';
 import {setModalVisible} from '../../reducer/modalSlice';
 
-function DreamSelectPane({title, ...props}) {
-  // TODO :refactor
-
-  const [select, setSelect] = useState(false);
+function DreamSelectPane({title, idx, ...props}) {
+  const [select, setSelect] = useState(true);
+  const [seletList, setSelectList] = useState([]);
   const dispatch = useDispatch();
+
+  const todayDate = useSelector(state => state.posting.todayDate);
 
   return (
     <TouchableOpacity
       style={styles.paneSection}
       onPress={() => {
         setSelect(!select);
+        dispatch(
+          submitCondition({
+            date: todayDate,
+            conditionIdx: idx,
+            content: props.children,
+          }),
+        );
       }}>
       <Text
         style={
-          select
+          !select
             ? {
                 ...styles.paneText,
                 backgroundColor: colors.primary,

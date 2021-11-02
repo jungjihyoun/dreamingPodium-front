@@ -57,6 +57,20 @@ export const postingSlice = createSlice({
         }
       });
     },
+
+    // params / content
+    submitCondition: (state, action) => {
+      const [noteContent] = state.writtenNote.filter(data => {
+        return data.date === state.todayDate;
+      });
+
+      noteContent.conditionGroup.map(data => {
+        if (data.conditionIdx === action.payload.conditionIdx) {
+          data.content.push(action.payload.content);
+        }
+      });
+    },
+
     // 날짜 선택
     selectDate: (state, action) => {
       state.todayDate = action.payload.date;
@@ -90,7 +104,8 @@ export const postingSlice = createSlice({
   },
 });
 
-export const {submitNote, selectDate, checkRoutine} = postingSlice.actions;
+export const {submitNote, selectDate, checkRoutine, submitCondition} =
+  postingSlice.actions;
 
 export const selectLogin = state => state.posting.loggedIn;
 export const selectToken = state => state.posting.token;

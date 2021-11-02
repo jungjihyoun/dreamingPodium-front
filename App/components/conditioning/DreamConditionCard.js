@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
@@ -17,17 +17,16 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     var [_conditionGroup] = writtenNote.filter(data => {
       return data.date === todayDate;
     });
-    console.log('today', todayDate);
 
     if (_conditionGroup !== [] && _conditionGroup !== undefined) {
       [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
         return data.conditionIdx === idx;
       });
-
-      if (_conditionGroup !== [] && _conditionGroup !== undefined) {
-        console.log('_conditionGroup list: ', _conditionGroup.content);
-        return _conditionGroup.content;
+      if (_conditionGroup.content.length === 0) {
+        return false;
       }
+
+      return _conditionGroup.content;
     }
   };
 
@@ -39,7 +38,6 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
         </Text>
       )}
       {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
-
       <TouchableOpacity
         onPress={() => {
           dispatch(setModalVisible());
