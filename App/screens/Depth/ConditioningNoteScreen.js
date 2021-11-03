@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
-import {SafeAreaView, Text, StyleSheet, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 // COMPONENT
 import DreamCalendar from '../../components/DreamCalendar';
@@ -16,6 +23,8 @@ import DreamInjurySelect from '../../components/conditioning/DreamInjurySelect';
 import {colors, width, height} from '../../config/globalStyles';
 
 function ConditioningNoteScreen(props) {
+  const [selectTab, setSelectTab] = useState('condition');
+
   const modalInnerScreen = () => {
     switch (modalInner) {
       case 'mind':
@@ -34,11 +43,49 @@ function ConditioningNoteScreen(props) {
   return (
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
-      <ScrollView style={styles.boxContainer}>
-        <DreamConditionCard title="컨디션" subtitle="심리적" idx="mind" />
-        <DreamConditionCard subtitle="신체적" idx="physical" />
-        <DreamConditionCard title="부상" style={{marginTop: 70}} idx="injury" />
-      </ScrollView>
+      <View style={styles.selectTabGroup}>
+        <TouchableOpacity
+          style={
+            selectTab === 'condition'
+              ? [styles.selectTab, {backgroundColor: '#E6E6E6'}]
+              : styles.selectTab
+          }
+          onPress={() => setSelectTab('condition')}>
+          <Text
+            style={
+              selectTab === 'condition'
+                ? [styles.selectedText]
+                : styles.selectText
+            }>
+            컨디션
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={
+            selectTab === 'injury'
+              ? [{backgroundColor: '#E6E6E6'}, styles.selectTab]
+              : styles.selectTab
+          }
+          onPress={() => setSelectTab('injury')}>
+          <Text
+            style={
+              selectTab === 'injury' ? [styles.selectedText] : styles.selectText
+            }>
+            부상
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {selectTab === 'condition' ? (
+        <ScrollView style={styles.boxContainer}>
+          <DreamConditionCard subtitle="심리적" idx="mind" />
+          <DreamConditionCard subtitle="신체적" idx="physical" />
+        </ScrollView>
+      ) : (
+        <ScrollView style={styles.boxContainer}>
+          <DreamConditionCard idx="injury" />
+        </ScrollView>
+      )}
 
       <DreamModal>{modalInnerScreen()}</DreamModal>
     </SafeAreaView>
@@ -48,10 +95,28 @@ function ConditioningNoteScreen(props) {
 const styles = StyleSheet.create({
   boxContainer: {
     paddingHorizontal: 24,
-    marginVertical: 20,
-    width: width * 341,
+    paddingTop: 30,
+    width: '100%',
     minHeight: height * 120,
+    backgroundColor: '#E6E6E6',
   },
+  selectTabGroup: {
+    flexDirection: 'row',
+  },
+  selectTab: {
+    marginRight: 1,
+    marginLeft: 6,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: width * 100,
+    height: height * 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#E6E6E6',
+  },
+  selectText: {fontSize: 16, fontWeight: 'bold', color: colors.darkGrey},
+  selectedText: {fontSize: 16, fontWeight: 'bold', color: '#000000'},
 });
 
 export default ConditioningNoteScreen;
