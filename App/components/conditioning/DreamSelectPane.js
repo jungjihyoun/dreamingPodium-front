@@ -44,7 +44,7 @@ function DreamSelectPane({title, idx, ...props}) {
       }
     };
     filterConditionGroup(idx);
-  }, [idx, title, todayDate, writtenNote]);
+  }, [idx, props.children, title, todayDate, writtenNote]);
 
   return (
     <TouchableOpacity
