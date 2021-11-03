@@ -56,6 +56,15 @@ export const postingSlice = createSlice({
           console.log(action.payload.content);
         }
       });
+
+      if (action.payload.photo) {
+        noteContent.noteContentGroup.map(data => {
+          if (data.noteIdx === action.payload.noteIdx) {
+            data.notePhoto = action.payload.photo;
+            console.log(action.payload.photo);
+          }
+        });
+      }
     },
 
     // params / content

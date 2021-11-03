@@ -1,16 +1,34 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {width, height, colors, images} from '../../config/globalStyles';
 
-const CollapsibleContent = ({style, onPress, isActive, content, ...props}) => {
+const CollapsibleContent = ({
+  style,
+  onPress,
+  isActive,
+  content,
+  photo,
+  ...props
+}) => {
   const contentArea = () => {
     return (
       <View
         style={
-          isActive ? [styles.content, styles.contentActive] : styles.content
+          isActive
+            ? [styles.contentSection, styles.contentActive]
+            : styles.contentSection
         }>
-        <Text multiline={true}>{content}</Text>
+        <Image
+          source={{uri: photo}}
+          resizeMode="cover"
+          resizeMethod="scale"
+          style={styles.photo}
+        />
+        <Text multiline={true} style={styles.text}>
+          {content}
+        </Text>
 
         {isActive && (
           <View style={styles.dropButton}>
@@ -25,11 +43,22 @@ const CollapsibleContent = ({style, onPress, isActive, content, ...props}) => {
 };
 
 const styles = StyleSheet.create({
-  content: {
+  photo: {
+    width: width * 310,
+    height: height * 250,
+  },
+  text: {
+    paddingTop: 16,
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: '600',
+  },
+
+  contentSection: {
     padding: 15,
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexShrink: 1,
-    alignItems: 'center',
+
     width: width * 341,
     borderStyle: 'solid',
     borderBottomRightRadius: 4,

@@ -23,6 +23,7 @@ const DreamCollapsibleCard = ({style, onPress, ...props}) => {
   const titleArea = () => (
     <CollapsibleTitle
       content={props.content}
+      photo={props.photo}
       title={props.title}
       subtitle={props.subtitle}
       placeholder={props.placeholder}
@@ -32,7 +33,13 @@ const DreamCollapsibleCard = ({style, onPress, ...props}) => {
   );
 
   const contentArea = () => {
-    return <CollapsibleContent content={props.content} isActive={expanded} />;
+    return (
+      <CollapsibleContent
+        content={props.content}
+        photo={props.photo}
+        isActive={expanded}
+      />
+    );
   };
 
   return (

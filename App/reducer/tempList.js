@@ -3,6 +3,58 @@ export const tempList = {
   isActive: false,
   writtenNote: [
     {
+      date: 'Wed Nov 03 2021',
+      routine: [
+        {
+          routineName: '발차기 하기',
+          routineIdx: 'rt001',
+          routineState: false,
+        },
+        {
+          routineName: '어쩌고 저쩌고 하기',
+          routineIdx: 'rt002',
+          routineState: false,
+        },
+      ],
+      noteContentGroup: [
+        {noteIdx: 'tr001', noteContent: undefined, notePhoto: undefined},
+        {noteIdx: 'tr002', noteContent: undefined, notePhoto: undefined},
+        {noteIdx: 'tr003', noteContent: undefined, notePhoto: undefined},
+        {noteIdx: 'tr004', noteContent: undefined, notePhoto: undefined},
+      ],
+      conditionGroup: [
+        {conditionIdx: 'mind', content: []},
+        {conditionIdx: 'physical', content: []},
+        {conditionIdx: 'injury', content: ['오른쪽 어깨']},
+      ],
+    },
+    {
+      date: 'Tue Nov 02 2021',
+      routine: [
+        {
+          routineName: '발차기 하기',
+          routineIdx: 'rt001',
+          routineState: false,
+        },
+        {
+          routineName: '어쩌고 저쩌고 하기',
+          routineIdx: 'rt002',
+          routineState: false,
+        },
+      ],
+      noteContentGroup: [
+        {noteIdx: 'tr001', noteContent: undefined},
+        {noteIdx: 'tr002', noteContent: undefined},
+        {noteIdx: 'tr003', noteContent: undefined},
+        {noteIdx: 'tr004', noteContent: undefined},
+      ],
+      conditionGroup: [
+        {conditionIdx: 'mind', content: []},
+        {conditionIdx: 'physical', content: []},
+        {conditionIdx: 'injury', content: ['오른쪽 어깨']},
+      ],
+    },
+    {
       date: 'Fri Oct 29 2021',
       routine: [
         {

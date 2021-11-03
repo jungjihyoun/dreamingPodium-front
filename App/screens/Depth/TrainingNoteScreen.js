@@ -73,6 +73,21 @@ function TrainingNoteScreen({navigation, route}) {
     return _contentGroup;
   };
 
+  //TODO : 작성된 글 불러오기 코드정리
+  const filterPhotoGroup = noteIdx => {
+    var [_photo] = writtenNote.filter(data => {
+      return data.date === todayDate;
+    });
+
+    if (_photo !== undefined) {
+      _photo = _photo.noteContentGroup.filter(data => {
+        return data.noteIdx === noteIdx;
+      })[0].notePhoto;
+    }
+
+    return _photo;
+  };
+
   return (
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
@@ -100,6 +115,7 @@ function TrainingNoteScreen({navigation, route}) {
                 subtitle={data.noteSubtitle}
                 placeholder={data.notePlaceholder}
                 content={filterContentGroup(data.noteIdx)}
+                photo={filterPhotoGroup(data.noteIdx)}
                 isRoutineComplete={false}
               />
             );

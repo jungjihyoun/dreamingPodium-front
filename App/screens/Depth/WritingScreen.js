@@ -32,12 +32,12 @@ function WritingScreen({navigation, route}) {
   });
 
   const showImage = () => {
-    launchImageLibrary({mediaType: 'video'}, response => {
-      alert(response.assets[0]);
-
-      setState({
-        avatar: response.assets[0].uri,
-      });
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.assets !== undefined) {
+        setState({
+          avatar: response.assets[0].uri ? response.assets[0].uri : '',
+        });
+      }
     });
   };
 
@@ -50,15 +50,6 @@ function WritingScreen({navigation, route}) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{route.params.title}</Text>
-      {/* 
-      <Button title="add" onPress={() => showImage()} />
-
-      <Image
-        source={{uri: state.avatar}}
-        resizeMode="cover"
-        resizeMethod="scale"
-        style={{width: 200, height: 200}}
-      /> */}
 
       <ScrollView style={{height: '100%'}}>
         <View style={styles.inputBox}>
@@ -86,6 +77,7 @@ function WritingScreen({navigation, route}) {
                   date: todayDate,
                   noteIdx: route.params.noteIdx,
                   content: content,
+                  photo: state.avatar,
                 }),
               );
               navigation.navigate('TrainingNote', {
@@ -103,6 +95,27 @@ function WritingScreen({navigation, route}) {
               작성완료
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={() => showImage()}>
+            <Text
+              style={{
+                color: colors.white,
+                fontWeight: 'bold',
+                textAlign: 'center',
+                fontSize: 12,
+              }}>
+              사진첨부
+            </Text>
+          </TouchableOpacity>
+
+          {/* <Image
+            source={{uri: state.avatar}}
+            resizeMode="cover"
+            resizeMethod="scale"
+            style={{width: 200, height: 200}}
+          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
