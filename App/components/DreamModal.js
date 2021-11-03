@@ -17,6 +17,8 @@ import {setModalHidden} from '../reducer/modalSlice';
 
 const DreamModal = props => {
   const modalVisible = useSelector(state => state.modal.modalVisible);
+  const modalDrawY = useSelector(state => state.modal.modalDrawY);
+
   const dispatch = useDispatch();
 
   const screenHeight = Dimensions.get('screen').height;
@@ -81,7 +83,7 @@ const DreamModal = props => {
             ...styles.bottomSheetContainer,
             transform: [{translateY: translateY}],
           }}
-          {...panResponders.panHandlers}>
+          {...(modalDrawY ? {...panResponders.panHandlers} : {})}>
           {props.children}
         </Animated.View>
       </View>
