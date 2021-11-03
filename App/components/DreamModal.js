@@ -17,7 +17,7 @@ import {setModalHidden} from '../reducer/modalSlice';
 
 const DreamModal = props => {
   const modalVisible = useSelector(state => state.modal.modalVisible);
-  const modalDrawY = useSelector(state => state.modal.modalDrawY);
+  const isInjuryModal = useSelector(state => state.modal.modalDrawY);
 
   const dispatch = useDispatch();
 
@@ -79,11 +79,18 @@ const DreamModal = props => {
         </TouchableWithoutFeedback>
 
         <Animated.View
-          style={{
-            ...styles.bottomSheetContainer,
-            transform: [{translateY: translateY}],
-          }}
-          {...(modalDrawY ? {...panResponders.panHandlers} : {})}>
+          style={
+            isInjuryModal
+              ? {
+                  ...styles.bottomSheetContainer,
+                  transform: [{translateY: translateY}],
+                }
+              : {
+                  ...styles.bottomLongSheetContainer,
+                  transform: [{translateY: translateY}],
+                }
+          }
+          {...(isInjuryModal ? {...panResponders.panHandlers} : {})}>
           {props.children}
         </Animated.View>
       </View>
@@ -102,6 +109,14 @@ const styles = StyleSheet.create({
   },
   bottomSheetContainer: {
     height: height * 500,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  bottomLongSheetContainer: {
+    height: height * 620,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
