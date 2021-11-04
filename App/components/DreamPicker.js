@@ -15,7 +15,7 @@ const DreamPicker = props => {
   return (
     <View>
       <Picker
-        style={{width: 130}}
+        style={{width: width * 130}}
         lineColor="#000000"
         lineGradientColorFrom="#008000"
         lineGradientColorTo="#FF5733"

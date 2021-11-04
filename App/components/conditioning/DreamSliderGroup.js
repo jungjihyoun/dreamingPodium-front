@@ -18,7 +18,14 @@ const DreamSliderGroup = ({sliderData, setSliderData}) => {
           flexDirection: 'row',
           justifyContent: 'space-evenly',
         }}>
-        <Text style={styles.sliderData}>{sliderData}</Text>
+        <Text
+          style={
+            sliderData > 5
+              ? [styles.sliderData, {color: '#F78181'}]
+              : styles.sliderData
+          }>
+          {sliderData}
+        </Text>
         <Slider
           style={{
             width: width * 330,
@@ -41,7 +48,8 @@ const DreamSliderGroup = ({sliderData, setSliderData}) => {
 
 const styles = StyleSheet.create({
   sliderData: {
-    fontSize: 16,
+    fontSize: 22,
+    fontWeight: '500',
     color: colors.primary,
   },
 });
