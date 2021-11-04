@@ -25,7 +25,28 @@ export const tempList = {
       conditionGroup: [
         {conditionIdx: 'mind', content: []},
         {conditionIdx: 'physical', content: []},
-        {conditionIdx: 'injury', content: ['오른쪽 어깨']},
+        {
+          conditionIdx: 'injury',
+          content: [
+            {
+              injuryDirection: '왼쪽',
+              injurySection: '골반',
+              injuryForm: '근육파열',
+              painData: 6,
+              interruptData: 1,
+              injuryMemo: '어쩌고저쩌고',
+            },
+            {
+              injuryDirection: '오른쪽',
+              injurySection: '무릎',
+              injuryForm: '연골파열?',
+              painData: 6,
+              interruptData: 1,
+              injuryMemo:
+                '열받은 유재석.zip 《런닝맨 / 예능맛ZIP / RunningMan 》아오 열받아 (쒸익) 😤#예능맛ZIP​​​ #런닝맨​​​#Runningman',
+            },
+          ],
+        },
       ],
     },
     {

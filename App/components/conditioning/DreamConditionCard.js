@@ -30,6 +30,35 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     }
   };
 
+  const test = param => {
+    if (param === 'injury') {
+      return filterConditionGroup(param).map((data, index) => {
+        return (
+          <>
+            <Text style={styles.savedText} key={index}>
+              {data.injuryDirection}
+              {data.injurySection}
+              {data.injuryForm}
+            </Text>
+            <Text style={styles.savedText} key={index}>
+              {data.painData}
+              {data.interruptData}
+              {data.injuryMemo}
+            </Text>
+          </>
+        );
+      });
+    } else {
+      return filterConditionGroup(param).map((data, index) => {
+        return (
+          <Text style={styles.savedText} key={index}>
+            {data}
+          </Text>
+        );
+      });
+    }
+  };
+
   return (
     <>
       {title && (
@@ -47,13 +76,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
         }}
         style={styles.savedTextArea}>
         {filterConditionGroup(idx) ? (
-          filterConditionGroup(idx).map((data, index) => {
-            return (
-              <Text style={styles.savedText} key={index}>
-                {data}
-              </Text>
-            );
-          })
+          test(idx)
         ) : (
           <TouchableOpacity
             onPress={() => {

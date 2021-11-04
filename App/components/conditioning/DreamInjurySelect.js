@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   View,
   Text,
@@ -8,18 +9,50 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
 
 // COMPONENT
 import DreamSliderGroup from './DreamSliderGroup';
 import DreamPicker from '../DreamPicker';
 
+// REDUX
+import {checkRoutine, submitCondition} from '../../reducer/postingSlice';
+
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
-const DreamInjurySelect = () => {
+const DreamInjurySelect = props => {
+  const dispatch = useDispatch();
+  const todayDate = useSelector(state => state.posting.todayDate);
   const [pain, setPain] = useState(5);
   const [interruption, setInterruption] = useState(5);
+  // const [submitList, setSubmitList] = useState([
+  //   {
+  //     idx: '부상방향',
+  //     content: '왼쪽',
+  //   },
+  //   {
+  //     idx: '부상부위',
+  //     content: '어깨',
+  //   },
+  //   {
+  //     idx: '부상형태',
+  //     content: '연골부상1',
+  //   },
+  //   {
+  //     idx: '통증정도',
+  //     content: 5,
+  //   },
+  //   {
+  //     idx: '운동방해정도',
+  //     content: 5,
+  //   },
+  //   {
+  //     idx: '메모',
+  //     content: '테슷흐',
+  //   },
+  // ]);
 
   // drawer 리스트 UI
   const drawerUI = title => {
@@ -28,7 +61,7 @@ const DreamInjurySelect = () => {
       selectList = ['왼쪽', '오른쪽'];
     } else if (title === '부상부위') {
       selectList = ['어깨', '허리', '골반', '엉덩이', '무릎', '발목'];
-    } else {
+    } else if (title === '부상형태') {
       selectList = [
         '연골부상1',
         '연골부상2',
@@ -54,17 +87,22 @@ const DreamInjurySelect = () => {
   // ############ 화면 UI ################
   return (
     <KeyboardAvoidingView
-      keyboardVerticalOffset={height * 230}
       style={{
         width: '100%',
       }}
-      behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+      keyboardVerticalOffset={height * 230}
+      behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
       enabled>
       <ScrollView
         style={{
-          minHeight: '100%',
+          height: '100%',
         }}>
-        <View style={styles.drawerSection}>
+        <View
+          style={
+            Platform.OS === 'ios'
+              ? [styles.drawerSection, {height: height * 200}]
+              : [styles.drawerSection, {height: height * 140}]
+          }>
           {drawerUI('부상방향')}
           {drawerUI('부상부위')}
           {drawerUI('부상형태')}
@@ -95,6 +133,18 @@ const DreamInjurySelect = () => {
             placeholder="내용을 입력해주세요"
           />
         </View>
+
+        <TouchableOpacity style={styles.submitButton}>
+          <Text
+            style={{
+              fontSize: 14,
+              color: colors.white,
+              fontWeight: '500',
+              textAlign: 'center',
+            }}>
+            완료
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -103,7 +153,6 @@ const DreamInjurySelect = () => {
 const styles = StyleSheet.create({
   drawerSection: {
     width: '100%',
-    height: height * 200,
     flexDirection: 'row',
   },
   sliderSection: {
@@ -156,6 +205,16 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontSize: 16,
     color: colors.darkGrey,
+  },
+  submitButton: {
+    borderRadius: 6,
+    width: 90,
+    height: 24,
+    backgroundColor: colors.primary,
+    marginTop: 10,
+    marginBottom: 50,
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
 });
 
