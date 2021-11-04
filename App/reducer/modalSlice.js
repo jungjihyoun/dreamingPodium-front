@@ -4,15 +4,15 @@ export const modalSlice = createSlice({
   modal: null,
   name: 'modal',
 
-  initialState: {modalVisible: false, modalInner: '', modalDrawY: true},
+  initialState: {modalVisible: false, modalInner: '', disableYDrawer: true},
 
   reducers: {
     setModalHidden: (state, action) => {
       state.modalVisible = false;
     },
     setModalVisible: (state, action) => {
-      state.modalDrawY = action.payload.swipeY;
-      console.log('test', action.payload.swipeY);
+      state.disableYDrawer = action.payload.disableYDrawer;
+      console.log('test', action.payload.disableYDrawer);
       state.modalVisible = true;
     },
     setModalInner: (state, action) => {
@@ -28,6 +28,6 @@ export const selectModalVisible = state => state.modal.modalVisible;
 
 export const selectModalInner = state => state.modal.modalInner;
 
-export const selectModalDrawY = state => state.modal.modalDrawY;
+export const selectdisableYDrawer = state => state.modal.disableYDrawer;
 
 export default modalSlice.reducer;

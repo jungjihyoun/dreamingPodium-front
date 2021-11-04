@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {useSelector} from 'react-redux';
 import {
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 
 // COMPONENT
@@ -24,6 +25,7 @@ import {colors, width, height} from '../../config/globalStyles';
 
 function ConditioningNoteScreen(props) {
   const [selectTab, setSelectTab] = useState('condition');
+  const modalInner = useSelector(state => state.modal.modalInner);
 
   const modalInnerScreen = () => {
     switch (modalInner) {
@@ -38,7 +40,21 @@ function ConditioningNoteScreen(props) {
     }
   };
 
-  const modalInner = useSelector(state => state.modal.modalInner);
+  const scrollTo = component => {
+    if (component === this.injuryComponent) {
+      const py = component.measure((fx, fy, width, height, px, py) => {
+        this.scrollView.scrollTo({
+          y: py + height,
+        });
+      });
+    } else {
+      const py = component.measure((fx, fy, width, height, px, py) => {
+        this.scrollView.scrollTo({
+          y: 0,
+        });
+      });
+    }
+  };
 
   return (
     <SafeAreaView style={{height: '100%'}}>
@@ -50,7 +66,9 @@ function ConditioningNoteScreen(props) {
               ? [styles.selectTab, {backgroundColor: '#E6E6E6'}]
               : styles.selectTab
           }
-          onPress={() => setSelectTab('condition')}>
+          onPress={() => {
+            scrollTo(this.conditionComponent);
+          }}>
           <Text
             style={
               selectTab === 'condition'
@@ -60,13 +78,16 @@ function ConditioningNoteScreen(props) {
             컨디션
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={
             selectTab === 'injury'
               ? [{backgroundColor: '#E6E6E6'}, styles.selectTab]
               : styles.selectTab
           }
-          onPress={() => setSelectTab('injury')}>
+          onPress={() => {
+            scrollTo(this.injuryComponent);
+          }}>
           <Text
             style={
               selectTab === 'injury' ? [styles.selectedText] : styles.selectText
@@ -76,16 +97,32 @@ function ConditioningNoteScreen(props) {
         </TouchableOpacity>
       </View>
 
-      {selectTab === 'condition' ? (
-        <ScrollView style={styles.boxContainer}>
+      <ScrollView
+        onScroll={event => {
+          this.yOffset = event.nativeEvent.contentOffset.y;
+          if (this.yOffset > height * 150) {
+            setSelectTab('injury');
+          } else {
+            setSelectTab('condition');
+          }
+        }}
+        style={styles.boxContainer}
+        ref={ref => (this.scrollView = ref)}>
+        <View ref={elem => (this.conditionComponent = elem)}>
           <DreamConditionCard subtitle="심리적" idx="mind" />
           <DreamConditionCard subtitle="신체적" idx="physical" />
-        </ScrollView>
-      ) : (
-        <ScrollView style={styles.boxContainer}>
-          <DreamConditionCard idx="injury" />
-        </ScrollView>
-      )}
+        </View>
+
+        <View
+          ref={elem => (this.injuryComponent = elem)}
+          style={{minHeight: 500}}>
+          <DreamConditionCard
+            title="부상"
+            style={{marginTop: 50}}
+            idx="injury"
+          />
+        </View>
+      </ScrollView>
 
       <DreamModal>{modalInnerScreen()}</DreamModal>
     </SafeAreaView>

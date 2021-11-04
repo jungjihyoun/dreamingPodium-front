@@ -17,7 +17,7 @@ import {setModalHidden} from '../reducer/modalSlice';
 
 const DreamModal = props => {
   const modalVisible = useSelector(state => state.modal.modalVisible);
-  const isInjuryModal = useSelector(state => state.modal.modalDrawY);
+  const isInjuryModal = useSelector(state => state.modal.disableYDrawer);
 
   const dispatch = useDispatch();
 

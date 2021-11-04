@@ -40,7 +40,9 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
       {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
       <TouchableOpacity
         onPress={() => {
-          dispatch(setModalVisible({swipeY: idx === 'injury' ? false : true}));
+          dispatch(
+            setModalVisible({disableYDrawer: idx === 'injury' ? false : true}),
+          );
           dispatch(setModalInner({modalInner: idx}));
         }}
         style={styles.savedTextArea}>
@@ -56,7 +58,9 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
           <TouchableOpacity
             onPress={() => {
               dispatch(
-                setModalVisible({swipeY: idx === 'injury' ? false : true}),
+                setModalVisible({
+                  disableYDrawer: idx === 'injury' ? false : true,
+                }),
               );
               dispatch(setModalInner({modalInner: idx}));
             }}>
