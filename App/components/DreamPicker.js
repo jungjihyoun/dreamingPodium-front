@@ -6,11 +6,14 @@ import {colors, width, height} from '../config/globalStyles';
 
 var PickerItem = Picker.Item;
 
-const DreamPicker = props => {
-  const [selectedLanguage, setSelectedLanguage] = useState();
-
-  const [selectedItem, setSelectItem] = useState(props.selectList[0]);
-  const [selectList, setSelectList] = useState(props.selectList);
+const DreamPicker = ({
+  selectList,
+  submitList,
+  setSubmitList,
+  title,
+  ...props
+}) => {
+  const [selectedItem, setSelectItem] = useState(selectList[0]);
 
   return (
     <View>
@@ -21,14 +24,16 @@ const DreamPicker = props => {
         lineGradientColorTo="#FF5733"
         selectedValue={selectedItem}
         itemStyle={{color: 'black', fontSize: 18, width: '100%'}}
-        onValueChange={index => setSelectItem(index)}
+        onValueChange={index => {
+          setSelectItem(index);
+          setSubmitList({...submitList, [title]: index});
+          console.log(submitList);
+        }}
         mode="dropdown">
         {selectList.map((value, i) => (
           <PickerItem label={value} value={value} key={i} />
         ))}
       </Picker>
-
-      {/* <Text>{selectedItem}</Text> */}
     </View>
   );
 };

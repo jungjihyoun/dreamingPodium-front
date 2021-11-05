@@ -9,7 +9,7 @@ import DreamPicker from '../DreamPicker';
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
-const DreamSliderGroup = ({sliderData, setSliderData}) => {
+const DreamSliderGroup = ({submitList, setSubmitList, title}) => {
   return (
     <>
       <View
@@ -20,11 +20,11 @@ const DreamSliderGroup = ({sliderData, setSliderData}) => {
         }}>
         <Text
           style={
-            sliderData > 5
+            submitList[title] > 5
               ? [styles.sliderData, {color: '#F78181'}]
               : styles.sliderData
           }>
-          {sliderData}
+          {submitList[title]}
         </Text>
         <Slider
           style={{
@@ -33,12 +33,13 @@ const DreamSliderGroup = ({sliderData, setSliderData}) => {
           }}
           minimumValue={0}
           maximumValue={10}
-          value={sliderData}
+          value={submitList[title]}
           step={1}
           minimumTrackTintColor={colors.primary}
           maximumTrackTintColor={colors.darkGrey}
-          onValueChange={e => {
-            setSliderData(e);
+          onValueChange={index => {
+            setSubmitList({...submitList, [title]: index});
+            console.log(submitList);
           }}
         />
       </View>
