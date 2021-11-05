@@ -30,8 +30,9 @@ function DreamConditionSelect({title, idx, ...props}) {
         <View
           style={{
             width: width * 410,
+            paddingRight: 10,
+            paddingLeft: 10,
           }}>
-          <Text style={{fontSize: 22}}> 🙂 </Text>
           <Text>
             {selectList.map(val => {
               if (!val.selectId.includes('f')) {
@@ -48,8 +49,9 @@ function DreamConditionSelect({title, idx, ...props}) {
         <View
           style={{
             width: width * 410,
+            paddingRight: 10,
+            paddingLeft: 10,
           }}>
-          <Text style={{fontSize: 22}}> 😥 </Text>
           <Text>
             {selectList.map(val => {
               if (val.selectId.includes('f')) {

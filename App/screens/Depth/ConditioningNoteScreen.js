@@ -100,7 +100,7 @@ function ConditioningNoteScreen(props) {
       <ScrollView
         onScroll={event => {
           this.yOffset = event.nativeEvent.contentOffset.y;
-          if (this.yOffset > height * 20) {
+          if (this.yOffset > height * 350) {
             setSelectTab('injury');
           } else {
             setSelectTab('condition');
@@ -108,14 +108,20 @@ function ConditioningNoteScreen(props) {
         }}
         style={styles.boxContainer}
         ref={ref => (this.scrollView = ref)}>
-        <View ref={elem => (this.conditionComponent = elem)}>
+        <View
+          style={{minHeight: height * 600}}
+          ref={elem => (this.conditionComponent = elem)}>
           <DreamConditionCard subtitle="심리적" idx="mind" />
           <DreamConditionCard subtitle="신체적" idx="physical" />
         </View>
 
         <View
           ref={elem => (this.injuryComponent = elem)}
-          style={{minHeight: height * 600}}>
+          style={{
+            minHeight: height * 600,
+
+            flex: 1,
+          }}>
           <DreamConditionCard
             title="부상"
             style={{marginTop: 50}}

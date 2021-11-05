@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {colors, width, height} from '../../config/globalStyles';
 
@@ -30,7 +30,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     }
   };
 
-  const test = param => {
+  const savedTextUI = param => {
     if (param === 'injury') {
       return filterConditionGroup(param).map((data, index) => {
         return (
@@ -60,13 +60,14 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   };
 
   return (
-    <>
+    <View>
       {title && (
         <Text style={style ? [styles.titleText, style] : styles.titleText}>
           {title}
         </Text>
       )}
       {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
+
       <TouchableOpacity
         onPress={() => {
           dispatch(
@@ -76,7 +77,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
         }}
         style={styles.savedTextArea}>
         {filterConditionGroup(idx) ? (
-          test(idx)
+          savedTextUI(idx)
         ) : (
           <TouchableOpacity
             onPress={() => {
@@ -91,7 +92,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
           </TouchableOpacity>
         )}
       </TouchableOpacity>
-    </>
+    </View>
   );
 }
 
@@ -118,6 +119,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     color: colors.primary,
+    // height: 40,
+    // fontSize: 16,
+    // borderWidth: 1.5,
+    // borderStyle: 'solid',
+    // borderColor: '#d2d2d2',
+    // borderRadius: 20,
+    // padding: 10,
+    // marginRight: 4,
+    // // marginTop: 10,
+    // overflow: 'hidden',
+    // backgroundColor: colors.primary,
+    // color: colors.white,
   },
   textInputButton: {
     color: colors.darkGrey,
