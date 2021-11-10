@@ -23,9 +23,9 @@ export const tempList = {
         {noteIdx: 'tr004', noteContent: undefined, notePhoto: undefined},
       ],
       conditionGroup: [
-        {conditionIdx: 'mind', content: ['정신이 번쩍', '우울해요']},
-        {conditionIdx: 'physical', content: ['살이 쪘어요']},
-        {conditionIdx: 'injury', content: ['오른쪽 어깨']},
+        {conditionIdx: 'mind', content: ['정신이 번쩍']},
+        {conditionIdx: 'physical', content: []},
+        {conditionIdx: 'injury', content: []},
       ],
     },
     {

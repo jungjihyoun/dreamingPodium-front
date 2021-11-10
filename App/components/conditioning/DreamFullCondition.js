@@ -53,9 +53,11 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     } else {
       return filterConditionGroup(param).map((data, index) => {
         return (
-          <Text style={styles.savedText} key={index}>
-            {data}
-          </Text>
+          <View style={styles.paneUI}>
+            <Text style={styles.savedText} key={index}>
+              {data}
+            </Text>
+          </View>
         );
       });
     }
@@ -63,22 +65,15 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
 
   return (
     <>
-      <View
-        style={{
-          borderRadius: 10,
-          flex: 1,
-          backgroundColor: '#ffffff',
-          height: height * 450,
-          width: width * 300,
-          flexDirection: 'column',
-          alignSelf: 'center',
-        }}>
+      <View style={styles.section}>
         {title && (
           <Text style={style ? [styles.titleText, style] : styles.titleText}>
             {title}
           </Text>
         )}
-        {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
+        {subtitle && (
+          <Text style={styles.subTitle}>오늘의 {subtitle} 컨디션은</Text>
+        )}
 
         <TouchableOpacity
           onPress={() => {
@@ -112,6 +107,14 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
 }
 
 const styles = StyleSheet.create({
+  section: {
+    borderRadius: 10,
+    // flex: 1,
+    backgroundColor: '#ffffff',
+    height: height * 490,
+    width: width * 310,
+    alignSelf: 'center',
+  },
   titleText: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -125,20 +128,32 @@ const styles = StyleSheet.create({
     color: colors.lightGrey,
   },
   savedTextArea: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    width: width * 300,
     marginVertical: 6,
-    paddingLeft: 6,
-    marginLeft: 10,
   },
   savedText: {
-    fontSize: 20,
+    color: colors.white,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
-    color: colors.primary,
   },
   textInputButton: {
     color: colors.darkGrey,
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  paneUI: {
+    width: 130,
+    margin: 5,
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+    height: 36,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

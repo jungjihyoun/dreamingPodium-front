@@ -13,11 +13,9 @@ function DreamEmptyCondition({subtitle, title, content, style, idx, ...props}) {
 
   return (
     <View>
-      {/* <Text>{title}리포트</Text> */}
       <View
         style={{
           borderRadius: 10,
-          flex: 1,
           backgroundColor: '#ffffff',
           height: height * 450,
           width: width * 300,

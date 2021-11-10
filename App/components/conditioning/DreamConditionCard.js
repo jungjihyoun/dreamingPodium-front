@@ -11,6 +11,7 @@ import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 import DreamEmptyCondition from '../../components/conditioning/DreamEmptyCondition';
 import DreamFullCondition from '../../components/conditioning/DreamFullCondition';
 import DreamSwiper from '../../components/DreamSwiper';
+import DreamFullInjury from './DreamFullInjury';
 
 function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
@@ -38,27 +39,32 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     let physical = '';
     let mind = '';
     filterConditionGroup('mind')
-      ? (mind = <DreamFullCondition title="심리" subtitle="심리" idx="mind" />)
+      ? (mind = <DreamFullCondition subtitle="심리" idx="mind" />)
       : (mind = <DreamEmptyCondition title="심리" idx="mind" />);
 
     filterConditionGroup('physical')
-      ? (physical = (
-          <DreamFullCondition title="신체" subtitle="신체" idx="physical" />
-        ))
+      ? (physical = <DreamFullCondition subtitle="신체" idx="physical" />)
       : (physical = <DreamEmptyCondition title="신체" idx="physical" />);
 
     return <DreamSwiper swiperItems={[mind, physical]} />;
+  };
+
+  const injurySwiperItems = () => {
+    return filterConditionGroup(idx).map((data, index) => {
+      return <DreamFullInjury title="부상" idx="injury" data={data} />;
+    });
   };
 
   return (
     <>
       {idx === 'injury' ? (
         filterConditionGroup(idx) ? (
-          <DreamSwiper
-            swiperItems={[
-              <DreamFullCondition title="부상" subtitle="부상" idx="injury" />,
-            ]}
-          />
+          <>
+            <TouchableOpacity style={styles.injuryPlusButton}>
+              <Text style={{color: 'white'}}>부상 추가하기</Text>
+            </TouchableOpacity>
+            <DreamSwiper swiperItems={injurySwiperItems()} />
+          </>
         ) : (
           <DreamSwiper
             swiperItems={[<DreamEmptyCondition title="부상" idx="injury" />]}
@@ -94,23 +100,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     color: colors.primary,
-    // height: 40,
-    // fontSize: 16,
-    // borderWidth: 1.5,
-    // borderStyle: 'solid',
-    // borderColor: '#d2d2d2',
-    // borderRadius: 20,
-    // padding: 10,
-    // marginRight: 4,
-    // // marginTop: 10,
-    // overflow: 'hidden',
-    // backgroundColor: colors.primary,
-    // color: colors.white,
   },
   textInputButton: {
     color: colors.darkGrey,
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  injuryPlusButton: {
+    alignSelf: 'flex-end',
+    borderColor: colors.primary,
+    borderWidth: 2,
+    backgroundColor: colors.primary,
+    margin: 20,
+    width: 80,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
   },
 });
 

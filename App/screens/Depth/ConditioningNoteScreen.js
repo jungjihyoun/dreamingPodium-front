@@ -17,9 +17,8 @@ import DreamConditionCard from '../../components/conditioning/DreamConditionCard
 import DreamModal from '../../components/DreamModal';
 import DreamConditionSelect from '../../components/conditioning/DreamConditionSelect';
 import DreamInjurySelect from '../../components/conditioning/DreamInjurySelect';
-import DreamEmptyCondition from '../../components/conditioning/DreamEmptyCondition';
+import DreamInjuryCard from '../../components/conditioning/DreamFullInjury';
 
-import DreamSwiper from '../../components/DreamSwiper';
 // REDUX
 
 // CONFIG
@@ -43,7 +42,7 @@ function ConditioningNoteScreen(props) {
   };
 
   return (
-    <SafeAreaView style={{height: '100%'}}>
+    <SafeAreaView>
       <DreamCalendar />
       <View style={styles.selectTabGroup}>
         <TouchableOpacity
@@ -83,7 +82,7 @@ function ConditioningNoteScreen(props) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={styles.boxContainer}>
+      <View style={styles.boxContainer}>
         {selectTab === 'condition' ? (
           <View
             style={{minHeight: height * 500}}
@@ -92,16 +91,19 @@ function ConditioningNoteScreen(props) {
             <DreamConditionCard idx="mind" />
           </View>
         ) : (
-          <View
-            ref={elem => (this.injuryComponent = elem)}
-            style={{
-              minHeight: height * 500,
-              flex: 1,
-            }}>
-            <DreamConditionCard title="부상" idx="injury" />
-          </View>
+          <>
+            <View
+              ref={elem => (this.injuryComponent = elem)}
+              style={{
+                minHeight: height * 500,
+                height: '100%',
+                flex: 1,
+              }}>
+              <DreamConditionCard title="부상" idx="injury" />
+            </View>
+          </>
         )}
-      </ScrollView>
+      </View>
 
       <DreamModal>{modalInnerScreen()}</DreamModal>
     </SafeAreaView>
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 30,
     width: '100%',
+    height: '100%',
     minHeight: height * 120,
     backgroundColor: '#E6E6E6',
   },
