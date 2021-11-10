@@ -17,7 +17,9 @@ import DreamConditionCard from '../../components/conditioning/DreamConditionCard
 import DreamModal from '../../components/DreamModal';
 import DreamConditionSelect from '../../components/conditioning/DreamConditionSelect';
 import DreamInjurySelect from '../../components/conditioning/DreamInjurySelect';
+import DreamEmptyCondition from '../../components/conditioning/DreamEmptyCondition';
 
+import DreamSwiper from '../../components/DreamSwiper';
 // REDUX
 
 // CONFIG
@@ -40,22 +42,6 @@ function ConditioningNoteScreen(props) {
     }
   };
 
-  const scrollTo = component => {
-    if (component === this.injuryComponent) {
-      const py = component.measure((fx, fy, width, height, px, py) => {
-        this.scrollView.scrollTo({
-          y: py + height,
-        });
-      });
-    } else {
-      const py = component.measure((fx, fy, width, height, px, py) => {
-        this.scrollView.scrollTo({
-          y: 0,
-        });
-      });
-    }
-  };
-
   return (
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
@@ -67,7 +53,7 @@ function ConditioningNoteScreen(props) {
               : styles.selectTab
           }
           onPress={() => {
-            scrollTo(this.conditionComponent);
+            setSelectTab('condition');
           }}>
           <Text
             style={
@@ -75,7 +61,7 @@ function ConditioningNoteScreen(props) {
                 ? [styles.selectedText]
                 : styles.selectText
             }>
-            컨디션
+            컨디션리포트
           </Text>
         </TouchableOpacity>
 
@@ -86,48 +72,35 @@ function ConditioningNoteScreen(props) {
               : styles.selectTab
           }
           onPress={() => {
-            scrollTo(this.injuryComponent);
+            setSelectTab('injury');
           }}>
           <Text
             style={
               selectTab === 'injury' ? [styles.selectedText] : styles.selectText
             }>
-            부상
+            부상리포트
           </Text>
         </TouchableOpacity>
       </View>
 
-      <ScrollView
-        onScroll={event => {
-          this.yOffset = event.nativeEvent.contentOffset.y;
-          if (this.yOffset > height * 350) {
-            setSelectTab('injury');
-          } else {
-            setSelectTab('condition');
-          }
-        }}
-        style={styles.boxContainer}
-        ref={ref => (this.scrollView = ref)}>
-        <View
-          style={{minHeight: height * 600}}
-          ref={elem => (this.conditionComponent = elem)}>
-          <DreamConditionCard subtitle="심리적" idx="mind" />
-          <DreamConditionCard subtitle="신체적" idx="physical" />
-        </View>
-
-        <View
-          ref={elem => (this.injuryComponent = elem)}
-          style={{
-            minHeight: height * 600,
-
-            flex: 1,
-          }}>
-          <DreamConditionCard
-            title="부상"
-            style={{marginTop: 50}}
-            idx="injury"
-          />
-        </View>
+      <ScrollView style={styles.boxContainer}>
+        {selectTab === 'condition' ? (
+          <View
+            style={{minHeight: height * 500}}
+            ref={elem => (this.conditionComponent = elem)}>
+            {/*  컨디션 파트  */}
+            <DreamConditionCard idx="mind" />
+          </View>
+        ) : (
+          <View
+            ref={elem => (this.injuryComponent = elem)}
+            style={{
+              minHeight: height * 500,
+              flex: 1,
+            }}>
+            <DreamConditionCard title="부상" idx="injury" />
+          </View>
+        )}
       </ScrollView>
 
       <DreamModal>{modalInnerScreen()}</DreamModal>

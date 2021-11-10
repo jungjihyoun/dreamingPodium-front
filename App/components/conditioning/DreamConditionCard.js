@@ -8,6 +8,10 @@ import {colors, width, height} from '../../config/globalStyles';
 // REDUX
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
+import DreamEmptyCondition from '../../components/conditioning/DreamEmptyCondition';
+import DreamFullCondition from '../../components/conditioning/DreamFullCondition';
+import DreamSwiper from '../../components/DreamSwiper';
+
 function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
@@ -30,69 +34,40 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     }
   };
 
-  const savedTextUI = param => {
-    if (param === 'injury') {
-      return filterConditionGroup(param).map((data, index) => {
-        return (
-          <>
-            <Text style={styles.savedText} key={index}>
-              {data.injuryDirection}
-              {data.injurySection}
-              {data.injuryForm}
-            </Text>
-            <Text style={styles.savedText} key={index}>
-              {data.painData}
-              {data.interruptData}
-              {data.injuryMemo}
-            </Text>
-          </>
-        );
-      });
-    } else {
-      return filterConditionGroup(param).map((data, index) => {
-        return (
-          <Text style={styles.savedText} key={index}>
-            {data}
-          </Text>
-        );
-      });
-    }
+  const conditionUI = () => {
+    let physical = '';
+    let mind = '';
+    filterConditionGroup('mind')
+      ? (mind = <DreamFullCondition title="심리" subtitle="심리" idx="mind" />)
+      : (mind = <DreamEmptyCondition title="심리" idx="mind" />);
+
+    filterConditionGroup('physical')
+      ? (physical = (
+          <DreamFullCondition title="신체" subtitle="신체" idx="physical" />
+        ))
+      : (physical = <DreamEmptyCondition title="신체" idx="physical" />);
+
+    return <DreamSwiper swiperItems={[mind, physical]} />;
   };
 
   return (
-    <View>
-      {title && (
-        <Text style={style ? [styles.titleText, style] : styles.titleText}>
-          {title}
-        </Text>
-      )}
-      {subtitle && <Text style={styles.subTitle}>{subtitle}</Text>}
-
-      <TouchableOpacity
-        onPress={() => {
-          dispatch(
-            setModalVisible({disableYDrawer: idx === 'injury' ? false : true}),
-          );
-          dispatch(setModalInner({modalInner: idx}));
-        }}
-        style={styles.savedTextArea}>
-        {filterConditionGroup(idx) ? (
-          savedTextUI(idx)
+    <>
+      {idx === 'injury' ? (
+        filterConditionGroup(idx) ? (
+          <DreamSwiper
+            swiperItems={[
+              <DreamFullCondition title="부상" subtitle="부상" idx="injury" />,
+            ]}
+          />
         ) : (
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(
-                setModalVisible({
-                  disableYDrawer: idx === 'injury' ? false : true,
-                }),
-              );
-              dispatch(setModalInner({modalInner: idx}));
-            }}>
-            <Text style={styles.textInputButton}>입력해 주세요</Text>
-          </TouchableOpacity>
-        )}
-      </TouchableOpacity>
-    </View>
+          <DreamSwiper
+            swiperItems={[<DreamEmptyCondition title="부상" idx="injury" />]}
+          />
+        )
+      ) : (
+        conditionUI()
+      )}
+    </>
   );
 }
 
