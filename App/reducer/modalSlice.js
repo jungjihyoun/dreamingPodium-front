@@ -12,7 +12,6 @@ export const modalSlice = createSlice({
     },
     setModalVisible: (state, action) => {
       state.disableYDrawer = action.payload.disableYDrawer;
-      console.log('test', action.payload.disableYDrawer);
       state.modalVisible = true;
     },
     setModalInner: (state, action) => {
