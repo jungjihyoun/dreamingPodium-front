@@ -41,11 +41,9 @@ function WritingScreen({navigation, route}) {
     });
   };
 
-  const [content, setContent] = useState('');
-
-  useEffect(() => {
-    console.log(content);
-  }, [content]);
+  const [content, setContent] = useState(
+    route.params.value ? route.params.value : null,
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +54,12 @@ function WritingScreen({navigation, route}) {
           <TextInput
             style={styles.input}
             multiline={true}
-            placeholder={route.params.placeholder}
+            placeholder={
+              route.params.placeholder
+                ? route.params.placeholder
+                : route.params.value
+            }
+            value={content}
             returnKeyType="next"
             onChange={event => {
               const {eventCount, target, text} = event.nativeEvent;

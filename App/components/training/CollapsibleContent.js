@@ -1,8 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {width, height, colors, images} from '../../config/globalStyles';
+
+import {useNavigation} from '@react-navigation/native';
 
 const CollapsibleContent = ({
   style,
@@ -10,8 +12,11 @@ const CollapsibleContent = ({
   isActive,
   content,
   photo,
+  noteIdx,
   ...props
 }) => {
+  const navigation = useNavigation();
+
   const contentArea = () => {
     return (
       <View
@@ -20,21 +25,41 @@ const CollapsibleContent = ({
             ? [styles.contentSection, styles.contentActive]
             : styles.contentSection
         }>
-        <Image
-          source={{uri: photo}}
-          resizeMode="cover"
-          resizeMethod="scale"
-          style={styles.photo}
+        {/* 가로줄 */}
+        <View
+          style={{
+            borderTopColor: colors.white,
+            borderTopWidth: 1,
+          }}
         />
+
+        {photo && (
+          <Image
+            source={{uri: photo}}
+            resizeMode="cover"
+            resizeMethod="scale"
+            style={styles.photo}
+          />
+        )}
+
         <Text multiline={true} style={styles.text}>
           {content}
         </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push('WritingScreen', {
+              value: content,
+              noteIdx: noteIdx,
+            });
+          }}>
+          <Text>수정하기</Text>
+        </TouchableOpacity>
 
-        {isActive && (
+        {/* {isActive && (
           <View style={styles.dropButton}>
             <Image style={{width: 18, height: 18}} source={images.upButton} />
           </View>
-        )}
+        )} */}
       </View>
     );
   };
@@ -52,23 +77,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: '600',
+    backgroundColor: colors.primary,
+    color: colors.white,
   },
 
   contentSection: {
     padding: 15,
     flexDirection: 'column',
     flexShrink: 1,
-
     width: width * 341,
     borderStyle: 'solid',
-    borderBottomRightRadius: 4,
-    borderBottomLeftRadius: 4,
-    backgroundColor: '#ffffff',
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    backgroundColor: colors.primary,
   },
 
   // TODO : 스타일 디테일 수정하기
   contentActive: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.primary,
     shadowColor: '#000000',
     shadowOpacity: 0.1,
     shadowRadius: 1.65,

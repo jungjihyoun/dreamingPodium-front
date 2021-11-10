@@ -38,6 +38,7 @@ const DreamCollapsibleCard = ({style, onPress, ...props}) => {
         content={props.content}
         photo={props.photo}
         isActive={expanded}
+        noteIdx={props.noteIdx}
       />
     );
   };

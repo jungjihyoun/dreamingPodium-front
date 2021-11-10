@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -23,12 +24,20 @@ export const DreamRoutine = ({
       onPress={() => onPress(routineIdx)}
       style={styles.dreamNoteGroup}>
       <View style={styles.sectionContainer}>
-        <View style={styles.checkbox}>
+        <View
+          style={
+            props.routineState
+              ? [
+                  styles.checkbox,
+                  {backgroundColor: colors.primary, tintColor: colors.darkGrey},
+                ]
+              : [styles.checkbox]
+          }>
           <Image
             style={
               props.routineState
-                ? {width: 20, height: 15}
-                : [styles.unchecking, {width: 20, height: 15}]
+                ? {tintColor: colors.white, width: 10, height: 10}
+                : [styles.unchecking, {width: 10, height: 10}]
             }
             source={images.check}
           />
@@ -57,19 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: width * 341,
-    // height: height * 71,
-    borderStyle: 'solid',
-    borderRadius: 4,
     backgroundColor: '#ffffff',
-    shadowColor: '#000000',
-    shadowOpacity: 0.22,
-    shadowRadius: 2.65,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    // android
-    elevation: 3,
   },
   checkbox: {
     flexDirection: 'row',
@@ -79,9 +76,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1.5,
     borderColor: colors.primary,
-    width: 34,
-    height: 34,
-    padding: 23,
+    width: 10,
+    height: 10,
+    padding: 11,
     marginRight: 23,
   },
   unchecking: {

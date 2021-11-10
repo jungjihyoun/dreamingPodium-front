@@ -34,12 +34,7 @@ const CollapsibleTitle = ({
             });
           }}>
           <View style={styles.boxContainer}>
-            <View style={styles.checkbox}>
-              <Image
-                style={[styles.unchecking, {width: 20, height: 15}]}
-                source={images.check}
-              />
-            </View>
+            <View style={styles.checkbox} />
             <View>
               <Text style={styles.titleText}>{title}</Text>
               <Text style={styles.subtitleText}>{subtitle}</Text>
@@ -51,28 +46,43 @@ const CollapsibleTitle = ({
 
     // #### Content가 있을 경우 작성한 글 확인. 아래로 펼쳐집니다.  ####
     return (
-      <View style={isActive ? styles.boxContainerActive : styles.boxContainer}>
-        <View style={styles.checkbox}>
-          <Image
+      <View
+        style={
+          isActive
+            ? [
+                styles.boxContainerActive,
+                {borderTopLeftRadius: 10, borderTopRightRadius: 10},
+              ]
+            : styles.boxContainer || content
+            ? [styles.boxContainerActive, {borderRadius: 13}]
+            : styles.boxContainer
+        }>
+        <View
+          style={
+            isActive || content
+              ? [styles.checkbox, {borderColor: colors.white}]
+              : styles.checkbox
+          }
+        />
+        <View>
+          <Text
             style={
               content
-                ? {width: 20, height: 15}
-                : [styles.unchecking, {width: 20, height: 15}]
-            }
-            source={images.check}
-          />
-        </View>
+                ? [styles.titleText, {color: colors.white}]
+                : styles.titleText
+            }>
+            {title}
+          </Text>
 
-        <View>
-          <Text style={styles.titleText}>{title}</Text>
-          <Text style={styles.subtitleText}>{subtitle}</Text>
+          <Text
+            style={
+              content
+                ? [styles.subtitleText, {color: colors.white}]
+                : styles.subtitleText
+            }>
+            {subtitle}
+          </Text>
         </View>
-
-        {!isActive && (
-          <View style={styles.dropButton}>
-            <Image style={{width: 18, height: 18}} source={images.dropButton} />
-          </View>
-        )}
       </View>
     );
   };
@@ -88,31 +98,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: width * 341,
-    height: height * 71,
+    height: height * 78,
     borderStyle: 'solid',
-    borderRadius: 4,
-    backgroundColor: '#ffffff',
-    // shadowColor: '#000000',
-    // shadowOpacity: 0.22,
-    // shadowRadius: 2.65,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 3,
-    // },
-    // // android
-    // elevation: 3,
+    borderRadius: 10,
   },
   boxContainerActive: {
-    paddingHorizontal: 16,
     paddingLeft: 19,
     marginTop: 21,
     flexDirection: 'row',
     alignItems: 'center',
     width: width * 341,
-    height: height * 71,
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-    backgroundColor: '#ffffff',
+    height: height * 65,
+    backgroundColor: colors.primary,
   },
 
   checkbox: {
@@ -121,32 +118,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 5,
     borderStyle: 'solid',
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-    width: 34,
-    height: 34,
-    padding: 23,
+    borderWidth: 1,
+    borderColor: colors.darkGrey,
+    width: 10,
+    height: 10,
+    padding: 10,
     marginRight: 23,
   },
-  dropButton: {
-    position: 'absolute',
-    bottom: 4,
-    right: 4,
-  },
-  unchecking: {
-    tintColor: colors.darkGrey,
-    opacity: 0.5,
-  },
+
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.lightGrey,
     marginBottom: 3,
+    color: colors.lightGrey,
   },
   subtitleText: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#ABBABC',
+    color: colors.darkGrey,
   },
 });
 

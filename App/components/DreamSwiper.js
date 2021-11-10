@@ -1,7 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
-
-import DreamEmptyCondition from './conditioning/DreamEmptyCondition';
 import {
   View,
   Text,
@@ -11,16 +9,10 @@ import {
   Platform,
 } from 'react-native';
 
-import {colors, width, height} from '../config/globalStyles';
-
-const ENTRIES1 = [
-  <DreamEmptyCondition title="컨디션" idx="mind" />,
-  <DreamEmptyCondition title="컨디션" idx="mind" />,
-];
 const {width: screenWidth} = Dimensions.get('screen');
 
-const MyCarousel = props => {
-  const [entries, setEntries] = useState([]);
+const DreamSwiper = props => {
+  const [entries, setEntries] = useState(props.swiperItems);
   const carouselRef = useRef(null);
 
   useEffect(() => {
@@ -28,25 +20,23 @@ const MyCarousel = props => {
   }, [props.swiperItems]);
 
   const renderItem = ({item, index}, parallaxProps) => {
-    return <View>{item}</View>;
+    return <View style={styles.item}>{item}</View>;
   };
-
   return (
     <View style={[styles.container]}>
       <Carousel
-        ref={carouselRef}
         sliderWidth={screenWidth}
         sliderHeight={500}
         itemWidth={screenWidth - 90}
         data={entries}
         renderItem={renderItem}
-        hasParallaxImages={true}
+        parallaxFactor={0.1}
       />
     </View>
   );
 };
 
-export default MyCarousel;
+export default DreamSwiper;
 
 const styles = StyleSheet.create({
   container: {
@@ -55,15 +45,6 @@ const styles = StyleSheet.create({
   item: {
     width: screenWidth - 60,
     height: screenWidth - 60,
-  },
-  imageContainer: {
-    flex: 1,
-    marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
-    backgroundColor: 'white',
-    borderRadius: 8,
-  },
-  image: {
-    ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    alignSelf: 'center',
   },
 });

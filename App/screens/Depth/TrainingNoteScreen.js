@@ -92,7 +92,7 @@ function TrainingNoteScreen({navigation, route}) {
     <SafeAreaView style={{height: '100%'}}>
       <DreamCalendar />
 
-      <ScrollView>
+      <ScrollView style={{backgroundColor: 'white'}}>
         <View style={styles.alignList}>
           {routineName.map(data => {
             return (
@@ -128,9 +128,8 @@ function TrainingNoteScreen({navigation, route}) {
 
 const styles = StyleSheet.create({
   alignList: {
-    flex: 0,
     height: '100%',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#ffffff',
     flexDirection: 'column',
     alignItems: 'center',
   },
