@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect, useLayoutEffect} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
   View,
@@ -9,13 +9,16 @@ import {
   Platform,
 } from 'react-native';
 
-const {width: screenWidth} = Dimensions.get('screen');
+import {width, height} from '../config/globalStyles';
+
+const {width: screenWidth} = Dimensions.get('window');
 
 const DreamSwiper = props => {
-  const [entries, setEntries] = useState(props.swiperItems);
+  const [entries, setEntries] = useState([props.swiperItems]);
   const carouselRef = useRef(null);
 
   useEffect(() => {
+    console.log('짠');
     setEntries(props.swiperItems);
   }, [props.swiperItems]);
 
@@ -26,8 +29,8 @@ const DreamSwiper = props => {
     <View style={[styles.container]}>
       <Carousel
         sliderWidth={screenWidth}
-        sliderHeight={500}
-        itemWidth={screenWidth - 90}
+        sliderHeight={450}
+        itemWidth={screenWidth - 100}
         data={entries}
         renderItem={renderItem}
         parallaxFactor={0.1}

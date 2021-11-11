@@ -39,7 +39,6 @@ function DreamSelectPane({title, idx, ...props}) {
           setSelect(true);
         }
 
-        console.log('패인', _conditionGroup.content);
         return _conditionGroup.content;
       }
     };
@@ -64,7 +63,8 @@ function DreamSelectPane({title, idx, ...props}) {
           select
             ? {
                 ...styles.paneText,
-                backgroundColor: colors.primary,
+                backgroundColor: props.color,
+                borderColor: props.color,
                 color: 'white',
               }
             : styles.paneText
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
   paneSection: {},
   paneText: {
     fontSize: 16,
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderStyle: 'solid',
     borderColor: '#d2d2d2',
-    borderRadius: 22,
+    borderRadius: 19,
     padding: 10,
     marginRight: 4,
     marginTop: 10,

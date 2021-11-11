@@ -1,7 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 
 import {colors, width, height} from '../../config/globalStyles';
 
@@ -35,20 +41,6 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     }
   };
 
-  const conditionUI = () => {
-    let physical = '';
-    let mind = '';
-    filterConditionGroup('mind')
-      ? (mind = <DreamFullCondition subtitle="심리" idx="mind" />)
-      : (mind = <DreamEmptyCondition title="심리" idx="mind" />);
-
-    filterConditionGroup('physical')
-      ? (physical = <DreamFullCondition subtitle="신체" idx="physical" />)
-      : (physical = <DreamEmptyCondition title="신체" idx="physical" />);
-
-    return <DreamSwiper swiperItems={[mind, physical]} />;
-  };
-
   const injurySwiperItems = () => {
     return filterConditionGroup(idx).map((data, index) => {
       return <DreamFullInjury title="부상" idx="injury" data={data} />;
@@ -70,8 +62,13 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
             swiperItems={[<DreamEmptyCondition title="부상" idx="injury" />]}
           />
         )
+      ) : filterConditionGroup(idx) ? (
+        <ScrollView style={{flex: 1}}>
+          <DreamFullCondition subtitle="신체" idx="physical" />
+          <DreamFullCondition subtitle="심리" idx="mind" />
+        </ScrollView>
       ) : (
-        conditionUI()
+        <DreamEmptyCondition title="컨디션" idx="condition" />
       )}
     </>
   );

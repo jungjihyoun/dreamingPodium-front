@@ -5,7 +5,11 @@ import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {colors, width, height} from '../../config/globalStyles';
-import {mindSelectList, physicalList} from '../../config/conditionSelectList';
+import {
+  mindSelectList,
+  physicalList,
+  conditionList,
+} from '../../config/conditionSelectList';
 
 // COMPONENT
 import DreamSelectPane from './DreamSelectPane';
@@ -17,7 +21,7 @@ import {setModalVisible} from '../../reducer/modalSlice';
 function DreamConditionSelect({title, idx, ...props}) {
   const dispatch = useDispatch();
 
-  const selectList = idx === 'mind' ? mindSelectList : physicalList;
+  // const selectList = idx === 'mind' ? mindSelectList : physicalList;
 
   return (
     <View>
@@ -33,30 +37,49 @@ function DreamConditionSelect({title, idx, ...props}) {
             paddingRight: 10,
             paddingLeft: 10,
           }}>
+          <Text>신체 컨디션</Text>
           <Text>
-            {selectList.map(val => {
+            {physicalList.map(val => {
               if (!val.selectId.includes('f')) {
                 return (
-                  <DreamSelectPane idx={idx} key={val.selectId}>
+                  <DreamSelectPane
+                    color="#6FF1CE"
+                    idx="physical"
+                    key={val.selectId}>
+                    {val.selectTitle}
+                  </DreamSelectPane>
+                );
+              } else {
+                return (
+                  <DreamSelectPane
+                    color="#6FF1CE"
+                    idx="physical"
+                    key={val.selectId}>
                     {val.selectTitle}
                   </DreamSelectPane>
                 );
               }
             })}
           </Text>
-        </View>
 
-        <View
-          style={{
-            width: width * 410,
-            paddingRight: 10,
-            paddingLeft: 10,
-          }}>
+          <Text>심리 컨디션</Text>
           <Text>
-            {selectList.map(val => {
-              if (val.selectId.includes('f')) {
+            {mindSelectList.map(val => {
+              if (!val.selectId.includes('f')) {
                 return (
-                  <DreamSelectPane idx={idx} key={val.selectId}>
+                  <DreamSelectPane
+                    color="#8ED7E1"
+                    idx="mind"
+                    key={val.selectId}>
+                    {val.selectTitle}
+                  </DreamSelectPane>
+                );
+              } else {
+                return (
+                  <DreamSelectPane
+                    color="#8ED7E1"
+                    idx="mind"
+                    key={val.selectId}>
                     {val.selectTitle}
                   </DreamSelectPane>
                 );

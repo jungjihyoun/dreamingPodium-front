@@ -82,24 +82,10 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
                 disableYDrawer: idx === 'injury' ? false : true,
               }),
             );
-            dispatch(setModalInner({modalInner: idx}));
+            dispatch(setModalInner({modalInner: 'condition'}));
           }}
           style={styles.savedTextArea}>
-          {filterConditionGroup(idx) ? (
-            savedTextUI(idx)
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(
-                  setModalVisible({
-                    disableYDrawer: idx === 'injury' ? false : true,
-                  }),
-                );
-                dispatch(setModalInner({modalInner: idx}));
-              }}>
-              <Text style={styles.textInputButton}>입력해 주세요</Text>
-            </TouchableOpacity>
-          )}
+          {filterConditionGroup(idx) ? savedTextUI(idx) : <></>}
         </TouchableOpacity>
       </View>
     </>
@@ -109,11 +95,11 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
 const styles = StyleSheet.create({
   section: {
     borderRadius: 10,
-    // flex: 1,
     backgroundColor: '#ffffff',
-    height: height * 490,
-    width: width * 310,
+    width: '90%',
+    minHeight: 200,
     alignSelf: 'center',
+    marginTop: 20,
   },
   titleText: {
     fontSize: 22,
@@ -130,12 +116,16 @@ const styles = StyleSheet.create({
   savedTextArea: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    width: width * 300,
+    width: '100%',
     marginVertical: 6,
+    alignItems: 'flex-start',
+    alignSelf: 'flex-start',
+    justifyContent: 'flex-start',
+    marginLeft: width * 15,
   },
   savedText: {
-    color: colors.white,
-    fontSize: 16,
+    color: colors.darkGrey,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   textInputButton: {
@@ -144,13 +134,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   paneUI: {
-    width: 130,
-    margin: 5,
-    backgroundColor: colors.primary,
-    borderRadius: 10,
+    width: 150,
+    margin: 2,
+    borderWidth: 2,
+    borderColor: '#8ED7E1',
+    borderRadius: 15,
     paddingLeft: 5,
     paddingRight: 5,
-    height: 36,
+    height: 45,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

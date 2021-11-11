@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomSheetContainer: {
-    height: height * 500,
+    height: height * 630,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',

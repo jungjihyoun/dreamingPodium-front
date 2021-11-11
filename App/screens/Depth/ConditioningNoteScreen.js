@@ -30,10 +30,9 @@ function ConditioningNoteScreen(props) {
 
   const modalInnerScreen = () => {
     switch (modalInner) {
-      case 'mind':
-        return <DreamConditionSelect title="심리" idx="mind" />;
-      case 'physical':
-        return <DreamConditionSelect title="신체" idx="physical" />;
+      case 'condition':
+        return <DreamConditionSelect title="컨디션" idx="condition" />;
+
       case 'injury':
         return <DreamInjurySelect title="부상" idx="injury" />;
       default:
@@ -87,7 +86,6 @@ function ConditioningNoteScreen(props) {
           <View
             style={{minHeight: height * 500}}
             ref={elem => (this.conditionComponent = elem)}>
-            {/*  컨디션 파트  */}
             <DreamConditionCard idx="mind" />
           </View>
         ) : (
@@ -112,8 +110,8 @@ function ConditioningNoteScreen(props) {
 
 const styles = StyleSheet.create({
   boxContainer: {
-    paddingHorizontal: 24,
-    paddingTop: 30,
+    // paddingHorizontal: 24,
+    // paddingTop: 30,
     width: '100%',
     height: '100%',
     minHeight: height * 120,
