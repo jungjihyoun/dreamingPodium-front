@@ -52,7 +52,16 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
       {idx === 'injury' ? (
         filterConditionGroup(idx) ? (
           <>
-            <TouchableOpacity style={styles.injuryPlusButton}>
+            <TouchableOpacity
+              style={styles.injuryPlusButton}
+              onPress={() => {
+                dispatch(
+                  setModalVisible({
+                    disableYDrawer: 'injury',
+                  }),
+                );
+                dispatch(setModalInner({modalInner: idx}));
+              }}>
               <Text style={{color: 'white'}}>부상 추가하기</Text>
             </TouchableOpacity>
             <DreamSwiper swiperItems={injurySwiperItems()} />

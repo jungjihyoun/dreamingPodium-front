@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomSheetContainer: {
+    overflow: 'hidden',
     height: height * 630,
     justifyContent: 'center',
     alignItems: 'center',

@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     height: '100%',
     minHeight: height * 120,
     backgroundColor: '#E6E6E6',
+    paddingTop: 30,
   },
   selectTabGroup: {
     flexDirection: 'row',

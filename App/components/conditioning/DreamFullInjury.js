@@ -13,6 +13,7 @@ import {
 import {colors, width, height} from '../../config/globalStyles';
 
 // REDUX
+import {deleteInjury} from '../../reducer/postingSlice';
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
 function DreamFullInjury({
@@ -49,16 +50,7 @@ function DreamFullInjury({
     <>
       {filterConditionGroup(idx) && (
         <View style={styles.section}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(
-                setModalVisible({
-                  disableYDrawer: idx === 'injury' ? false : true,
-                }),
-              );
-              dispatch(setModalInner({modalInner: idx}));
-            }}
-            style={styles.savedTextArea}>
+          <TouchableOpacity style={styles.savedTextArea}>
             <Text style={styles.title}>
               {data.injuryDirection} {data.injurySection}
             </Text>
@@ -78,6 +70,27 @@ function DreamFullInjury({
                 <Text style={styles.memoContent}>{data.injuryMemo}</Text>
               </TouchableWithoutFeedback>
             </ScrollView>
+
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(
+                  deleteInjury({
+                    todayDate: todayDate,
+                    injuryMemo: data.injuryMemo,
+                    interruptData: data.interruptData,
+                    painData: data.painData,
+                  }),
+                );
+              }}
+              style={{
+                borderBottomStartRadius: 10,
+                borderBottomEndRadius: 10,
+                backgroundColor: colors.primary,
+                height: height * 40,
+                width: width * 310,
+              }}>
+              <Text>부상 삭제</Text>
+            </TouchableOpacity>
           </TouchableOpacity>
         </View>
       )}
@@ -94,8 +107,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: width * 310,
     alignSelf: 'center',
-    borderWidth: 1.5,
-    borderColor: colors.primary,
   },
 
   savedTextArea: {
@@ -103,7 +114,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: width * 300,
     marginVertical: 6,
-    margin: 10,
   },
   title: {
     fontSize: 22,

@@ -18,7 +18,6 @@ const DreamSwiper = props => {
   const carouselRef = useRef(null);
 
   useEffect(() => {
-    console.log('짠');
     setEntries(props.swiperItems);
   }, [props.swiperItems]);
 
@@ -30,7 +29,7 @@ const DreamSwiper = props => {
       <Carousel
         sliderWidth={screenWidth}
         sliderHeight={450}
-        itemWidth={screenWidth - 100}
+        itemWidth={screenWidth - 90}
         data={entries}
         renderItem={renderItem}
         parallaxFactor={0.1}

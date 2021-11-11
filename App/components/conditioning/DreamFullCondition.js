@@ -85,7 +85,21 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
             dispatch(setModalInner({modalInner: 'condition'}));
           }}
           style={styles.savedTextArea}>
-          {filterConditionGroup(idx) ? savedTextUI(idx) : <></>}
+          {filterConditionGroup(idx) ? (
+            savedTextUI(idx)
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(
+                  setModalVisible({
+                    disableYDrawer: idx === 'injury' ? false : true,
+                  }),
+                );
+                dispatch(setModalInner({modalInner: 'condition'}));
+              }}>
+              <Text style={styles.textInputButton}>입력해 주세요</Text>
+            </TouchableOpacity>
+          )}
         </TouchableOpacity>
       </View>
     </>

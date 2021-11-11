@@ -13,41 +13,15 @@ function DreamEmptyCondition({subtitle, title, content, style, idx, ...props}) {
 
   return (
     <View>
-      <View
-        style={{
-          borderRadius: 10,
-          backgroundColor: '#ffffff',
-          height: height * 450,
-          width: width * 300,
-          flexDirection: 'column',
-          alignSelf: 'center',
-        }}>
-        <View
-          style={{
-            flex: 6,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            alignContent: 'center',
-            alignSelf: 'center',
-          }}>
+      <View style={styles.emptySection}>
+        <View style={styles.emptyInnerText}>
           <Text>
             입력한 {title} 기록이 없습니다. {'\n'} 오늘의 기록을 남겨주세요 :-)
           </Text>
         </View>
 
         <TouchableOpacity
-          style={{
-            borderBottomStartRadius: 10,
-            borderBottomEndRadius: 10,
-            flex: 1,
-            backgroundColor: colors.primary,
-            height: height * 450,
-            width: width * 300,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          style={styles.bottomButton}
           onPress={() => {
             dispatch(
               setModalVisible({
@@ -64,6 +38,14 @@ function DreamEmptyCondition({subtitle, title, content, style, idx, ...props}) {
 }
 
 const styles = StyleSheet.create({
+  emptySection: {
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    height: height * 450,
+    width: width * 300,
+    flexDirection: 'column',
+    alignSelf: 'center',
+  },
   titleText: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -84,10 +66,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   savedText: {
-    // fontSize: 20,
-    // fontWeight: 'bold',
-    // marginBottom: 8,
-    // color: colors.primary,
     height: 40,
     fontSize: 16,
     borderWidth: 1.5,
@@ -96,7 +74,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginRight: 4,
-    // marginTop: 10,
     overflow: 'hidden',
     backgroundColor: colors.primary,
     color: colors.white,
@@ -105,6 +82,25 @@ const styles = StyleSheet.create({
     color: colors.darkGrey,
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  bottomButton: {
+    borderBottomStartRadius: 10,
+    borderBottomEndRadius: 10,
+    flex: 1,
+    backgroundColor: colors.primary,
+    height: height * 450,
+    width: width * 300,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyInnerText: {
+    flex: 6,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
   },
 });
 

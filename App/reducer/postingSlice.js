@@ -97,6 +97,33 @@ export const postingSlice = createSlice({
       });
     },
 
+    deleteInjury: (state, action) => {
+      console.log(action.payload.injuryMemo);
+      console.log(action.payload.interruptData);
+
+      const [noteContent] = state.writtenNote.filter(data => {
+        return data.date === state.todayDate;
+      });
+
+      let deleteIndex = '';
+      noteContent.conditionGroup.map(data => {
+        if (data.conditionIdx === 'injury') {
+          data.content.map((element, index) => {
+            if (
+              element.injuryMemo === action.payload.injuryMemo &&
+              element.interruptData === action.payload.interruptData &&
+              element.painData === action.payload.painData
+            ) {
+              deleteIndex = index;
+            }
+          });
+        }
+        if (deleteIndex !== '') {
+          data.content.splice(deleteIndex, 1);
+        }
+      });
+    },
+
     // 날짜 선택
     selectDate: (state, action) => {
       state.todayDate = action.payload.date;
@@ -136,6 +163,7 @@ export const {
   checkRoutine,
   submitCondition,
   submitInjury,
+  deleteInjury,
 } = postingSlice.actions;
 
 export const selectLogin = state => state.posting.loggedIn;
