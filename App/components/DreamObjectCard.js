@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginVertical: 20,
     width: width * 341,
-    minHeight: height * 120,
+    minHeight: height * 100,
   },
 
   titleText: {

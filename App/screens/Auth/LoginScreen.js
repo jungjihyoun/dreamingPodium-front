@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   SafeAreaView,
@@ -9,23 +10,26 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
 import {SocialButton} from '../../components/SocialButton';
 
 function LoginScreen({navigation}) {
+  const goToNext = () => {
+    AsyncStorage.clear();
+    AsyncStorage.getItem('visitedUser', (_err, result) => {
+      if (result) {
+        navigation.navigate('HomeApp');
+      } else {
+        navigation.navigate('dream');
+      }
+    });
+  };
+
   return (
-    <SafeAreaView
-      style={[
-        styles.container,
-        {
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: colors.white,
-        },
-      ]}>
+    <SafeAreaView style={[styles.container]}>
       <View style={{flex: 2}}>
         <Image style={styles.mainLogoImg} source={images.logo} />
         <Text style={styles.mainLogoText}>Dreaming Podium</Text>
@@ -51,25 +55,14 @@ function LoginScreen({navigation}) {
         <TouchableOpacity
           style={styles.loginButton}
           onPress={() => {
-            navigation.navigate('HomeApp');
+            goToNext();
           }}>
           <Text style={{color: colors.white}}>로그인</Text>
         </TouchableOpacity>
-        <View
-          style={{flexDirection: 'row', alignItems: 'center', marginTop: 21}}>
-          <View
-            style={{flex: 1, height: 1, backgroundColor: colors.borderGrey}}
-          />
+        <View style={styles.socialLoginSection}>
+          <View style={styles.dividedSection} />
           <View>
-            <Text
-              style={{
-                width: 50,
-                textAlign: 'center',
-                color: colors.darkGrey,
-                fontWeight: 'bold',
-              }}>
-              OR
-            </Text>
+            <Text style={styles.ORText}>OR</Text>
           </View>
           <View
             style={{flex: 1, height: 1, backgroundColor: colors.borderGrey}}
@@ -110,6 +103,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
   },
   mainLogoImg: {
     width: width * 115,
@@ -142,6 +139,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
   },
+  socialLoginSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 21,
+  },
+  ORText: {
+    width: 50,
+    textAlign: 'center',
+    color: colors.darkGrey,
+    fontWeight: 'bold',
+  },
+  dividedSection: {flex: 1, height: 1, backgroundColor: colors.borderGrey},
   socialIcon: {
     marginRight: 20,
   },

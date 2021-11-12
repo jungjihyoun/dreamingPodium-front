@@ -27,7 +27,6 @@ const DreamPicker = ({
         onValueChange={index => {
           setSelectItem(index);
           setSubmitList({...submitList, [title]: index});
-          console.log(submitList);
         }}
         mode="dropdown">
         {selectList.map((value, i) => (

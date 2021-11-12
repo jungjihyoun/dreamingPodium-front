@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import MainStack from './navigation/MainStack';
 import LoginScreen from './screens/Auth/LoginScreen';
+import DreamStack from './navigation/DreamStack';
 
 import {Provider, useDispatch, useSelector} from 'react-redux';
 import {postingReducer} from './reducer/postingSlice';
@@ -26,6 +27,11 @@ const App = () => {
             <StackApp.Screen
               name="Login"
               component={LoginScreen}
+              options={navOptionHandler}
+            />
+            <StackApp.Screen
+              name="dream"
+              component={DreamStack}
               options={navOptionHandler}
             />
             <StackApp.Screen

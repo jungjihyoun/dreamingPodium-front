@@ -39,7 +39,6 @@ const DreamSliderGroup = ({submitList, setSubmitList, title}) => {
           maximumTrackTintColor={colors.darkGrey}
           onValueChange={index => {
             setSubmitList({...submitList, [title]: index});
-            console.log(submitList);
           }}
         />
       </View>
