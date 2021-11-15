@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 //custom imports
 import {width, height, colors, images} from '../../config/globalStyles';
+import CheckButton from '../CheckButton';
 
 // TODO : 이미지를 벡터 아이콘으로 변경하기
 export const DreamRoutine = ({
@@ -25,20 +26,19 @@ export const DreamRoutine = ({
       style={styles.dreamNoteGroup}>
       <View style={styles.sectionContainer}>
         <View
-          style={
+          style={[
+            styles.checkbox,
             props.routineState
-              ? [
-                  styles.checkbox,
-                  {backgroundColor: colors.primary, tintColor: colors.darkGrey},
-                ]
-              : [styles.checkbox]
-          }>
+              ? {backgroundColor: colors.primary, tintColor: colors.darkGrey}
+              : [],
+          ]}>
           <Image
-            style={
+            style={[
+              styles.greyCheckBox,
               props.routineState
-                ? {tintColor: colors.white, width: 10, height: 10}
-                : [styles.unchecking, {width: 10, height: 10}]
-            }
+                ? {tintColor: colors.white}
+                : {tintColor: colors.darkGrey},
+            ]}
             source={images.check}
           />
         </View>
@@ -81,8 +81,9 @@ const styles = StyleSheet.create({
     padding: 11,
     marginRight: 23,
   },
-  unchecking: {
-    tintColor: colors.darkGrey,
+  greyCheckBox: {
+    width: 13,
+    height: 10,
     opacity: 0.5,
   },
   titleText: {

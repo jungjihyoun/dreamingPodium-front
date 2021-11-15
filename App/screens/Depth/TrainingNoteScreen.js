@@ -20,7 +20,7 @@ import {checkRoutine} from '../../reducer/postingSlice';
 
 // CONFIG
 import {noteTitleList} from '../../config/noteTitleList';
-import {height} from '../../config/globalStyles';
+import {height, colors} from '../../config/globalStyles';
 
 function TrainingNoteScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
@@ -89,10 +89,14 @@ function TrainingNoteScreen({navigation, route}) {
   };
 
   return (
-    <SafeAreaView style={{height: '100%'}}>
+    <SafeAreaView
+      style={{
+        height: '100%',
+        backgroundColor: 'white',
+      }}>
       <DreamCalendar />
 
-      <ScrollView style={{backgroundColor: 'white'}}>
+      <ScrollView>
         <View style={styles.alignList}>
           {routineName.map(data => {
             return (
@@ -129,7 +133,6 @@ function TrainingNoteScreen({navigation, route}) {
 const styles = StyleSheet.create({
   alignList: {
     height: '100%',
-    backgroundColor: '#ffffff',
     flexDirection: 'column',
     alignItems: 'center',
   },

@@ -54,12 +54,6 @@ const CollapsibleContent = ({
           }}>
           <Text>수정하기</Text>
         </TouchableOpacity>
-
-        {/* {isActive && (
-          <View style={styles.dropButton}>
-            <Image style={{width: 18, height: 18}} source={images.upButton} />
-          </View>
-        )} */}
       </View>
     );
   };

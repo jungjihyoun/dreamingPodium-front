@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
+import CheckButton from '../CheckButton';
 import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
 import {width, height, colors, images} from '../../config/globalStyles';
 
@@ -34,7 +36,11 @@ const CollapsibleTitle = ({
             });
           }}>
           <View style={styles.boxContainer}>
-            <View style={styles.checkbox} />
+            <CheckButton
+              content={!!content}
+              isActive={isActive}
+              checkSize={{width: 0, height: 0}}
+            />
             <View>
               <Text style={styles.titleText}>{title}</Text>
               <Text style={styles.subtitleText}>{subtitle}</Text>
@@ -51,33 +57,30 @@ const CollapsibleTitle = ({
           isActive
             ? [
                 styles.boxContainerActive,
-                {borderTopLeftRadius: 10, borderTopRightRadius: 10},
+                {
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  backgroundColor: colors.primary,
+                },
               ]
             : styles.boxContainer || content
             ? [styles.boxContainerActive, {borderRadius: 13}]
             : styles.boxContainer
         }>
-        <View
-          style={
-            isActive || content
-              ? [styles.checkbox, {borderColor: colors.white}]
-              : styles.checkbox
-          }
-        />
+        <CheckButton content={!!content} isActive={isActive} />
+
         <View>
           <Text
             style={
-              content
-                ? [styles.titleText, {color: colors.white}]
-                : styles.titleText
+              isActive ? [styles.titleText, {color: 'white'}] : styles.titleText
             }>
             {title}
           </Text>
 
           <Text
             style={
-              content
-                ? [styles.subtitleText, {color: colors.white}]
+              isActive
+                ? [styles.subtitleText, {color: 'white'}]
                 : styles.subtitleText
             }>
             {subtitle}
@@ -109,23 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: width * 341,
     height: height * 65,
-    backgroundColor: colors.primary,
   },
-
-  checkbox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: colors.darkGrey,
-    width: 10,
-    height: 10,
-    padding: 10,
-    marginRight: 23,
-  },
-
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',

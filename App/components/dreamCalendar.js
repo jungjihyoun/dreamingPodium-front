@@ -72,7 +72,11 @@ const DreamCalendar = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {width: '100%'},
+  container: {
+    width: '100%',
+    borderColor: colors.borderGrey,
+    borderBottomWidth: 3,
+  },
   innerText: {
     fontSize: 16,
     color: colors.lightGrey,
