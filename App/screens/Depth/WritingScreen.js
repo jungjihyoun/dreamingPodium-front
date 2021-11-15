@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   input: {
     width: width * 343,

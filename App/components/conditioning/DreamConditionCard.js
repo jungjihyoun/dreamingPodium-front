@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     marginLeft: 10,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   savedTextArea: {
     marginVertical: 6,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   textInputButton: {
-    color: colors.darkGrey,
+    color: colors.lightGrey,
     fontSize: 14,
     fontWeight: 'bold',
   },

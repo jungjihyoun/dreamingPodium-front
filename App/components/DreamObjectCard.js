@@ -118,14 +118,14 @@ const styles = StyleSheet.create({
 
   handleAddText: {
     fontSize: 18,
-    color: colors.darkGrey,
+    color: colors.lightGrey,
     fontWeight: 'bold',
   },
 
   inputHolder: {
     minHeight: height * 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightGrey,
+    borderBottomColor: colors.darkGrey,
     marginVertical: 10,
   },
   deleteButton: {

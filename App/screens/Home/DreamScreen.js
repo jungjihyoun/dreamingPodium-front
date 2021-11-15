@@ -163,7 +163,7 @@ function DreamScreen(props) {
 const styles = StyleSheet.create({
   dreamTitle: {
     fontSize: 18,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     fontWeight: 'bold',
     marginTop: height * 48,
     marginBottom: height * 20,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     marginBottom: 10,
     textAlign: 'center',
     alignItems: 'center',
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
 
   handleAddText: {
     fontSize: 18,
-    color: colors.darkGrey,
+    color: colors.lightGrey,
     fontWeight: 'bold',
   },
   inputHolder: {
     width: width * 200,
     minHeight: height * 40,
     borderWidth: 1,
-    borderColor: colors.lightGrey,
+    borderColor: colors.darkGrey,
     marginLeft: 20,
   },
   submitButton: {

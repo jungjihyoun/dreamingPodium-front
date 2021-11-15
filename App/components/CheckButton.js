@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginRight: 23,
   },
   unchecking: {
-    tintColor: colors.darkGrey,
+    tintColor: colors.lightGrey,
     opacity: 0.5,
   },
 
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 3,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   subtitleText: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: colors.darkGrey,
+    color: colors.lightGrey,
   },
 });
 

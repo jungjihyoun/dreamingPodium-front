@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     marginTop: height * 12,
     lineHeight: 24,
     fontSize: 16,
-    color: colors.darkGrey,
+    color: colors.lightGrey,
   },
   submitButton: {
     borderRadius: 6,

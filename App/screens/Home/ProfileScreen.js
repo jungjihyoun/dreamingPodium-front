@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   profileTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     paddingTop: 30,
     paddingLeft: 25,
   },

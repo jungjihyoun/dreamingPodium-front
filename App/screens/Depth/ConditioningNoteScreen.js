@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#E6E6E6',
   },
-  selectText: {fontSize: 16, fontWeight: 'bold', color: colors.darkGrey},
+  selectText: {fontSize: 16, fontWeight: 'bold', color: colors.lightGrey},
   selectedText: {fontSize: 16, fontWeight: 'bold', color: '#000000'},
 });
 

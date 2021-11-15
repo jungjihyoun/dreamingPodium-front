@@ -43,7 +43,7 @@ function DreamConditionSelect({title, idx, ...props}) {
               if (!val.selectId.includes('f')) {
                 return (
                   <DreamSelectPane
-                    color="#6FF1CE"
+                    color={colors.lightGreen}
                     idx="physical"
                     key={val.selectId}>
                     {val.selectTitle}
@@ -52,7 +52,7 @@ function DreamConditionSelect({title, idx, ...props}) {
               } else {
                 return (
                   <DreamSelectPane
-                    color="#6FF1CE"
+                    color={colors.lightGreen}
                     idx="physical"
                     key={val.selectId}>
                     {val.selectTitle}
@@ -68,7 +68,7 @@ function DreamConditionSelect({title, idx, ...props}) {
               if (!val.selectId.includes('f')) {
                 return (
                   <DreamSelectPane
-                    color="#8ED7E1"
+                    color={colors.lightBlue}
                     idx="mind"
                     key={val.selectId}>
                     {val.selectTitle}
@@ -77,7 +77,7 @@ function DreamConditionSelect({title, idx, ...props}) {
               } else {
                 return (
                   <DreamSelectPane
-                    color="#8ED7E1"
+                    color={colors.lightBlue}
                     idx="mind"
                     key={val.selectId}>
                     {val.selectTitle}

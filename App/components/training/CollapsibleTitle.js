@@ -117,12 +117,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 3,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   subtitleText: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: colors.darkGrey,
+    color: colors.lightGrey,
   },
 });
 

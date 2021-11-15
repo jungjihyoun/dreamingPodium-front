@@ -40,7 +40,7 @@ function DreamEmptyCondition({subtitle, title, content, style, idx, ...props}) {
 const styles = StyleSheet.create({
   emptySection: {
     borderRadius: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
     height: height * 450,
     width: width * 300,
     flexDirection: 'column',
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     marginLeft: 10,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   savedTextArea: {
     marginVertical: 6,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1.5,
     borderStyle: 'solid',
-    borderColor: '#d2d2d2',
+    borderColor: colors.borderGrey,
     borderRadius: 20,
     padding: 10,
     marginRight: 4,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   textInputButton: {
-    color: colors.darkGrey,
+    color: colors.lightGrey,
     fontSize: 14,
     fontWeight: 'bold',
   },

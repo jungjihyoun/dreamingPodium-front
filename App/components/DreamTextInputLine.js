@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     marginRight: 30,
   },
   inputName: {
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 30,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     width: width * 325,
     borderBottomWidth: 1,
     borderStyle: 'solid',
-    borderColor: colors.lightGrey,
+    borderColor: colors.darkGrey,
     flexDirection: 'row',
     justifyContent: 'space-between',
     fontSize: 18,

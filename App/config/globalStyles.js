@@ -3,19 +3,20 @@ import {Dimensions} from 'react-native';
 export const colors = {
   primary: '#44BCCE',
   black: '#191919',
-  white: '#FFFFFF',
-  red: '#FF3636',
-  lightGrey: '#5F6768',
-  darkGrey: '#9098B1',
-  borderGrey: '#EBF0FF',
+  white: '#ffffff',
+
+  lightBlue: '#8ED7E1',
+  lightGreen: '#6FF1CE',
+
+  textGrey: '#5F6768',
+
+  darkGrey: '#5F6768',
+  lightGrey: '#9098B1',
+  borderGrey: '#d2d2d2',
 
   //social button colors
   apple: '#040708',
-  naver: '#1EC800',
   kakaoTalk: '#FFDE00',
-  facebook: '#3B5998',
-  google: '#4a83ff',
-  email: '#36A6FF',
 };
 
 export const storyBoardDimensions = {

@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: colors.darkGrey,
+    color: colors.lightGrey,
     marginTop: 15,
     marginBottom: 15,
   },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   memoSection: {},
   memoContent: {
     fontSize: 14,
-    color: colors.darkGrey,
+    color: colors.lightGrey,
   },
 });
 

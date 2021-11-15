@@ -109,7 +109,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
 const styles = StyleSheet.create({
   section: {
     borderRadius: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
     width: '90%',
     minHeight: 200,
     alignSelf: 'center',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     marginLeft: 10,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   savedTextArea: {
     flexWrap: 'wrap',
@@ -138,20 +138,19 @@ const styles = StyleSheet.create({
     marginLeft: width * 15,
   },
   savedText: {
-    color: colors.darkGrey,
+    color: colors.textGrey,
     fontSize: 14,
     fontWeight: 'bold',
   },
   textInputButton: {
-    color: colors.darkGrey,
+    color: colors.lightGrey,
     fontSize: 14,
     fontWeight: 'bold',
   },
   paneUI: {
     width: 150,
     margin: 2,
-    borderWidth: 2,
-    borderColor: '#8ED7E1',
+    backgroundColor: colors.lightBlue,
     borderRadius: 15,
     paddingLeft: 5,
     paddingRight: 5,

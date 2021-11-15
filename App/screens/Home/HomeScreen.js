@@ -61,14 +61,14 @@ const styles = StyleSheet.create({
   DateTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    // color: colors.lightGrey,
+    // color: colors.darkGrey,
     paddingTop: 48,
     paddingBottom: 28,
   },
   homeTitle: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     // paddingTop: 95,
     paddingBottom: 48,
   },

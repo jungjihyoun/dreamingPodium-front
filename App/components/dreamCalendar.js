@@ -59,10 +59,10 @@ const DreamCalendar = () => {
         ]}
         disabledDateNameStyle={[
           styles.innerText,
-          {color: colors.lightGrey},
+          {color: colors.darkGrey},
           {marginBottom: 10},
         ]}
-        disabledDateNumberStyle={[styles.innerText, {color: colors.lightGrey}]}
+        disabledDateNumberStyle={[styles.innerText, {color: colors.darkGrey}]}
         leftSelector={[]}
         rightSelector={[]}
         innerStyle={{flex: 1.5}}
@@ -74,17 +74,17 @@ const DreamCalendar = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    borderColor: colors.borderGrey,
-    borderBottomWidth: 3,
+    // borderColor: colors.borderGrey,
+    // borderBottomWidth: 3,
   },
   innerText: {
     fontSize: 16,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     fontWeight: 'bold',
   },
   dayNameText: {
     fontSize: 12,
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     fontWeight: 'bold',
   },
 });

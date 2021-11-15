@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#d2d2d2',
+    borderColor: colors.borderGrey,
     borderRadius: 19,
     padding: 10,
     marginRight: 4,

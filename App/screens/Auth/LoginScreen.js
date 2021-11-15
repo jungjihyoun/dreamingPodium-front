@@ -67,7 +67,7 @@ function LoginScreen({navigation}) {
               style={{
                 width: 50,
                 textAlign: 'center',
-                color: colors.darkGrey,
+                color: colors.lightGrey,
                 fontWeight: 'bold',
               }}>
               OR
@@ -105,7 +105,7 @@ function LoginScreen({navigation}) {
           flex: 1,
         }}>
         <Text style={styles.aboutSignUp}>비밀번호를 잊었나요?</Text>
-        <Text style={{color: colors.darkGrey, fontSize: 12, marginTop: 10}}>
+        <Text style={{color: colors.lightGrey, fontSize: 12, marginTop: 10}}>
           계정이 없다면? <Text style={styles.aboutSignUp}>회원가입</Text>
         </Text>
       </View>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   socialText: {
-    color: colors.lightGrey,
+    color: colors.darkGrey,
   },
   aboutSignUp: {
     color: colors.primary,

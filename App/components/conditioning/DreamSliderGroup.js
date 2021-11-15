@@ -36,7 +36,7 @@ const DreamSliderGroup = ({submitList, setSubmitList, title}) => {
           value={submitList[title]}
           step={1}
           minimumTrackTintColor={colors.primary}
-          maximumTrackTintColor={colors.darkGrey}
+          maximumTrackTintColor={colors.lightGrey}
           onValueChange={index => {
             setSubmitList({...submitList, [title]: index});
           }}

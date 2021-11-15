@@ -29,7 +29,7 @@ export const DreamRoutine = ({
           style={[
             styles.checkbox,
             props.routineState
-              ? {backgroundColor: colors.primary, tintColor: colors.darkGrey}
+              ? {backgroundColor: colors.primary, tintColor: colors.lightGrey}
               : [],
           ]}>
           <Image
@@ -37,7 +37,7 @@ export const DreamRoutine = ({
               styles.greyCheckBox,
               props.routineState
                 ? {tintColor: colors.white}
-                : {tintColor: colors.darkGrey},
+                : {tintColor: colors.lightGrey},
             ]}
             source={images.check}
           />
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.lightGrey,
+    color: colors.darkGrey,
     marginBottom: 3,
   },
   subtitleText: {
