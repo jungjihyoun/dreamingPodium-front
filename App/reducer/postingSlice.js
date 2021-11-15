@@ -4,13 +4,15 @@ import {tempList} from './tempList';
 
 import {_fetchNoteData} from '../utils/noteApi';
 import {ActionSheetIOS} from 'react-native';
+import axios from 'axios';
 
 export const fetchNoteData = createAsyncThunk(
   // 쓰여진 글을 요청하면 10일치 글이 불러진다.
-  'api 주소.. ',
+  'api/v1',
   async payload => {
-    const date = new Date().getDate();
-    const response = await _fetchNoteData(date);
+    const response = await axios.get(
+      'https://618db420fe09aa0017440864.mockapi.io/test',
+    );
     if (response.status !== 200) {
       throw Error(response.data);
     }
@@ -53,7 +55,6 @@ export const postingSlice = createSlice({
       noteContent.noteContentGroup.map(data => {
         if (data.noteIdx === action.payload.noteIdx) {
           data.noteContent = action.payload.content;
-          console.log(action.payload.content);
         }
       });
 
@@ -61,7 +62,6 @@ export const postingSlice = createSlice({
         noteContent.noteContentGroup.map(data => {
           if (data.noteIdx === action.payload.noteIdx) {
             data.notePhoto = action.payload.photo;
-            console.log(action.payload.photo);
           }
         });
       }
@@ -98,9 +98,6 @@ export const postingSlice = createSlice({
     },
 
     deleteInjury: (state, action) => {
-      console.log(action.payload.injuryMemo);
-      console.log(action.payload.interruptData);
-
       const [noteContent] = state.writtenNote.filter(data => {
         return data.date === state.todayDate;
       });
@@ -137,7 +134,6 @@ export const postingSlice = createSlice({
       checkRoutine.routine.map(data => {
         if (data.routineName === action.payload.routineName) {
           data.routineState = action.payload.routineState;
-          console.log('routine State check in redux action', data.routineState);
         }
       });
     },
@@ -145,14 +141,16 @@ export const postingSlice = createSlice({
   extraReducers: {
     [fetchNoteData.pending](state, action) {
       // 요청
+      console.log('대기!', action.payload);
     },
     [fetchNoteData.fulfilled](state, action) {
       // 성공
+      console.log('성공!', action.payload);
       state.writtenNote.push(action.payload);
-      console.log(state.writtenNote);
     },
     [fetchNoteData.rejected](state, action) {
       // 실패
+      console.log('실패!', action.payload);
     },
   },
 });

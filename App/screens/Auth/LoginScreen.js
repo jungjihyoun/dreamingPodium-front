@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -10,22 +10,20 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {setUser} from '../../reducer/userSlice';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
 import {SocialButton} from '../../components/SocialButton';
+import {signInKakaoTalk} from './loginKakao';
 
 function LoginScreen({navigation}) {
-  const goToNext = () => {
-    AsyncStorage.clear();
-    AsyncStorage.getItem('visitedUser', (_err, result) => {
-      if (result) {
-        navigation.navigate('HomeApp');
-      } else {
-        navigation.navigate('dream');
-      }
-    });
+  const dispatch = useDispatch();
+  const setUserInfo = params => {
+    dispatch(setUser(params));
   };
 
   return (
@@ -55,14 +53,25 @@ function LoginScreen({navigation}) {
         <TouchableOpacity
           style={styles.loginButton}
           onPress={() => {
-            goToNext();
+            navigation.navigate('HomeApp');
           }}>
           <Text style={{color: colors.white}}>로그인</Text>
         </TouchableOpacity>
-        <View style={styles.socialLoginSection}>
-          <View style={styles.dividedSection} />
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 21}}>
+          <View
+            style={{flex: 1, height: 1, backgroundColor: colors.borderGrey}}
+          />
           <View>
-            <Text style={styles.ORText}>OR</Text>
+            <Text
+              style={{
+                width: 50,
+                textAlign: 'center',
+                color: colors.darkGrey,
+                fontWeight: 'bold',
+              }}>
+              OR
+            </Text>
           </View>
           <View
             style={{flex: 1, height: 1, backgroundColor: colors.borderGrey}}
@@ -74,10 +83,15 @@ function LoginScreen({navigation}) {
         style={{
           flex: 1,
         }}>
-        <SocialButton>
+        <SocialButton
+          onPress={() => {
+            console.log('카카오 로그인 클릭');
+            signInKakaoTalk(setUserInfo);
+          }}>
           <Image style={styles.socialIcon} source={images.kakao} />
           <Text style={styles.socialText}>카카오톡으로 로그인하기</Text>
         </SocialButton>
+
         {Platform.OS === 'ios' && (
           <SocialButton>
             <Image style={styles.socialIcon} source={images.apple} />
@@ -139,18 +153,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
   },
-  socialLoginSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 21,
-  },
-  ORText: {
-    width: 50,
-    textAlign: 'center',
-    color: colors.darkGrey,
-    fontWeight: 'bold',
-  },
-  dividedSection: {flex: 1, height: 1, backgroundColor: colors.borderGrey},
   socialIcon: {
     marginRight: 20,
   },

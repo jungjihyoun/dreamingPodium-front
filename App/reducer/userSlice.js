@@ -14,10 +14,18 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null, //유저 정보가 모두 담기는 변수
+
     loggedIn: false,
-    // gender: null,
-    // birth: null,
-    department: null,
+    username: null,
+    provider: '',
+    serviceId: '',
+    platform: '',
+    deviceToken: '',
+
+    // 추가 정보
+    gender: null,
+    birthday: null,
+    team: null,
     field: null,
 
     // ### 첫 접속 여부 판단 넣기
@@ -28,7 +36,7 @@ export const userSlice = createSlice({
     login: (state, action) => {
       //로그인
       console.log('token', action.payload.token);
-      AsyncStorage.setItem('userToken', action.payload.token); //로그인을 할 시에는 토큰을 로컬에 저장해준다. 만약 전역변수로만 관리한다? 앱을 껐다켰을 때 상태유지가 되지 않기 때문.
+      AsyncStorage.setItem('userToken', action.payload.token);
       state.loggedIn = true;
       state.token = action.payload.token;
     },
@@ -41,7 +49,12 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       //유저 정보를 세팅한다.
       state.user = action.payload;
-      console.log('유저세팅', state.user);
+      state.username = action.payload.username;
+      state.provider = action.payload.provider;
+      state.serviceId = action.payload.serviceId;
+      state.platform = action.payload.platform;
+      state.deviceToken = action.payload.deviceToken;
+      console.log('유저세팅  !!!!', state.user);
     },
     register: (state, action) => {
       //회원가입
