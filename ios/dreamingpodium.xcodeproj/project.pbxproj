@@ -11,6 +11,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		706BA4DC2741D20C006B0EAE /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 706BA4DB2741D20C006B0EAE /* KakaoOpenSDK.framework */; };
+		706BA4DD2741D20C006B0EAE /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 706BA4DB2741D20C006B0EAE /* KakaoOpenSDK.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		AA0456717915AAC6F41A290E /* libPods-dreamingpodium-dreamingpodiumTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC774A2C1F7980253006B2A /* libPods-dreamingpodium-dreamingpodiumTests.a */; };
 		E69F3FBF8EEC2284F28ECB0A /* libPods-dreamingpodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE792ECE397C79C3916779CA /* libPods-dreamingpodium.a */; };
@@ -38,6 +40,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = dreamingpodium/main.m; sourceTree = "<group>"; };
 		15916C8A34D50C81B22ADE90 /* Pods-dreamingpodium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dreamingpodium.release.xcconfig"; path = "Target Support Files/Pods-dreamingpodium/Pods-dreamingpodium.release.xcconfig"; sourceTree = "<group>"; };
 		2F9009323797867B5FC88C54 /* Pods-dreamingpodium-dreamingpodiumTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dreamingpodium-dreamingpodiumTests.debug.xcconfig"; path = "Target Support Files/Pods-dreamingpodium-dreamingpodiumTests/Pods-dreamingpodium-dreamingpodiumTests.debug.xcconfig"; sourceTree = "<group>"; };
+		706BA4DB2741D20C006B0EAE /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = dreamingpodium/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0FF384314B31FC314A5CF51 /* Pods-dreamingpodium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dreamingpodium.debug.xcconfig"; path = "Target Support Files/Pods-dreamingpodium/Pods-dreamingpodium.debug.xcconfig"; sourceTree = "<group>"; };
 		DAC774A2C1F7980253006B2A /* libPods-dreamingpodium-dreamingpodiumTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dreamingpodium-dreamingpodiumTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0456717915AAC6F41A290E /* libPods-dreamingpodium-dreamingpodiumTests.a in Frameworks */,
+				706BA4DD2741D20C006B0EAE /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E69F3FBF8EEC2284F28ECB0A /* libPods-dreamingpodium.a in Frameworks */,
+				706BA4DC2741D20C006B0EAE /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +104,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				706BA4DB2741D20C006B0EAE /* KakaoOpenSDK.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				EE792ECE397C79C3916779CA /* libPods-dreamingpodium.a */,
 				DAC774A2C1F7980253006B2A /* libPods-dreamingpodium-dreamingpodiumTests.a */,
@@ -431,6 +437,10 @@
 			baseConfigurationReference = 2F9009323797867B5FC88C54 /* Pods-dreamingpodium-dreamingpodiumTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -509,6 +519,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = dreamingpodiumTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -537,6 +551,10 @@
 				DEVELOPMENT_TEAM = R852D9NJ2T;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = dreamingpodium/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -594,11 +612,7 @@
 					/usr/lib/swift,
 					"$(inherited)",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = dreamingpodium;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -616,6 +630,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R852D9NJ2T;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator14.5]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = dreamingpodium/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -664,11 +682,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context\"",
 					/usr/lib/swift,
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = dreamingpodium;
 				SWIFT_VERSION = 5.0;
