@@ -31,15 +31,34 @@ export const postingSlice = createSlice({
       noteContentGroup: {
         training: {
           train_detail: {content: '노트내용'},
+          feedback: {content: '피드백 내용'},
           routines: {routine_name1: false, routine_name2: false},
           success: {content: null, image: ''},
           failure: {content: null, image: ''},
         },
-        feedback: {content: '피드백 내용'},
+
         conditioning: {
-          mind: ['정신이 번쩍'],
+          mind: [],
           physical: [],
-          injury: [],
+          injury: [
+            {
+              injuryDirection: '오른쪽',
+              injurySection: '무릎',
+              injuryForm: '연골파열?',
+              painData: 1,
+              interruptData: 1,
+              injuryMemo: '열받은 유',
+            },
+            {
+              injuryDirection: '오른쪽',
+              injurySection: '무릎',
+              injuryForm: '연골파열?',
+              painData: 6,
+              interruptData: 1,
+              injuryMemo:
+                '열받은 유재석.zip 《런닝맨 / 예능맛ZIP / RunningMan 》아오 열받아 (쒸익) 😤#예능맛ZIP​​​ #런닝맨​​​#Runningman',
+            },
+          ],
         },
       },
     },
@@ -53,15 +72,10 @@ export const postingSlice = createSlice({
       // const [noteContent] = state.writtenNote.filter(data => {
       //   return data.date === state.todayDate;
       // });
-      console.log(action.payload.content);
-      if (action.payload.noteIdx === 'feedback') {
-        state.writtenNote.noteContentGroup.feedback.content =
-          action.payload.content;
-      } else {
-        state.writtenNote.noteContentGroup.training[
-          action.payload.noteIdx
-        ].content = action.payload.content;
-      }
+
+      state.writtenNote.noteContentGroup.training[
+        action.payload.noteIdx
+      ].content = action.payload.content;
 
       if (action.payload.image) {
         state.writtenNote.noteContentGroup.training[
@@ -74,54 +88,42 @@ export const postingSlice = createSlice({
 
     // params / content
     submitCondition: (state, action) => {
-      const [noteContent] = state.writtenNote.filter(data => {
-        return data.date === state.todayDate;
-      });
-
-      noteContent.conditionGroup.map(data => {
-        if (data.conditionIdx === action.payload.conditionIdx) {
-          if (data.content.includes(action.payload.content)) {
-            const index = data.content.indexOf(action.payload.content);
-            data.content.splice(index, 1);
-          } else {
-            data.content.push(action.payload.content);
-          }
-        }
-      });
-    },
-
-    submitInjury: (state, action) => {
-      const [noteContent] = state.writtenNote.filter(data => {
-        return data.date === state.todayDate;
-      });
-
-      noteContent.conditionGroup.map(data => {
-        if (data.conditionIdx === action.payload.conditionIdx) {
-          data.content.push(action.payload.content);
-        }
-      });
+      const conditionGroup =
+        state.writtenNote.noteContentGroup.conditioning[
+          action.payload.conditionIdx
+        ];
+      if (conditionGroup.includes(action.payload.content)) {
+        const index = conditionGroup.indexOf(action.payload.content);
+        conditionGroup.splice(index, 1);
+      } else {
+        conditionGroup.push(action.payload.content);
+      }
     },
 
     deleteInjury: (state, action) => {
-      const [noteContent] = state.writtenNote.filter(data => {
-        return data.date === state.todayDate;
-      });
+      // const [noteContent] = state.writtenNote.filter(data => {
+      //   return data.date === state.todayDate;
+      // });
 
       let deleteIndex = '';
-      noteContent.conditionGroup.map(data => {
-        if (data.conditionIdx === 'injury') {
-          data.content.map((element, index) => {
-            if (
-              element.injuryMemo === action.payload.injuryMemo &&
-              element.interruptData === action.payload.interruptData &&
-              element.painData === action.payload.painData
-            ) {
-              deleteIndex = index;
-            }
-          });
+
+      const injuryGroup =
+        state.writtenNote.noteContentGroup.conditioning.injury;
+
+      injuryGroup.map((element, index) => {
+        if (
+          element.injuryMemo === action.payload.injuryMemo &&
+          element.interruptData === action.payload.interruptData &&
+          element.painData === action.payload.painData &&
+          element.injuryDirection === action.payload.injuryDirection &&
+          element.injurySection === action.payload.injurySection &&
+          element.injuryForm === action.payload.injuryForm
+        ) {
+          deleteIndex = index;
         }
+
         if (deleteIndex !== '') {
-          data.content.splice(deleteIndex, 1);
+          injuryGroup.splice(deleteIndex, 1);
         }
       });
     },
@@ -139,12 +141,6 @@ export const postingSlice = createSlice({
           action.payload.routineName
         ];
 
-      console.log(
-        'testindign',
-        state.writtenNote.noteContentGroup.training.routines[
-          action.payload.routineName
-        ],
-      );
       // const [checkRoutine] = state.writtenNote.filter(data => {
       //   return data.date === state.todayDate;
       // });

@@ -29,21 +29,9 @@ function DreamFullInjury({
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
-  const filterConditionGroup = () => {
-    var [_conditionGroup] = writtenNote.filter(data => {
-      return data.date === todayDate;
-    });
-
-    if (_conditionGroup !== [] && _conditionGroup !== undefined) {
-      [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
-        return data.conditionIdx === idx;
-      });
-      if (_conditionGroup.content.length === 0) {
-        return false;
-      }
-
-      return _conditionGroup.content;
-    }
+  const filterConditionGroup = idx => {
+    const conditionGroup = writtenNote.noteContentGroup.conditioning[idx];
+    return conditionGroup;
   };
 
   return (
@@ -76,6 +64,9 @@ function DreamFullInjury({
                 dispatch(
                   deleteInjury({
                     todayDate: todayDate,
+                    injuryDirection: data.injuryDirection,
+                    injurySection: data.injurySection,
+                    injuryForm: data.injuryForm,
                     injuryMemo: data.injuryMemo,
                     interruptData: data.interruptData,
                     painData: data.painData,

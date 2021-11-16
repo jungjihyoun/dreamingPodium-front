@@ -24,27 +24,25 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
-  const filterConditionGroup = idx => {
-    var [_conditionGroup] = writtenNote.filter(data => {
-      return data.date === todayDate;
-    });
-
-    if (_conditionGroup !== [] && _conditionGroup !== undefined) {
-      [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
-        return data.conditionIdx === idx;
-      });
-      if (_conditionGroup.content.length === 0) {
-        return false;
-      }
-
-      return _conditionGroup.content;
-    }
+  const filterConditionGroup = param => {
+    const conditionGroup = writtenNote.noteContentGroup.conditioning[param];
+    return conditionGroup;
   };
 
-  const injurySwiperItems = () => {
+  const injurySwiperItems = idx => {
     return filterConditionGroup(idx).map((data, index) => {
       return <DreamFullInjury title="부상" idx="injury" data={data} />;
     });
+  };
+
+  const isEmpty = () => {
+    if (
+      filterConditionGroup('mind').length > 0 ||
+      filterConditionGroup('physical').length > 0
+    ) {
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -71,7 +69,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
             swiperItems={[<DreamEmptyCondition title="부상" idx="injury" />]}
           />
         )
-      ) : filterConditionGroup(idx) ? (
+      ) : !isEmpty() ? (
         <ScrollView style={{flex: 1}}>
           <DreamFullCondition subtitle="신체" idx="physical" />
           <DreamFullCondition subtitle="심리" idx="mind" />

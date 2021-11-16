@@ -22,25 +22,15 @@ function DreamSelectPane({title, idx, ...props}) {
   // 생성될 때, content 리스트에서 해당 값 있으면 true로 바꿔주기
 
   useEffect(() => {
-    const filterConditionGroup = idx => {
-      var [_conditionGroup] = writtenNote.filter(data => {
-        return data.date === todayDate;
-      });
+    const filterConditionGroup = () => {
+      const conditionGroup = writtenNote.noteContentGroup.conditioning[idx];
 
-      if (_conditionGroup !== [] && _conditionGroup !== undefined) {
-        [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
-          return data.conditionIdx === idx;
-        });
-        if (_conditionGroup.content.length === 0) {
-          return false;
-        }
-
-        if (_conditionGroup.content.includes(props.children)) {
+      if (conditionGroup !== []) {
+        if (conditionGroup.includes(props.children)) {
           setSelect(true);
         }
-
-        return _conditionGroup.content;
       }
+      return conditionGroup;
     };
     filterConditionGroup(idx);
   }, [idx, props.children, title, todayDate, writtenNote]);

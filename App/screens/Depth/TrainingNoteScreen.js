@@ -51,11 +51,9 @@ function TrainingNoteScreen({navigation, route}) {
     let trainingNote = writtenNote.noteContentGroup.training;
     trainingNote = {
       ...trainingNote,
-      feedback: writtenNote.noteContentGroup.feedback,
     };
     // console.log(trainingNote[noteIdx].content);
     if (trainingNote[noteIdx]) {
-      console.log('jdjdjdjdjd', trainingNote[noteIdx].content);
       return trainingNote[noteIdx].content;
     } else {
       return null;
@@ -67,7 +65,6 @@ function TrainingNoteScreen({navigation, route}) {
     let trainingNote = writtenNote.noteContentGroup.training;
     trainingNote = {
       ...trainingNote,
-      feedback: writtenNote.noteContentGroup.feedback,
     };
 
     if (trainingNote[noteIdx]) {
@@ -102,9 +99,7 @@ function TrainingNoteScreen({navigation, route}) {
         <TouchableOpacity
           onPress={() => {
             filterContentGroup();
-          }}>
-          <Text>dfdfd</Text>
-        </TouchableOpacity>
+          }}></TouchableOpacity>
         <View style={styles.alignList}>
           {Object.keys(routineName).map(function (routine, index) {
             return (

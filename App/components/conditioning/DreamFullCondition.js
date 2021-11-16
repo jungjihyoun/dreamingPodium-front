@@ -15,52 +15,25 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
-  const filterConditionGroup = idx => {
-    var [_conditionGroup] = writtenNote.filter(data => {
-      return data.date === todayDate;
-    });
-
-    if (_conditionGroup !== [] && _conditionGroup !== undefined) {
-      [_conditionGroup] = _conditionGroup.conditionGroup.filter(data => {
-        return data.conditionIdx === idx;
-      });
-      if (_conditionGroup.content.length === 0) {
-        return false;
-      }
-
-      return _conditionGroup.content;
+  const filterConditionGroup = () => {
+    const conditionGroup = writtenNote.noteContentGroup.conditioning[idx];
+    if (conditionGroup.length !== 0) {
+      return conditionGroup;
+    } else {
+      return false;
     }
   };
 
   const savedTextUI = param => {
-    if (param === 'injury') {
-      return filterConditionGroup(param).map((data, index) => {
-        return (
-          <>
-            <Text style={styles.savedText} key={index}>
-              {data.injuryDirection}
-              {data.injurySection}
-              {data.injuryForm}
-            </Text>
-            <Text style={styles.savedText} key={index}>
-              {data.painData}
-              {data.interruptData}
-              {data.injuryMemo}
-            </Text>
-          </>
-        );
-      });
-    } else {
-      return filterConditionGroup(param).map((data, index) => {
-        return (
-          <View style={styles.paneUI}>
-            <Text style={styles.savedText} key={index}>
-              {data}
-            </Text>
-          </View>
-        );
-      });
-    }
+    return filterConditionGroup().map((data, index) => {
+      return (
+        <View style={styles.paneUI}>
+          <Text style={styles.savedText} key={index}>
+            {data}
+          </Text>
+        </View>
+      );
+    });
   };
 
   return (
@@ -85,7 +58,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
             dispatch(setModalInner({modalInner: 'condition'}));
           }}
           style={styles.savedTextArea}>
-          {filterConditionGroup(idx) ? (
+          {filterConditionGroup(idx).length > 0 ? (
             savedTextUI(idx)
           ) : (
             <TouchableOpacity
