@@ -38,9 +38,8 @@ function DreamObjectCard({multiple = true, ...props}) {
             onPress={() => setShowInputBox(true)}>
             <Image
               style={{
-                tintColor: colors.lightBlue,
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
               }}
               source={images.addButton}
             />

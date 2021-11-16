@@ -46,7 +46,7 @@ const CollapsibleContent = ({
             borderTopWidth: 1,
           }}
         />
-        {image && (
+        {image !== null && image.length > 0 && (
           <Swiper
             activeDotColor={colors.white}
             paginationStyle={{bottom: 0}}
@@ -62,13 +62,22 @@ const CollapsibleContent = ({
         </Text>
 
         <TouchableOpacity
+          style={styles.submitButton}
           onPress={() => {
             navigation.push('WritingScreen', {
               value: content,
               noteIdx: noteIdx,
             });
           }}>
-          <Text>수정하기</Text>
+          <Text
+            style={{
+              color: colors.primary,
+              fontWeight: 'bold',
+              textAlign: 'center',
+              fontSize: 12,
+            }}>
+            수정하기
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -125,6 +134,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 4,
     right: 4,
+  },
+
+  submitButton: {
+    marginTop: 10,
+    borderRadius: 8,
+    width: 62,
+    height: 18,
+    backgroundColor: colors.white,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

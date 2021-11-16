@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useContext, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
@@ -59,6 +60,25 @@ function WritingScreen({navigation, route}) {
     route.params.value ? route.params.value : null,
   );
 
+  const goToNext = () => {
+    if (!content) {
+      alert('내용을 입력해주세요');
+    } else {
+      dispatch(
+        submitNote({
+          date: todayDate,
+          noteIdx: route.params.noteIdx,
+          content: content,
+          image: imageGroup,
+        }),
+      );
+      navigation.navigate('TrainingNote', {
+        content: content,
+        noteTitle: route.params.title,
+      });
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{route.params.title}</Text>
@@ -89,18 +109,7 @@ function WritingScreen({navigation, route}) {
           <TouchableOpacity
             style={styles.submitButton}
             onPress={() => {
-              dispatch(
-                submitNote({
-                  date: todayDate,
-                  noteIdx: route.params.noteIdx,
-                  content: content,
-                  image: imageGroup,
-                }),
-              );
-              navigation.navigate('TrainingNote', {
-                content: content,
-                noteTitle: route.params.title,
-              });
+              goToNext();
             }}>
             <Text
               style={{
@@ -113,22 +122,22 @@ function WritingScreen({navigation, route}) {
             </Text>
           </TouchableOpacity>
 
-          {route.params.noteIdx === 'success' ||
-            (route.params.noteIdx === 'failure' && (
-              <TouchableOpacity
-                style={styles.submitButton}
-                onPress={() => showImage()}>
-                <Text
-                  style={{
-                    color: colors.white,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    fontSize: 12,
-                  }}>
-                  사진첨부
-                </Text>
-              </TouchableOpacity>
-            ))}
+          {(route.params.noteIdx === 'success' ||
+            route.params.noteIdx === 'failure') && (
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => showImage()}>
+              <Text
+                style={{
+                  color: colors.white,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  fontSize: 12,
+                }}>
+                사진첨부
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

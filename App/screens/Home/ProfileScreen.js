@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,9 +8,12 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  ImagePropTypes,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {setDepartment, setField} from '../../reducer/userSlice';
+import {setDepartment, setUser, setUserImage} from '../../reducer/userSlice';
+
+import ImagePicker from 'react-native-image-crop-picker';
 
 import DreamTextInputLine from '../../components/DreamTextInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
@@ -19,8 +23,24 @@ function ProfileScreen(props) {
   const dispatch = useDispatch();
 
   const submitUserProfile = () => {
-    console.log(user.department);
-    console.log(user.field);
+    dispatch(
+      setUser({username: '정지현', field: field, team: team, userImage: image}),
+    );
+  };
+
+  const [image, setImage] = useState('');
+  const [team, setTeam] = useState();
+  const [field, setField] = useState();
+
+  const showImage = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      multiple: false,
+    }).then(_image => {
+      setImage(_image.sourceURL);
+    });
   };
 
   return (
@@ -29,8 +49,26 @@ function ProfileScreen(props) {
         <Text style={styles.profileTitle}>Profile</Text>
       </View>
 
-      <View style={styles.profileImgArea}>
-        <Image source={images.profileImgGroup} />
+      <View style={{flex: 1.5}}>
+        <TouchableOpacity
+          style={styles.profileImgArea}
+          onPress={() => {
+            showImage();
+          }}>
+          {image ? (
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+              }}
+              resizeMode="cover"
+              resizeMethod="auto"
+              source={{uri: image}}
+            />
+          ) : (
+            <Image source={images.profileImgGroup} />
+          )}
+        </TouchableOpacity>
       </View>
 
       <View style={{flex: 3}}>
@@ -40,13 +78,13 @@ function ProfileScreen(props) {
         <DreamTextInputLine
           inputName="소속"
           onChangeText={event => {
-            dispatch(setDepartment(event));
+            setTeam(event);
           }}
         />
         <DreamTextInputLine
           inputName="종목"
           onChangeText={event => {
-            dispatch(setField(event));
+            setField(event);
           }}
         />
       </View>
@@ -78,8 +116,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   profileImgArea: {
-    flex: 1.5,
-    alignItems: 'center',
+    width: 150,
+    height: 150,
+    overflow: 'hidden',
+    borderRadius: 100,
+    alignSelf: 'center',
     justifyContent: 'center',
   },
   profileImgGroup: {
