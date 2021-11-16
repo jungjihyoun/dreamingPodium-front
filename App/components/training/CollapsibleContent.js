@@ -11,7 +11,7 @@ const CollapsibleContent = ({
   onPress,
   isActive,
   content,
-  photo,
+  image,
   noteIdx,
   ...props
 }) => {
@@ -26,6 +26,7 @@ const CollapsibleContent = ({
             : styles.contentSection
         }>
         {/* 가로줄 */}
+
         <View
           style={{
             borderTopColor: colors.white,
@@ -33,9 +34,9 @@ const CollapsibleContent = ({
           }}
         />
 
-        {photo && (
+        {image && (
           <Image
-            source={{uri: photo}}
+            source={{uri: image}}
             resizeMode="cover"
             resizeMethod="scale"
             style={styles.photo}
@@ -45,6 +46,7 @@ const CollapsibleContent = ({
         <Text multiline={true} style={styles.text}>
           {content}
         </Text>
+
         <TouchableOpacity
           onPress={() => {
             navigation.push('WritingScreen', {

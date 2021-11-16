@@ -25,7 +25,7 @@ const CollapsibleTitle = ({
 
   const titleArea = () => {
     // #### content가 없을 경우 글쓰기 스크린으로 이동 합니다 #####
-    if (content === undefined) {
+    if (content === null || '') {
       return (
         <TouchableOpacity
           onPress={() => {

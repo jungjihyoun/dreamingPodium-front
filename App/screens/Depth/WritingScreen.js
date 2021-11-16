@@ -80,7 +80,7 @@ function WritingScreen({navigation, route}) {
                   date: todayDate,
                   noteIdx: route.params.noteIdx,
                   content: content,
-                  photo: state.avatar,
+                  image: state.avatar,
                 }),
               );
               navigation.navigate('TrainingNote', {

@@ -54,9 +54,11 @@ function DreamScreen(props) {
       style={{
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
       }}>
       <SafeAreaView>
-        <Text style={styles.dreamTitle}>목표 설정</Text>
+        <Text style={styles.dreamTitle}>목표달성</Text>
         {visitedUser !== 'true' && (
           <TouchableOpacity
             style={styles.submitButton}
@@ -167,6 +169,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: height * 48,
     marginBottom: height * 20,
+    alignSelf: 'center',
   },
 
   boxContainer: {

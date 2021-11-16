@@ -29,63 +29,65 @@ function TrainingNoteScreen({navigation, route}) {
 
   //TODO : 루틴 불러오기 코드정리
   const filterRoutineGroup = () => {
-    var [_routineGroup] = writtenNote.filter(data => {
-      return data.date === todayDate;
-    });
-
-    if (_routineGroup !== undefined) {
-      _routineGroup = _routineGroup.routine.filter(data => {
-        return data.routineName;
-      });
-    }
-
-    console.log('today', todayDate);
-    console.log('routine list: ', _routineGroup);
-    return _routineGroup;
+    const routineGroup = writtenNote.noteContentGroup.training.routines;
+    return routineGroup;
   };
   const routineName = filterRoutineGroup() ? filterRoutineGroup() : [];
-
-  //TODO : 루틴 체크하기 코드정리 + post api 처리
-  const handleRoutineState = routineIdx => {
-    var [_pickedRoutine] = routineName.filter(data => {
-      return data.routineIdx === routineIdx;
+  // //TODO : 루틴 체크하기 코드정리 + post api 처리
+  const handleRoutineState = params => {
+    Object.keys(routineName).map(data => {
+      if (data === params) {
+        dispatch(
+          checkRoutine({
+            routineName: data,
+          }),
+        );
+      }
     });
-    dispatch(
-      checkRoutine({
-        routineName: _pickedRoutine.routineName,
-        routineState: !_pickedRoutine.routineState,
-      }),
-    );
   };
 
-  //TODO : 작성된 글 불러오기 코드정리
+  // //TODO : 작성된 글 불러오기 코드정리
   const filterContentGroup = noteIdx => {
-    var [_contentGroup] = writtenNote.filter(data => {
-      return data.date === todayDate;
-    });
-
-    if (_contentGroup !== undefined) {
-      _contentGroup = _contentGroup.noteContentGroup.filter(data => {
-        return data.noteIdx === noteIdx;
-      })[0].noteContent;
+    let trainingNote = writtenNote.noteContentGroup.training;
+    trainingNote = {
+      ...trainingNote,
+      feedback: writtenNote.noteContentGroup.feedback,
+    };
+    // console.log(trainingNote[noteIdx].content);
+    if (trainingNote[noteIdx]) {
+      console.log('jdjdjdjdjd', trainingNote[noteIdx].content);
+      return trainingNote[noteIdx].content;
+    } else {
+      return null;
     }
-
-    return _contentGroup;
   };
 
-  //TODO : 작성된 글 불러오기 코드정리
+  //TODO : 작성된 사진 불러오기 코드정리
   const filterPhotoGroup = noteIdx => {
-    var [_photo] = writtenNote.filter(data => {
-      return data.date === todayDate;
-    });
+    let trainingNote = writtenNote.noteContentGroup.training;
+    trainingNote = {
+      ...trainingNote,
+      feedback: writtenNote.noteContentGroup.feedback,
+    };
 
-    if (_photo !== undefined) {
-      _photo = _photo.noteContentGroup.filter(data => {
-        return data.noteIdx === noteIdx;
-      })[0].notePhoto;
+    if (trainingNote[noteIdx]) {
+      console.log('image', trainingNote[noteIdx].image);
+      return trainingNote[noteIdx].image;
+    } else {
+      return null;
     }
 
-    return _photo;
+    // var [_photo] = writtenNote.filter(data => {
+    //   return data.date === todayDate;
+    // });
+
+    // if (_photo !== undefined) {
+    //   _photo = _photo.noteContentGroup.filter(data => {
+    //     return data.noteIdx === noteIdx;
+    //   })[0].notePhoto;
+    // }
+
+    // return _photo;
   };
 
   return (
@@ -97,18 +99,32 @@ function TrainingNoteScreen({navigation, route}) {
       <DreamCalendar />
 
       <ScrollView>
+        <TouchableOpacity
+          onPress={() => {
+            filterContentGroup();
+          }}>
+          <Text>dfdfd</Text>
+        </TouchableOpacity>
         <View style={styles.alignList}>
-          {routineName.map(data => {
+          {Object.keys(routineName).map(function (routine, index) {
             return (
               <DreamRoutine
-                key={data.routineIdx}
-                routine={data.routineName}
+                routine={routine}
+                routineState={routineName[routine]}
                 onPress={handleRoutineState}
-                routineIdx={data.routineIdx}
-                routineState={data.routineState}
               />
             );
           })}
+
+          {/* {Object.keys(filterContentGroup).map(function (routine, index) {
+            return (
+              <DreamRoutine
+                routine={routine}
+                routineState={routineName[routine]}
+                onPress={handleRoutineState}
+              />
+            );
+          })} */}
 
           {noteTitleList.map(data => {
             return (
@@ -119,7 +135,7 @@ function TrainingNoteScreen({navigation, route}) {
                 subtitle={data.noteSubtitle}
                 placeholder={data.notePlaceholder}
                 content={filterContentGroup(data.noteIdx)}
-                photo={filterPhotoGroup(data.noteIdx)}
+                image={filterPhotoGroup(data.noteIdx)}
                 isRoutineComplete={false}
               />
             );

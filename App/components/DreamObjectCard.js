@@ -2,12 +2,15 @@
 import React, {useState} from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   Image,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
 import {colors, images, width, height} from '../config/globalStyles';
@@ -16,66 +19,76 @@ function DreamObjectCard({multiple = true, ...props}) {
   const [showInputBox, setShowInputBox] = useState(false);
 
   const [text, setText] = useState('');
+
+  const [showDelete, setShowDelete] = useState(false);
+
   const saveText = event => {
     setText(event);
   };
 
   return (
-    <View>
-      <View style={styles.boxContainer}>
-        <View>
-          <View style={styles.addArea}>
-            <Text style={styles.titleText}>{props.title}</Text>
-            <TouchableOpacity onPress={() => setShowInputBox(true)}>
-              <Image source={images.addButton} />
-            </TouchableOpacity>
-          </View>
-
-          {showInputBox ? (
-            <TextInput
-              onChangeText={saveText}
-              style={styles.inputHolder}
-              placeholder="입력해주세요"
-              clearTextOnFocus={true}
-              autoFocus={true}
-              onSubmitEditing={() => [
-                props.handleAddText(text),
-                setShowInputBox(false),
-                setText(''),
-              ]}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+      enabled>
+      <ScrollView style={styles.boxContainer}>
+        <View style={styles.addArea}>
+          <Text style={styles.titleText}>{props.title}</Text>
+          <TouchableOpacity
+            style={{alignSelf: 'flex-end'}}
+            onPress={() => setShowInputBox(true)}>
+            <Image
+              style={{
+                tintColor: colors.lightBlue,
+                width: 30,
+                height: 30,
+              }}
+              source={images.addButton}
             />
-          ) : (
-            <></>
-          )}
-
-          {/* 작성된 리스트 UI */}
-          <View>
-            {props.state ? (
-              props.state.map((data, index, _source) => {
-                return (
-                  <View style={styles.savedTextArea} key={index}>
-                    <Text style={styles.savedText}>{data}</Text>
-
-                    <TouchableOpacity
-                      onPress={() => {
-                        props.deleteListButton(data, props.state);
-                      }}
-                      style={styles.deleteButton}>
-                      <Image
-                        style={styles.closeButton}
-                        source={images.closeButton}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                );
-              })
-            ) : (
-              <Text>empty</Text>
-            )}
-          </View>
+          </TouchableOpacity>
         </View>
-      </View>
-    </View>
+
+        {showInputBox ? (
+          <TextInput
+            onChangeText={saveText}
+            style={styles.inputHolder}
+            placeholder="입력해주세요"
+            clearTextOnFocus={true}
+            autoFocus={true}
+            onSubmitEditing={() => [
+              props.handleAddText(text),
+              setShowInputBox(false),
+              setText(''),
+            ]}
+          />
+        ) : (
+          <></>
+        )}
+
+        {/* 작성된 리스트 UI */}
+
+        {props.state ? (
+          props.state.map((data, index, _source) => {
+            return (
+              <View style={styles.savedTextArea} key={index}>
+                <Text style={styles.savedText}>{data}</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.deleteListButton(data, props.state);
+                  }}
+                  style={styles.deleteArea}>
+                  <Image
+                    style={styles.deleteButton}
+                    source={images.closeButton}
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          })
+        ) : (
+          <Text>empty</Text>
+        )}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -90,30 +103,32 @@ const styles = StyleSheet.create({
 
   titleText: {
     fontSize: 18,
+    color: colors.textGrey,
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   savedTextArea: {
     borderBottomWidth: 2,
-    borderBottomColor: colors.primary,
+    borderBottomColor: colors.borderGrey,
     borderStyle: 'solid',
     marginVertical: 6,
     paddingLeft: 6,
+    width: width * 320,
+    height: 30,
   },
   savedText: {
-    fontSize: 14,
-    marginBottom: 8,
+    fontSize: 18,
+    color: colors.textGrey,
+    // marginBottom: 8,
   },
 
   addArea: {
     flexDirection: 'row',
-    marginRight: 23,
     width: '100%',
+    justifyContent: 'space-between',
   },
 
-  closeButton: {
-    width: 22,
-    height: 22,
+  deleteButton: {
+    tintColor: colors.darkGrey,
   },
 
   handleAddText: {
@@ -128,7 +143,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.darkGrey,
     marginVertical: 10,
   },
-  deleteButton: {
+  deleteArea: {
     position: 'absolute',
     right: 0,
   },

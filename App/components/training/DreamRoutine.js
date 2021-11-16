@@ -13,16 +13,10 @@ import {width, height, colors, images} from '../../config/globalStyles';
 import CheckButton from '../CheckButton';
 
 // TODO : 이미지를 벡터 아이콘으로 변경하기
-export const DreamRoutine = ({
-  style,
-  onPress,
-  routineIdx,
-  routine,
-  ...props
-}) => {
+export const DreamRoutine = ({style, onPress, routine, ...props}) => {
   return (
     <TouchableOpacity
-      onPress={() => onPress(routineIdx)}
+      onPress={() => onPress(routine)}
       style={styles.dreamNoteGroup}>
       <View style={styles.sectionContainer}>
         <View

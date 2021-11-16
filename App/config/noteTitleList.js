@@ -1,6 +1,6 @@
 export const noteTitleList = [
   {
-    noteIdx: 'tr001',
+    noteIdx: 'train_detail',
     noteTitle: '훈련내용',
     noteSubtitle: '오늘 어떤 훈련을 했나요?',
     notePlaceholder:
@@ -8,7 +8,7 @@ export const noteTitleList = [
     content: null,
   },
   {
-    noteIdx: 'tr002',
+    noteIdx: 'feedback',
 
     noteTitle: '코치님 Says',
     noteSubtitle: '훈련 중 코치님이 어떤 말씀을 해주셨나요?',
@@ -17,7 +17,7 @@ export const noteTitleList = [
     content: null,
   },
   {
-    noteIdx: 'tr003',
+    noteIdx: 'success',
 
     noteTitle: '잘한 점',
     noteSubtitle: '오늘 훈련에서 잘한 점은 무엇인가요?',
@@ -26,7 +26,7 @@ export const noteTitleList = [
     content: null,
   },
   {
-    noteIdx: 'tr004',
+    noteIdx: 'failure',
 
     noteTitle: '보완할 점',
     noteSubtitle: '스스로 느낀 고쳐야 할 점은 무엇인가요?',

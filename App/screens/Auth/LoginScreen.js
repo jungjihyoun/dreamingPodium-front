@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setUser} from '../../reducer/userSlice';
+import {fetchNoteData} from '../../reducer/postingSlice';
+import axios from 'axios';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -52,7 +54,8 @@ function LoginScreen({navigation}) {
 
         <TouchableOpacity
           style={styles.loginButton}
-          onPress={() => {
+          onPress={async () => {
+            // dispatch(fetchNoteData());
             navigation.navigate('HomeApp');
           }}>
           <Text style={{color: colors.white}}>로그인</Text>
