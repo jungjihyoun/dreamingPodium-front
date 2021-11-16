@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {width, height, colors, images} from '../../config/globalStyles';
+import Swiper from 'react-native-swiper';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -17,6 +18,19 @@ const CollapsibleContent = ({
 }) => {
   const navigation = useNavigation();
 
+  const imageGroup = () => {
+    return image.map(data => {
+      return (
+        <Image
+          source={{uri: data.uri}}
+          resizeMode="contain"
+          resizeMethod="auto"
+          style={styles.swiperItem}
+        />
+      );
+    });
+  };
+
   const contentArea = () => {
     return (
       <View
@@ -26,21 +40,21 @@ const CollapsibleContent = ({
             : styles.contentSection
         }>
         {/* 가로줄 */}
-
         <View
           style={{
             borderTopColor: colors.white,
             borderTopWidth: 1,
           }}
         />
-
         {image && (
-          <Image
-            source={{uri: image}}
-            resizeMode="cover"
-            resizeMethod="scale"
-            style={styles.photo}
-          />
+          <Swiper
+            activeDotColor={colors.white}
+            paginationStyle={{bottom: 0}}
+            height={400}
+            style={styles.swiperWrapper}
+            showsButtons={false}>
+            {imageGroup()}
+          </Swiper>
         )}
 
         <Text multiline={true} style={styles.text}>
@@ -64,10 +78,16 @@ const CollapsibleContent = ({
 };
 
 const styles = StyleSheet.create({
-  photo: {
-    width: width * 310,
-    height: height * 250,
+  swiperWrapper: {marginTop: 15},
+  swiperItem: {
+    // flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width * 380,
+    height: height * 380,
   },
+
   text: {
     paddingTop: 16,
     fontSize: 16,

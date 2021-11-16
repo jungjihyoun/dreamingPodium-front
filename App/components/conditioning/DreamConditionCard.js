@@ -29,8 +29,8 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     return conditionGroup;
   };
 
-  const injurySwiperItems = idx => {
-    return filterConditionGroup(idx).map((data, index) => {
+  const injurySwiperItems = param => {
+    return filterConditionGroup(param).map((data, index) => {
       return <DreamFullInjury title="부상" idx="injury" data={data} />;
     });
   };
@@ -62,7 +62,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
               }}>
               <Text style={{color: 'white'}}>부상 추가하기</Text>
             </TouchableOpacity>
-            <DreamSwiper swiperItems={injurySwiperItems()} />
+            <DreamSwiper swiperItems={injurySwiperItems(idx)} />
           </>
         ) : (
           <DreamSwiper

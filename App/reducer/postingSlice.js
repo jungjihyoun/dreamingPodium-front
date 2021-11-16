@@ -33,8 +33,8 @@ export const postingSlice = createSlice({
           train_detail: {content: '노트내용'},
           feedback: {content: '피드백 내용'},
           routines: {routine_name1: false, routine_name2: false},
-          success: {content: null, image: ''},
-          failure: {content: null, image: ''},
+          success: {content: null, image: []},
+          failure: {content: null, image: []},
         },
 
         conditioning: {
@@ -78,12 +78,22 @@ export const postingSlice = createSlice({
       ].content = action.payload.content;
 
       if (action.payload.image) {
+        const test = [
+          // ...state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
+          //   .image,
+          ...action.payload.image,
+        ];
+
         state.writtenNote.noteContentGroup.training[
           action.payload.noteIdx
-        ].image = action.payload.image;
-      }
+        ].image.push(...action.payload.image);
 
-      console.log(state.writtenNote.noteContentGroup);
+        console.log(
+          '꺈아알이랑라',
+          state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
+            .image,
+        );
+      }
     },
 
     // params / content

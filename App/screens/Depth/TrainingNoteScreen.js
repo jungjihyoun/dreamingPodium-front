@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useReducer} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
@@ -67,7 +68,7 @@ function TrainingNoteScreen({navigation, route}) {
       ...trainingNote,
     };
 
-    if (trainingNote[noteIdx]) {
+    if (noteIdx === 'success') {
       console.log('image', trainingNote[noteIdx].image);
       return trainingNote[noteIdx].image;
     } else {
@@ -99,7 +100,8 @@ function TrainingNoteScreen({navigation, route}) {
         <TouchableOpacity
           onPress={() => {
             filterContentGroup();
-          }}></TouchableOpacity>
+          }}
+        />
         <View style={styles.alignList}>
           {Object.keys(routineName).map(function (routine, index) {
             return (
@@ -110,16 +112,6 @@ function TrainingNoteScreen({navigation, route}) {
               />
             );
           })}
-
-          {/* {Object.keys(filterContentGroup).map(function (routine, index) {
-            return (
-              <DreamRoutine
-                routine={routine}
-                routineState={routineName[routine]}
-                onPress={handleRoutineState}
-              />
-            );
-          })} */}
 
           {noteTitleList.map(data => {
             return (

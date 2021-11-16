@@ -12,7 +12,7 @@ import {
   ScrollView,
   Button,
 } from 'react-native';
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 // COMPONENT
 import {SocialButton} from '../../components/SocialButton';
@@ -27,15 +27,29 @@ function WritingScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
-  const [state, setState] = useState({
-    avatar: '',
-  });
+  const [state, setState] = useState([]);
 
+  const fd = new FormData();
+  let imageGroup = '';
   const showImage = () => {
-    launchImageLibrary({mediaType: 'photo'}, response => {
-      if (response.assets !== undefined) {
-        setState({
-          avatar: response.assets[0].uri ? response.assets[0].uri : '',
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      multiple: true,
+    }).then(image => {
+      if (image !== undefined) {
+        imageGroup = image.map(data => {
+          return {
+            name: data.filename, // require, file name
+            uri: data.sourceURL, // require, file absoluete path
+            type: data.mime,
+          };
+        });
+        fd.append({
+          name: image.filename, // require, file name
+          uri: image.sourceURL, // require, file absoluete path
+          type: image.mime, // options, if none, will get mimetype from `filepath` extension
         });
       }
     });
@@ -80,7 +94,7 @@ function WritingScreen({navigation, route}) {
                   date: todayDate,
                   noteIdx: route.params.noteIdx,
                   content: content,
-                  image: state.avatar,
+                  image: imageGroup,
                 }),
               );
               navigation.navigate('TrainingNote', {
@@ -99,26 +113,22 @@ function WritingScreen({navigation, route}) {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={() => showImage()}>
-            <Text
-              style={{
-                color: colors.white,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                fontSize: 12,
-              }}>
-              사진첨부
-            </Text>
-          </TouchableOpacity>
-
-          {/* <Image
-            source={{uri: state.avatar}}
-            resizeMode="cover"
-            resizeMethod="scale"
-            style={{width: 200, height: 200}}
-          /> */}
+          {route.params.noteIdx === 'success' ||
+            (route.params.noteIdx === 'failure' && (
+              <TouchableOpacity
+                style={styles.submitButton}
+                onPress={() => showImage()}>
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    fontSize: 12,
+                  }}>
+                  사진첨부
+                </Text>
+              </TouchableOpacity>
+            ))}
         </View>
       </ScrollView>
     </SafeAreaView>
