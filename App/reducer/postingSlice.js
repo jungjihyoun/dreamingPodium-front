@@ -2,15 +2,17 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
 import AsyncStorage from '@react-native-community/async-storage';
 import {tempList} from './tempList';
 
-import {_fetchNoteData} from '../utils/noteApi';
+import {_fetchNoteData} from '../utils/note';
 import {ActionSheetIOS} from 'react-native';
-import axios from 'axios';
+
+import dreamAPI from '../utils/note';
 
 export const fetchNoteData = createAsyncThunk(
-  // 쓰여진 글을 요청하면 10일치 글이 불러진다.
-  'api/v1',
+  // record 불러오기
+  'record/get',
   async payload => {
-    const response = await axios.get('http://3.35.43.76:8000/train/testTR');
+    console.log('노트 불러오기', payload);
+    const response = await dreamAPI.getRecord(payload.user_id, payload.date);
     if (response.status !== 200) {
       throw Error(response.data);
     }
@@ -18,25 +20,41 @@ export const fetchNoteData = createAsyncThunk(
   },
 );
 
+// export const postNoteData = createAsyncThunk(
+//   // record 불러오기
+//   'record/get',
+//   async payload => {
+//     console.log('노트 보내기', payload);
+//     const response = await dreamAPI.postRecord(
+//       payload.user_id,
+//       payload.wdate,
+//       payload.key_type,
+//       payload.content,
+//     );
+//     if (response.status !== 200) {
+//       throw Error(response.data);
+//     }
+//     return response.data;
+//   },
+// );
+
 export const postingSlice = createSlice({
   posting: null,
   name: 'posting',
   initialState: {
-    todayDate: new Date().toLocaleDateString(),
+    todayDate: new Date().toDateString(),
     writtenNote: {
       // 쓰인 날짜
-      date: 'Mon Nov 16 2021',
-
+      date: '',
       // [트레이닝 파트 글 목록]
       noteContentGroup: {
         training: {
-          train_detail: {content: '노트내용'},
-          feedback: {content: '피드백 내용'},
-          routines: {routine_name1: false, routine_name2: false},
+          train_detail: {content: null},
+          feedback: {content: null},
+          routines: null,
           success: {content: null, image: []},
           failure: {content: null, image: []},
         },
-
         conditioning: {
           mind: [],
           physical: [],
@@ -67,12 +85,6 @@ export const postingSlice = createSlice({
   reducers: {
     // 작성 제출
     submitNote: (state, action) => {
-      // QTODO : 백엔드측과 데이터 구조 합의 . 빈값은 undefined 채우더라도
-      //         무조건 해당 날짜의 date,routine,noteContentGroup은 오도록?
-      // const [noteContent] = state.writtenNote.filter(data => {
-      //   return data.date === state.todayDate;
-      // });
-
       state.writtenNote.noteContentGroup.training[
         action.payload.noteIdx
       ].content = action.payload.content;
@@ -89,7 +101,7 @@ export const postingSlice = createSlice({
         ].image.push(...action.payload.image);
 
         console.log(
-          '꺈아알이랑라',
+          '이미지 테스트중',
           state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
             .image,
         );
@@ -150,16 +162,6 @@ export const postingSlice = createSlice({
         !state.writtenNote.noteContentGroup.training.routines[
           action.payload.routineName
         ];
-
-      // const [checkRoutine] = state.writtenNote.filter(data => {
-      //   return data.date === state.todayDate;
-      // });
-
-      // checkRoutine.routine.map(data => {
-      //   if (data.routineName === action.payload.routineName) {
-      //     data.routineState = action.payload.routineState;
-      //   }
-      // });
     },
   },
   extraReducers: {
@@ -169,8 +171,9 @@ export const postingSlice = createSlice({
     },
     [fetchNoteData.fulfilled](state, action) {
       // 성공
-      console.log('성공!!!!!!!!!', action.payload);
-      // state.writtenNote.push(action.payload);
+      console.log('성공!', action.payload);
+      state.writtenNote = action.payload;
+      console.log('api 요청 후 데이터', state.writtenNote);
     },
     [fetchNoteData.rejected](state, action) {
       // 실패
