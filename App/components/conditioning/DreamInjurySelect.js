@@ -44,15 +44,33 @@ const DreamInjurySelect = props => {
     if (title === 'injuryDirection') {
       selectList = ['왼쪽', '오른쪽'];
     } else if (title === 'injurySection') {
-      selectList = ['어깨', '허리', '골반', '엉덩이', '무릎', '발목'];
+      selectList = [
+        '얼굴',
+        '머리',
+        '목',
+        '갈비뼈',
+        '배',
+        '허리',
+        '골반',
+        '어깨',
+        '팔',
+        '팔꿈치',
+        '손목',
+      ];
     } else if (title === 'injuryForm') {
       selectList = [
-        '연골부상1',
-        '연골부상2',
-        '연골부상3',
-        '연골부상4',
-        '연골부상5',
-        '연골부상6',
+        '뇌진탕',
+        '골절',
+        '인대부상',
+        '근육/건 부상',
+        '연골부상',
+        '타박상',
+        '건염',
+        '관절염',
+        '충돌',
+        '근육경련(쥐)',
+        '피부조직 부상',
+        '기타',
       ];
     }
     return (

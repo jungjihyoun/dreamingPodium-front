@@ -25,14 +25,24 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
   const dispatch = useDispatch();
 
   const filterConditionGroup = param => {
-    const conditionGroup = writtenNote.noteContentGroup.conditioning[param];
-    return conditionGroup;
+    if (writtenNote.noteContentGroup.conditioning[param] !== []) {
+      const conditionGroup = writtenNote.noteContentGroup.conditioning[param];
+      return conditionGroup;
+    } else {
+      return [];
+    }
   };
 
   const injurySwiperItems = param => {
-    return filterConditionGroup(param).map((data, index) => {
-      return <DreamFullInjury title="부상" idx="injury" data={data} />;
-    });
+    if (filterConditionGroup(param) !== []) {
+      return filterConditionGroup(param).map((data, index) => {
+        return (
+          <>
+            <DreamFullInjury title="부상" idx="injury" data={data} />
+          </>
+        );
+      });
+    }
   };
 
   const isEmpty = () => {
@@ -111,7 +121,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   injuryPlusButton: {
-    alignSelf: 'flex-end',
+    position: 'absolute',
+    zIndex: 9,
+    right: 5,
     borderColor: colors.primary,
     borderWidth: 2,
     backgroundColor: colors.primary,

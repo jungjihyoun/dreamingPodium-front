@@ -28,7 +28,7 @@ const DreamSwiper = props => {
     <View style={[styles.container]}>
       <Carousel
         sliderWidth={screenWidth}
-        sliderHeight={450}
+        sliderHeight={600}
         itemWidth={screenWidth - 90}
         data={entries}
         renderItem={renderItem}
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   item: {
     width: screenWidth - 60,
-    height: screenWidth - 60,
+    height: height * 500,
     alignSelf: 'center',
   },
 });
