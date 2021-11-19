@@ -83,7 +83,6 @@ const AppModal = props => {
             isInjuryModal
               ? {
                   ...styles.bottomSheetContainer,
-                  transform: [{translateY: translateY}],
                 }
               : {
                   ...styles.bottomLongSheetContainer,

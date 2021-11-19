@@ -16,7 +16,7 @@ import AppSelectPane from './AppSelectPane';
 
 // REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
-import {setModalVisible} from '../../reducer/modalSlice';
+import {setModalHidden} from '../../reducer/modalSlice';
 
 // API
 import API from '../../utils/note';
@@ -55,6 +55,7 @@ function ConditionSelect({title, idx, ...props}) {
           style={{position: 'absolute', right: 0}}
           onPress={() => {
             postCondition();
+            dispatch(setModalHidden());
           }}>
           <Text style={styles.submitButton}> 완료 </Text>
         </TouchableOpacity>

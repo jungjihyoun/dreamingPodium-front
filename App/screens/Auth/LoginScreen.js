@@ -16,6 +16,11 @@ import {setUser} from '../../reducer/userSlice';
 import {fetchNoteData} from '../../reducer/postingSlice';
 import axios from 'axios';
 
+import appleAuth, {
+  AppleButton,
+} from '@invertase/react-native-apple-authentication';
+import jwt_decode from 'jwt-decode';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {colors, images, width, height} from '../../config/globalStyles';
@@ -32,7 +37,7 @@ function LoginScreen({navigation}) {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <View style={{flex: 2}}>
+      <View style={{flex: 1.5}}>
         <Image style={styles.mainLogoImg} source={images.logo} />
         <Text style={styles.mainLogoText}>Dreaming Podium</Text>
       </View>
@@ -89,6 +94,7 @@ function LoginScreen({navigation}) {
           flex: 1,
         }}>
         <SocialButton
+          style={{backgroundColor: colors.kakaoTalk}}
           onPress={() => {
             console.log('카카오 로그인 클릭');
             signInKakaoTalk(setUserInfo);
@@ -99,18 +105,19 @@ function LoginScreen({navigation}) {
 
         {Platform.OS === 'ios' && (
           <View>
-            <SocialButton
-              onPress={() => {
-                console.log('애플 로그인 클릭');
-                signInApple(setUserInfo);
-              }}>
-              <Image style={styles.socialIcon} source={images.apple} />
-              <Text style={styles.socialText}>애플아이디로 로그인하기</Text>
-            </SocialButton>
+            <AppleButton
+              buttonStyle={AppleButton.Style.BLACK}
+              buttonType={AppleButton.Type.SIGN_IN}
+              style={{
+                width: 350, // You must specify a width
+                height: 45, // You must specify a height
+              }}
+              onPress={signInApple}
+            />
           </View>
         )}
       </View>
-
+      {/* 
       <View
         style={{
           flex: 1,
@@ -119,7 +126,7 @@ function LoginScreen({navigation}) {
         <Text style={{color: colors.lightGrey, fontSize: 12, marginTop: 10}}>
           계정이 없다면? <Text style={styles.aboutSignUp}>회원가입</Text>
         </Text>
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }
@@ -165,10 +172,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   socialIcon: {
-    marginRight: 20,
+    width: 22,
+    height: 22,
   },
   socialText: {
     color: colors.darkGrey,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   aboutSignUp: {
     color: colors.primary,

@@ -31,11 +31,11 @@ const DreamInjurySelect = props => {
   const [interruption, setInterruption] = useState(5);
   const [submitList, setSubmitList] = useState({
     injuryDirection: '왼쪽',
-    injurySection: '허리',
-    injuryForm: '연골파열테스트',
+    injurySection: '얼굴',
+    injuryForm: '뇌진탕',
     painData: 5,
     interruptData: 5,
-    injuryMemo: '??????????',
+    injuryMemo: '',
   });
 
   // drawer 리스트 UI

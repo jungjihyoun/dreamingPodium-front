@@ -123,6 +123,7 @@ function TrainingNoteScreen({navigation, route}) {
           {Object.keys(routineName).map(function (routine, index) {
             return (
               <RoutineItem
+                key={routine}
                 routine={routine}
                 routineState={routineName[routine]}
                 onPress={handleRoutineState}

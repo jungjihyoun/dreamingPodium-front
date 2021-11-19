@@ -28,7 +28,7 @@ function FullCondition({subtitle, title, content, style, idx, ...props}) {
     if (filterConditionGroup() !== []) {
       return filterConditionGroup().map((data, index) => {
         return (
-          <View style={styles.paneUI}>
+          <View key={data} style={styles.paneUI}>
             <Text style={styles.savedText} key={index}>
               {data}
             </Text>
