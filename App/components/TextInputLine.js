@@ -29,6 +29,7 @@ function TextInputLine(props) {
             <TextInput
               onChangeText={props.onChangeText}
               style={styles.inputHolder}
+              value={props.value}
               placeholder="입력해주세요"
             />
           )}
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
     height: height * 68,
   },
   inputHolder: {
-    // width: width * 200,
     marginRight: 30,
   },
   inputName: {

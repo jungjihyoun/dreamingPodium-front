@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import {HomePartCard} from '../../components/HomePartCard';
+import {HeaderProfile} from '../../components/training/HeaderProfile.js';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {selectDate, fetchNoteData} from '../../reducer/postingSlice';
@@ -31,10 +32,8 @@ function HomeScreen(props) {
   return (
     <SafeAreaView>
       <View style={styles.HomePartCard}>
-        <Text style={styles.DateTitle}>{dateKo(new Date())}</Text>
-        <Text style={styles.homeTitle}>
-          오늘의 훈련은 어땠나요? 당신의 기록을 남겨주세요 !
-        </Text>
+        <HeaderProfile />
+
         <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));

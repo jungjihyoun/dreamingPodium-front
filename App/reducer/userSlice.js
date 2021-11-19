@@ -57,7 +57,7 @@ export const userSlice = createSlice({
       // state.deviceToken = action.payload.deviceToken;
       state.user = action.payload;
       state.username = action.payload.username;
-      state.field = action.payload.team;
+      state.field = action.payload.field;
       state.team = action.payload.team;
       state.userImage = action.payload.userImage;
       console.log('유저세팅  !!!!', state.user);
