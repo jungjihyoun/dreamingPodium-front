@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 
 // COMPONENT
-import DreamCalendar from '../../components/DreamCalendar';
-import DreamCollapsibleCard from '../../components/training/DreamCollapsibleCard';
-import {DreamRoutine} from '../../components/training/DreamRoutine';
+import AppCalendar from '../../components/AppCalendar';
+import CollapsibleCard from '../../components/training/CollapsibleCard';
+import {RoutineItem} from '../../components/training/RoutineItem';
 
 // REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
@@ -23,6 +23,9 @@ import {checkRoutine} from '../../reducer/postingSlice';
 import {noteTitleList} from '../../config/noteTitleList';
 import {height, colors} from '../../config/globalStyles';
 
+// API
+import API from '../../utils/note';
+
 function TrainingNoteScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
@@ -30,19 +33,33 @@ function TrainingNoteScreen({navigation, route}) {
 
   //TODO : 루틴 불러오기 코드정리
   const filterRoutineGroup = () => {
-    const routineGroup = writtenNote.noteContentGroup.training.routines;
-    return routineGroup;
+    if (writtenNote.noteContentGroup.training.routines) {
+      const routineGroup = writtenNote.noteContentGroup.training.routines;
+      return routineGroup;
+    }
   };
   const routineName = filterRoutineGroup() ? filterRoutineGroup() : [];
   // //TODO : 루틴 체크하기 코드정리 + post api 처리
-  const handleRoutineState = params => {
-    Object.keys(routineName).map(data => {
+  const handleRoutineState = async params => {
+    Object.keys(routineName).map(async data => {
       if (data === params) {
         dispatch(
           checkRoutine({
             routineName: data,
           }),
         );
+
+        // APITODO : post 보내기
+        // await API.postRecord(
+        //   '1951543508',
+        //   todayDate,
+        //   data,
+        //   !writtenNote.noteContentGroup.training.routines[data],
+        // );
+        // console.log(
+        //   data,
+        //   !writtenNote.noteContentGroup.training.routines[data],
+        // );
       }
     });
   };
@@ -94,7 +111,7 @@ function TrainingNoteScreen({navigation, route}) {
         height: '100%',
         backgroundColor: 'white',
       }}>
-      <DreamCalendar />
+      <AppCalendar />
 
       <ScrollView>
         <TouchableOpacity
@@ -105,7 +122,7 @@ function TrainingNoteScreen({navigation, route}) {
         <View style={styles.alignList}>
           {Object.keys(routineName).map(function (routine, index) {
             return (
-              <DreamRoutine
+              <RoutineItem
                 routine={routine}
                 routineState={routineName[routine]}
                 onPress={handleRoutineState}
@@ -115,7 +132,7 @@ function TrainingNoteScreen({navigation, route}) {
 
           {noteTitleList.map(data => {
             return (
-              <DreamCollapsibleCard
+              <CollapsibleCard
                 key={data.noteIdx}
                 noteIdx={data.noteIdx}
                 title={data.noteTitle}

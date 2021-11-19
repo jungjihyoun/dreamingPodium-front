@@ -8,7 +8,7 @@ import {colors, width, height} from '../../config/globalStyles';
 // REDUX
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
-function DreamEmptyCondition({subtitle, title, content, style, idx, ...props}) {
+function EmptyCard({subtitle, title, content, style, idx, ...props}) {
   const dispatch = useDispatch();
 
   return (
@@ -104,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamEmptyCondition;
+export default EmptyCard;

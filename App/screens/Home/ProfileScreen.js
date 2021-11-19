@@ -15,7 +15,7 @@ import {setDepartment, setUser, setUserImage} from '../../reducer/userSlice';
 
 import ImagePicker from 'react-native-image-crop-picker';
 
-import DreamTextInputLine from '../../components/DreamTextInputLine';
+import TextInputLine from '../../components/TextInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
 
 function ProfileScreen(props) {
@@ -72,16 +72,16 @@ function ProfileScreen(props) {
       </View>
 
       <View style={{flex: 3}}>
-        <DreamTextInputLine inputName="이름" value="정지현" />
-        <DreamTextInputLine inputName="성별" value="여자" />
-        <DreamTextInputLine inputName="생일" value="98-06-02" />
-        <DreamTextInputLine
+        <TextInputLine inputName="이름" value="정지현" />
+        <TextInputLine inputName="성별" value="여자" />
+        <TextInputLine inputName="생일" value="98-06-02" />
+        <TextInputLine
           inputName="소속"
           onChangeText={event => {
             setTeam(event);
           }}
         />
-        <DreamTextInputLine
+        <TextInputLine
           inputName="종목"
           onChangeText={event => {
             setField(event);

@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useContext, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+
 import {
   SafeAreaView,
   View,
@@ -23,6 +24,8 @@ import {submitNote} from '../../reducer/postingSlice';
 
 // CONFIG
 import {colors, images, width, height} from '../../config/globalStyles';
+
+import API from '../../utils/note';
 
 function WritingScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
@@ -60,7 +63,7 @@ function WritingScreen({navigation, route}) {
     route.params.value ? route.params.value : null,
   );
 
-  const goToNext = () => {
+  const goToNext = async () => {
     if (!content) {
       alert('내용을 입력해주세요');
     } else {
@@ -72,6 +75,14 @@ function WritingScreen({navigation, route}) {
           image: imageGroup,
         }),
       );
+
+      // await API.postRecord(
+      //   '1951543508',
+      //   todayDate,
+      //   route.params.noteIdx,
+      //   content,
+      // );
+
       navigation.navigate('TrainingNote', {
         content: content,
         noteTitle: route.params.title,

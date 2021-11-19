@@ -6,7 +6,7 @@ import {colors, width, height} from '../config/globalStyles';
 
 var PickerItem = Picker.Item;
 
-const DreamPicker = ({
+const AppPicker = ({
   selectList,
   submitList,
   setSubmitList,
@@ -37,4 +37,4 @@ const DreamPicker = ({
   );
 };
 
-export default DreamPicker;
+export default AppPicker;

@@ -13,7 +13,7 @@ import {width, height} from '../config/globalStyles';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const DreamSwiper = props => {
+const AppSwiper = props => {
   const [entries, setEntries] = useState([props.swiperItems]);
   const carouselRef = useRef(null);
 
@@ -38,7 +38,7 @@ const DreamSwiper = props => {
   );
 };
 
-export default DreamSwiper;
+export default AppSwiper;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'; //
 import AsyncStorage from '@react-native-community/async-storage';
-import {tempList} from './tempList';
 
 import {_fetchNoteData} from '../utils/note';
 import {ActionSheetIOS} from 'react-native';
@@ -20,24 +19,6 @@ export const fetchNoteData = createAsyncThunk(
   },
 );
 
-// export const postNoteData = createAsyncThunk(
-//   // record 불러오기
-//   'record/get',
-//   async payload => {
-//     console.log('노트 보내기', payload);
-//     const response = await dreamAPI.postRecord(
-//       payload.user_id,
-//       payload.wdate,
-//       payload.key_type,
-//       payload.content,
-//     );
-//     if (response.status !== 200) {
-//       throw Error(response.data);
-//     }
-//     return response.data;
-//   },
-// );
-
 export const postingSlice = createSlice({
   posting: null,
   name: 'posting',
@@ -51,13 +32,14 @@ export const postingSlice = createSlice({
         training: {
           train_detail: {content: null},
           feedback: {content: null},
-          routines: null,
+          routines: {ㅇㅇㅇ: true, ㅂㅈㄷ: false},
           success: {content: null, image: []},
           failure: {content: null, image: []},
         },
         conditioning: {
-          mind: [],
+          mind: ['ㅇㅇ', 'ㅇㅇ', 'ㅇㅇ'],
           physical: [],
+          //  injury 는 통째로
           injury: [
             {
               injuryDirection: '오른쪽',

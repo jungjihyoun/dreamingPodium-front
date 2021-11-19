@@ -12,7 +12,7 @@ import {
 import {ScrollView} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import DreamObjectCard from '../../components/DreamObjectCard';
+import ObjectCard from '../../components/ObjectCard';
 
 import {colors, width, height} from '../../config/globalStyles';
 
@@ -74,7 +74,7 @@ function DreamScreen(props) {
 
         <ScrollView>
           <View>
-            <DreamObjectCard
+            <ObjectCard
               title="나의 최종 목표"
               handleAddText={text => {
                 setState({
@@ -95,7 +95,7 @@ function DreamScreen(props) {
               state={state.object}
               multiple={false}
             />
-            <DreamObjectCard
+            <ObjectCard
               title="필요한 자질"
               handleAddText={text => {
                 setState({
@@ -115,7 +115,7 @@ function DreamScreen(props) {
               }}
               state={state.capability}
             />
-            <DreamObjectCard
+            <ObjectCard
               title="매일 해야 하는 노력"
               handleAddText={text => {
                 setState({
@@ -135,7 +135,7 @@ function DreamScreen(props) {
               }}
               state={state.effort}
             />
-            <DreamObjectCard
+            <ObjectCard
               title="루틴 설정"
               handleAddText={text => {
                 setState({

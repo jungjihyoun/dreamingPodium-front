@@ -7,7 +7,7 @@ import Swiper from 'react-native-swiper';
 
 import {useNavigation} from '@react-navigation/native';
 
-const CollapsibleContent = ({
+const AppCollapsibleContent = ({
   style,
   onPress,
   isActive,
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CollapsibleContent;
+export default AppCollapsibleContent;

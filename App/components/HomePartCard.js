@@ -9,12 +9,12 @@ import {
 //custom imports
 import {width, height, colors} from '../config/globalStyles';
 
-export const DreamPartCard = ({style, onPress, ...props}) => {
+export const HomePartCard = ({style, onPress, ...props}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <ImageBackground
         source={props.partCardImg}
-        style={styles.dreamPartCard}
+        style={styles.HomePartCard}
         {...props}>
         <View style={styles.titleGroup}>
           <Text style={styles.partTitle}>{props.partTitle}</Text>
@@ -26,7 +26,7 @@ export const DreamPartCard = ({style, onPress, ...props}) => {
 };
 
 const styles = StyleSheet.create({
-  dreamPartCard: {
+  HomePartCard: {
     flexDirection: 'column',
     width: width * 341,
     height: height * 204,

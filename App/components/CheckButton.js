@@ -69,6 +69,8 @@ const styles = StyleSheet.create({
   unchecking: {
     tintColor: colors.lightGrey,
     opacity: 0.5,
+    width: 0,
+    height: 0,
   },
 
   titleText: {

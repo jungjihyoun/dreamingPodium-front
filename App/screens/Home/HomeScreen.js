@@ -8,14 +8,15 @@ import {
   Image,
 } from 'react-native';
 
-import {DreamPartCard} from '../../components/DreamPartCard';
+import {HomePartCard} from '../../components/HomePartCard';
 
-import {useDispatch} from 'react-redux';
-import {selectDate} from '../../reducer/postingSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectDate, fetchNoteData} from '../../reducer/postingSlice';
 
 import {colors, images} from '../../config/globalStyles';
 
 function HomeScreen(props) {
+  const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
   const zero = num => {
@@ -29,21 +30,27 @@ function HomeScreen(props) {
 
   return (
     <SafeAreaView>
-      <View style={styles.dreamPartCard}>
+      <View style={styles.HomePartCard}>
         <Text style={styles.DateTitle}>{dateKo(new Date())}</Text>
         <Text style={styles.homeTitle}>
           오늘의 훈련은 어땠나요? 당신의 기록을 남겨주세요 !
         </Text>
-        <DreamPartCard
+        <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));
+            // dispatch(
+            //   fetchNoteData({
+            //     user_id: '1951543508',
+            //     date: todayDate,
+            //   }),
+            // );
             props.navigation.push('TrainingNote');
           }}
           partCardImg={images.trainingPart}
           partTitle="트레이닝 파트"
           partSubtitle="훈련내용, 피드백 남기기"
         />
-        <DreamPartCard
+        <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));
             props.navigation.push('ConditioningNote');
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
     // paddingTop: 95,
     paddingBottom: 48,
   },
-  dreamPartCard: {
+  HomePartCard: {
     flexDirection: 'column',
     alignItems: 'center',
   },

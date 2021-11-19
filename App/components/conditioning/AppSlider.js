@@ -4,12 +4,12 @@ import {View, Text, StyleSheet, Platform} from 'react-native';
 
 // COMPONENT
 import Slider from '@react-native-community/slider';
-import DreamPicker from '../DreamPicker';
+import AppPicker from '../AppPicker';
 
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
-const DreamSliderGroup = ({submitList, setSubmitList, title}) => {
+const AppSlider = ({submitList, setSubmitList, title}) => {
   return (
     <>
       <View
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamSliderGroup;
+export default AppSlider;

@@ -8,9 +8,9 @@ import {colors, width, height} from '../../config/globalStyles';
 // REDUX
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
-// import DreamEmptyCondition from '../../components/conditioning/DreamEmptyCondition';
+// import EmptyCard from '../../components/conditioning/EmptyCard';
 
-function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
+function FullCondition({subtitle, title, content, style, idx, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
@@ -20,20 +20,24 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
     if (conditionGroup.length !== 0) {
       return conditionGroup;
     } else {
-      return false;
+      return [];
     }
   };
 
   const savedTextUI = param => {
-    return filterConditionGroup().map((data, index) => {
-      return (
-        <View style={styles.paneUI}>
-          <Text style={styles.savedText} key={index}>
-            {data}
-          </Text>
-        </View>
-      );
-    });
+    if (filterConditionGroup() !== []) {
+      return filterConditionGroup().map((data, index) => {
+        return (
+          <View style={styles.paneUI}>
+            <Text style={styles.savedText} key={index}>
+              {data}
+            </Text>
+          </View>
+        );
+      });
+    } else {
+      return <></>;
+    }
   };
 
   return (
@@ -134,4 +138,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamConditionCard;
+export default FullCondition;

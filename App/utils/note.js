@@ -11,7 +11,7 @@ const getRecord = async (user_id, date) => {
 };
 
 const postRecord = async (user_id, wdate, key_type, content) => {
-  // 작성된 글 전송
+  // 작성된 글
   console.log(user_id, wdate, key_type, content);
   return await API.post(`/record/write/${user_id}`, null, {
     params: {

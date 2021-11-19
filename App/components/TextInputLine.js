@@ -11,7 +11,7 @@ import {
 
 import {colors, images, width, height} from '../config/globalStyles';
 
-function DreamTextInputLine(props) {
+function TextInputLine(props) {
   return (
     <>
       <View style={styles.inputArea}>
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamTextInputLine;
+export default TextInputLine;

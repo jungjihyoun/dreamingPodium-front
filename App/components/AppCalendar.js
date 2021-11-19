@@ -7,19 +7,27 @@ import {AppRegistry, View, Text, StyleSheet} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
-import {selectDate} from '../reducer/postingSlice';
-import {useDispatch} from 'react-redux';
+import {selectDate, fetchNoteData} from '../reducer/postingSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 import CalendarStrip from 'react-native-calendar-strip';
 import {colors} from '../config/globalStyles';
 
 // TOPO : 최적화 시키기
 
-const DreamCalendar = () => {
+const AppCalendar = () => {
+  const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
   const toggle = selectedDate => {
     dispatch(selectDate({date: selectedDate.toDate().toDateString()}));
+
+    // dispatch(
+    //   fetchNoteData({
+    //     user_id: '1951543508',
+    //     date: selectedDate.toDate().toDateString(),
+    //   }),
+    // );
   };
 
   return (
@@ -89,5 +97,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamCalendar;
-AppRegistry.registerComponent('DreamCalendar', () => DreamCalendar);
+export default AppCalendar;
+AppRegistry.registerComponent('AppCalendar', () => AppCalendar);

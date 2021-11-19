@@ -15,7 +15,7 @@ import {colors, images, width, height} from '../config/globalStyles';
 
 import {setModalHidden} from '../reducer/modalSlice';
 
-const DreamModal = props => {
+const AppModal = props => {
   const modalVisible = useSelector(state => state.modal.modalVisible);
   const isInjuryModal = useSelector(state => state.modal.disableYDrawer);
 
@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamModal;
+export default AppModal;

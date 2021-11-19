@@ -9,10 +9,10 @@ import {
 import {StyleSheet} from 'react-native';
 
 import {width, height, colors, images} from '../../config/globalStyles';
-import CollapsibleTitle from './CollapsibleTitle';
-import CollapsibleContent from './CollapsibleContent';
+import AppCollapsibleTitle from './AppCollapsibleTitle';
+import AppCollapsibleContent from './AppCollapsibleContent';
 
-const DreamCollapsibleCard = ({style, onPress, ...props}) => {
+const CollapsibleCard = ({style, onPress, ...props}) => {
   const [expanded, setExpanded] = useState(false);
   const todayDate = useSelector(state => state.posting.todayDate);
 
@@ -21,7 +21,7 @@ const DreamCollapsibleCard = ({style, onPress, ...props}) => {
   }, [todayDate]);
 
   const titleArea = () => (
-    <CollapsibleTitle
+    <AppCollapsibleTitle
       content={props.content}
       image={props.image}
       title={props.title}
@@ -34,7 +34,7 @@ const DreamCollapsibleCard = ({style, onPress, ...props}) => {
 
   const contentArea = () => {
     return (
-      <CollapsibleContent
+      <AppCollapsibleContent
         content={props.content}
         image={props.image}
         isActive={expanded}
@@ -57,4 +57,4 @@ const DreamCollapsibleCard = ({style, onPress, ...props}) => {
   );
 };
 
-export default DreamCollapsibleCard;
+export default CollapsibleCard;

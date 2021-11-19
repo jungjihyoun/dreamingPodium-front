@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 
 // COMPONENT
-import DreamSliderGroup from './DreamSliderGroup';
-import DreamPicker from '../DreamPicker';
+import AppSlider from './AppSlider';
+import AppPicker from '../AppPicker';
 
 // REDUX
 import {submitCondition} from '../../reducer/postingSlice';
@@ -86,7 +86,7 @@ const DreamInjurySelect = props => {
           style={
             Platform.OS === 'ios' ? styles.drawerIos : styles.drawerAndroid
           }>
-          <DreamPicker
+          <AppPicker
             title={title}
             selectList={selectList}
             submitList={submitList}
@@ -124,7 +124,7 @@ const DreamInjurySelect = props => {
         <View style={styles.sliderSection}>
           <View style={styles.sliderGroup}>
             <Text style={styles.sliderTitle}>통증정도</Text>
-            <DreamSliderGroup
+            <AppSlider
               submitList={submitList}
               setSubmitList={setSubmitList}
               title="painData"
@@ -133,7 +133,7 @@ const DreamInjurySelect = props => {
 
           <View style={styles.sliderGroup}>
             <Text style={styles.sliderTitle}>운동방해정도</Text>
-            <DreamSliderGroup
+            <AppSlider
               submitList={submitList}
               setSubmitList={setSubmitList}
               title="interruptData"

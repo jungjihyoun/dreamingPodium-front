@@ -10,6 +10,7 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import jwtDecode from 'jwt-decode';
 import {useSelector, useDispatch} from 'react-redux';
 import {setUser} from '../../reducer/userSlice';
 import {fetchNoteData} from '../../reducer/postingSlice';
@@ -21,6 +22,7 @@ import {colors, images, width, height} from '../../config/globalStyles';
 
 import {SocialButton} from '../../components/SocialButton';
 import {signInKakaoTalk} from './loginKakao';
+import {signInApple} from './loginApple';
 
 function LoginScreen({navigation}) {
   const dispatch = useDispatch();
@@ -96,10 +98,16 @@ function LoginScreen({navigation}) {
         </SocialButton>
 
         {Platform.OS === 'ios' && (
-          <SocialButton>
-            <Image style={styles.socialIcon} source={images.apple} />
-            <Text style={styles.socialText}>애플아이디로 로그인하기</Text>
-          </SocialButton>
+          <View>
+            <SocialButton
+              onPress={() => {
+                console.log('애플 로그인 클릭');
+                signInApple(setUserInfo);
+              }}>
+              <Image style={styles.socialIcon} source={images.apple} />
+              <Text style={styles.socialText}>애플아이디로 로그인하기</Text>
+            </SocialButton>
+          </View>
         )}
       </View>
 
@@ -168,6 +176,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 15,
   },
+  appleButton: {width: '70%', height: 45},
 });
 
 export default LoginScreen;

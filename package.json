@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@invertase/react-native-apple-authentication": "^2.1.5",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/slider": "^4.1.10",
@@ -21,6 +22,7 @@
     "accordion-collapse-react-native": "^1.0.1",
     "axios": "^0.22.0",
     "dayjs": "^1.10.7",
+    "jwt-decode": "^3.1.2",
     "native-base": "^3.2.0",
     "react": "17.0.2",
     "react-native": "0.65.1",

@@ -16,17 +16,9 @@ import {colors, width, height} from '../../config/globalStyles';
 import {deleteInjury} from '../../reducer/postingSlice';
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
-import InjurySVG from '../../components/InjurySVG';
+import InjurySVG from '../InjurySVG';
 
-function DreamFullInjury({
-  subtitle,
-  title,
-  content,
-  style,
-  idx,
-  data,
-  ...props
-}) {
+function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
@@ -135,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamFullInjury;
+export default FullInjury;

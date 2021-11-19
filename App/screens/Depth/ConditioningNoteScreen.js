@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 
 // COMPONENT
-import DreamCalendar from '../../components/DreamCalendar';
-import DreamConditionCard from '../../components/conditioning/DreamConditionCard';
-import DreamModal from '../../components/DreamModal';
-import DreamConditionSelect from '../../components/conditioning/DreamConditionSelect';
+import AppCalendar from '../../components/AppCalendar';
+import ConditionCard from '../../components/conditioning/ConditionCard';
+import AppModal from '../../components/AppModal';
+import ConditionSelect from '../../components/conditioning/ConditionSelect';
 import DreamInjurySelect from '../../components/conditioning/DreamInjurySelect';
-import DreamInjuryCard from '../../components/conditioning/DreamFullInjury';
+import DreamInjuryCard from '../../components/conditioning/FullInjury';
 
 // REDUX
 
@@ -31,7 +31,7 @@ function ConditioningNoteScreen(props) {
   const modalInnerScreen = () => {
     switch (modalInner) {
       case 'condition':
-        return <DreamConditionSelect title="컨디션" idx="condition" />;
+        return <ConditionSelect title="컨디션" idx="condition" />;
 
       case 'injury':
         return <DreamInjurySelect title="부상" idx="injury" />;
@@ -42,7 +42,7 @@ function ConditioningNoteScreen(props) {
 
   return (
     <SafeAreaView>
-      <DreamCalendar />
+      <AppCalendar />
       <View style={styles.selectTabGroup}>
         <TouchableOpacity
           style={
@@ -86,10 +86,11 @@ function ConditioningNoteScreen(props) {
           <View
             style={{minHeight: height * 500}}
             ref={elem => (this.conditionComponent = elem)}>
-            <DreamConditionCard idx="mind" />
+            <ConditionCard idx="mind" />
           </View>
         ) : (
           <>
+            {/* 부상일때 */}
             <View
               ref={elem => (this.injuryComponent = elem)}
               style={{
@@ -97,13 +98,13 @@ function ConditioningNoteScreen(props) {
                 height: '100%',
                 flex: 1,
               }}>
-              <DreamConditionCard title="부상" idx="injury" />
+              <ConditionCard title="부상" idx="injury" />
             </View>
           </>
         )}
       </View>
 
-      <DreamModal>{modalInnerScreen()}</DreamModal>
+      <AppModal>{modalInnerScreen()}</AppModal>
     </SafeAreaView>
   );
 }

@@ -14,12 +14,12 @@ import {colors, width, height} from '../../config/globalStyles';
 // REDUX
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
-import DreamEmptyCondition from '../../components/conditioning/DreamEmptyCondition';
-import DreamFullCondition from '../../components/conditioning/DreamFullCondition';
-import DreamSwiper from '../../components/DreamSwiper';
-import DreamFullInjury from './DreamFullInjury';
+import EmptyCard from './EmptyCard';
+import FullCondition from './FullCondition';
+import AppSwiper from '../AppSwiper';
+import FullInjury from './FullInjury';
 
-function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
+function ConditionCard({subtitle, title, content, style, idx, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
       return filterConditionGroup(param).map((data, index) => {
         return (
           <>
-            <DreamFullInjury title="부상" idx="injury" data={data} />
+            <FullInjury title="부상" idx="injury" data={data} />
           </>
         );
       });
@@ -72,20 +72,18 @@ function DreamConditionCard({subtitle, title, content, style, idx, ...props}) {
               }}>
               <Text style={{color: 'white'}}>부상 추가하기</Text>
             </TouchableOpacity>
-            <DreamSwiper swiperItems={injurySwiperItems(idx)} />
+            <AppSwiper swiperItems={injurySwiperItems(idx)} />
           </>
         ) : (
-          <DreamSwiper
-            swiperItems={[<DreamEmptyCondition title="부상" idx="injury" />]}
-          />
+          <AppSwiper swiperItems={[<EmptyCard title="부상" idx="injury" />]} />
         )
       ) : !isEmpty() ? (
         <ScrollView style={{flex: 1}}>
-          <DreamFullCondition subtitle="신체" idx="physical" />
-          <DreamFullCondition subtitle="심리" idx="mind" />
+          <FullCondition subtitle="신체" idx="physical" />
+          <FullCondition subtitle="심리" idx="mind" />
         </ScrollView>
       ) : (
-        <DreamEmptyCondition title="컨디션" idx="condition" />
+        <EmptyCard title="컨디션" idx="condition" />
       )}
     </>
   );
@@ -136,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamConditionCard;
+export default ConditionCard;

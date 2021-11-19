@@ -7,7 +7,7 @@ import CheckButton from '../CheckButton';
 import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
 import {width, height, colors, images} from '../../config/globalStyles';
 
-const CollapsibleTitle = ({
+const AppCollapsibleTitle = ({
   style,
   onPress,
   title,
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CollapsibleTitle;
+export default AppCollapsibleTitle;

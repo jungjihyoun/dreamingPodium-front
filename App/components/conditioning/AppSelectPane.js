@@ -11,7 +11,7 @@ import {mindSelectList, physicalList} from '../../config/conditionSelectList';
 import {checkRoutine, submitCondition} from '../../reducer/postingSlice';
 import {setModalVisible} from '../../reducer/modalSlice';
 
-function DreamSelectPane({title, idx, ...props}) {
+function AppSelectPane({title, idx, ...props}) {
   const [select, setSelect] = useState(false);
   const [seletList, setSelectList] = useState([]);
   const dispatch = useDispatch();
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamSelectPane;
+export default AppSelectPane;

@@ -15,7 +15,7 @@ import {
 
 import {colors, images, width, height} from '../config/globalStyles';
 
-function DreamObjectCard({multiple = true, ...props}) {
+function ObjectCard({multiple = true, ...props}) {
   const [showInputBox, setShowInputBox] = useState(false);
 
   const [text, setText] = useState('');
@@ -148,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamObjectCard;
+export default ObjectCard;

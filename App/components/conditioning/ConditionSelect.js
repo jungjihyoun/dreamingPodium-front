@@ -12,7 +12,7 @@ import {
 } from '../../config/conditionSelectList';
 
 // COMPONENT
-import DreamSelectPane from './DreamSelectPane';
+import AppSelectPane from './AppSelectPane';
 
 // REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
@@ -21,7 +21,7 @@ import {setModalVisible} from '../../reducer/modalSlice';
 // API
 import API from '../../utils/note';
 
-function DreamConditionSelect({title, idx, ...props}) {
+function ConditionSelect({title, idx, ...props}) {
   const dispatch = useDispatch();
   const todayDate = useSelector(state => state.posting.todayDate);
   const writtenNote = useSelector(state => state.posting.writtenNote);
@@ -72,21 +72,21 @@ function DreamConditionSelect({title, idx, ...props}) {
             {physicalList.map(val => {
               if (!val.selectId.includes('f')) {
                 return (
-                  <DreamSelectPane
+                  <AppSelectPane
                     color={colors.lightGreen}
                     idx="physical"
                     key={val.selectId}>
                     {val.selectTitle}
-                  </DreamSelectPane>
+                  </AppSelectPane>
                 );
               } else {
                 return (
-                  <DreamSelectPane
+                  <AppSelectPane
                     color={colors.lightGreen}
                     idx="physical"
                     key={val.selectId}>
                     {val.selectTitle}
-                  </DreamSelectPane>
+                  </AppSelectPane>
                 );
               }
             })}
@@ -99,21 +99,21 @@ function DreamConditionSelect({title, idx, ...props}) {
             {mindSelectList.map(val => {
               if (!val.selectId.includes('f')) {
                 return (
-                  <DreamSelectPane
+                  <AppSelectPane
                     color={colors.lightBlue}
                     idx="mind"
                     key={val.selectId}>
                     {val.selectTitle}
-                  </DreamSelectPane>
+                  </AppSelectPane>
                 );
               } else {
                 return (
-                  <DreamSelectPane
+                  <AppSelectPane
                     color={colors.lightBlue}
                     idx="mind"
                     key={val.selectId}>
                     {val.selectTitle}
-                  </DreamSelectPane>
+                  </AppSelectPane>
                 );
               }
             })}
@@ -154,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamConditionSelect;
+export default ConditionSelect;
