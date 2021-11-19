@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,38 +14,55 @@ import {ScrollView} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import ObjectCard from '../../components/ObjectCard';
-
 import {colors, width, height} from '../../config/globalStyles';
 
+import {submitObject, deleteObject} from '../../reducer/postingSlice';
+
 function DreamScreen(props) {
-  const [visitedUser, setVisitedUser] = useState();
-  const [state, setState] = useState({
-    object: [],
-    capability: [],
-    effort: [],
-    routine: [],
-  });
+  const objectNote = useSelector(state => state.posting.ObjectNote);
+  const todayDate = useSelector(state => state.posting.todayDate);
+  const dispatch = useDispatch();
 
-  const deleteButton = (text, array) => {
-    const a = array.filter(data => data !== text);
+  // const deleteButton = (text, array) => {
+  //   const a = array.filter(data => data !== text);
+  //   return a;
+  // };
+  // const goToNext = async () => {
+  //   await AsyncStorage.getItem('verifiedUser', (_err, result) => {
+  //     if (result === 'true') {
+  //       setVerifiedUser(result);
+  //     } else {
+  //       setVerifiedUser(result);
+  //     }
+  //   });
+  //   console.log(verifiedUser);
+  // };
 
-    return a;
+  // useEffect(() => {
+  //   //TODO 디비 정보 불러오기
+  //   goToNext(false);
+  // }, []);
+  const addObjectItem = (type, text) => {
+    if (objectNote[type].includes(text)) {
+      // TODO : 토스트 문구로 중복 안됨 알리기
+    } else {
+      dispatch(
+        submitObject({
+          ObjectType: type,
+          content: text,
+        }),
+      );
+    }
   };
-  const goToNext = async () => {
-    await AsyncStorage.getItem('visitedUser', (_err, result) => {
-      if (result === 'true') {
-        setVisitedUser(result);
-      } else {
-        setVisitedUser(result);
-      }
-    });
-    console.log(visitedUser);
-  };
 
-  useEffect(() => {
-    //TODO 디비 정보 불러오기
-    goToNext(false);
-  }, []);
+  const deleteObjectItem = (type, text) => {
+    dispatch(
+      deleteObject({
+        ObjectType: type,
+        content: text,
+      }),
+    );
+  };
 
   return (
     <KeyboardAvoidingView
@@ -58,102 +76,64 @@ function DreamScreen(props) {
         alignContent: 'center',
       }}>
       <SafeAreaView>
-        <Text style={styles.dreamTitle}>목표달성</Text>
-        {visitedUser !== 'true' && (
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={() => {
-              AsyncStorage.setItem('visitedUser', 'true');
-              props.navigation.navigate('HomeApp');
-            }}>
-            <Text style={{color: colors.primary, fontWeight: 'bold'}}>
-              제출 하고 기록하러 가기 >>
-            </Text>
-          </TouchableOpacity>
-        )}
+        <View style={styles.SafeAreaView}>
+          <View>
+            <Text style={styles.dreamTitle}>목표달성</Text>
+          </View>
+
+          {true && (
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => {
+                AsyncStorage.setItem('verifiedUser', 'true');
+                props.navigation.navigate('HomeApp');
+              }}>
+              <Text style={styles.submitText}>완료</Text>
+            </TouchableOpacity>
+          )}
+        </View>
 
         <ScrollView>
           <View>
             <ObjectCard
               title="나의 최종 목표"
-              handleAddText={text => {
-                setState({
-                  object: [...state.object, text],
-                  capability: [...state.capability],
-                  effort: [...state.effort],
-                  routine: [...state.routine],
-                });
+              objectValues={objectNote.object}
+              addObjectItem={text => {
+                addObjectItem('object', text);
               }}
-              deleteListButton={(data, array) => {
-                setState({
-                  object: deleteButton(data, array),
-                  capability: [...state.capability],
-                  effort: [...state.effort],
-                  routine: [...state.routine],
-                });
+              deleteObjectItem={text => {
+                deleteObjectItem('object', text);
               }}
-              state={state.object}
-              multiple={false}
             />
             <ObjectCard
               title="필요한 자질"
-              handleAddText={text => {
-                setState({
-                  object: [...state.object],
-                  capability: [...state.capability, text],
-                  effort: [...state.effort],
-                  routine: [...state.routine],
-                });
+              objectValues={objectNote.capability}
+              addObjectItem={text => {
+                addObjectItem('capability', text);
               }}
-              deleteListButton={(data, array) => {
-                setState({
-                  object: [...state.object],
-                  capability: deleteButton(data, array),
-                  effort: [...state.effort],
-                  routine: [...state.routine],
-                });
+              deleteObjectItem={text => {
+                deleteObjectItem('capability', text);
               }}
-              state={state.capability}
             />
             <ObjectCard
               title="매일 해야 하는 노력"
-              handleAddText={text => {
-                setState({
-                  object: [...state.object],
-                  capability: [...state.capability],
-                  effort: [...state.effort, text],
-                  routine: [...state.routine],
-                });
+              objectValues={objectNote.effort}
+              addObjectItem={text => {
+                addObjectItem('effort', text);
               }}
-              deleteListButton={(data, array) => {
-                setState({
-                  object: [...state.object],
-                  capability: [...state.capability],
-                  effort: deleteButton(data, array),
-                  routine: [...state.routine],
-                });
+              deleteObjectItem={text => {
+                deleteObjectItem('effort', text);
               }}
-              state={state.effort}
             />
             <ObjectCard
               title="루틴 설정"
-              handleAddText={text => {
-                setState({
-                  object: [...state.object],
-                  capability: [...state.capability],
-                  effort: [...state.effort],
-                  routine: [...state.routine, text],
-                });
+              objectValues={objectNote.routine}
+              addObjectItem={text => {
+                addObjectItem('routine', text);
               }}
-              deleteListButton={(data, array) => {
-                setState({
-                  object: [...state.object],
-                  capability: [...state.capability],
-                  effort: [...state.effort],
-                  routine: deleteButton(data, array),
-                });
+              deleteObjectItem={text => {
+                deleteObjectItem('routine', text);
               }}
-              state={state.routine}
             />
           </View>
         </ScrollView>
@@ -163,69 +143,32 @@ function DreamScreen(props) {
 }
 
 const styles = StyleSheet.create({
+  SafeAreaView: {
+    flexDirection: 'row',
+    marginTop: height * 35,
+    marginBottom: height * 35,
+  },
   dreamTitle: {
-    fontSize: 18,
+    fontSize: 22,
     color: colors.darkGrey,
     fontWeight: 'bold',
-    marginTop: height * 48,
-    marginBottom: height * 20,
-    alignSelf: 'center',
   },
-
-  boxContainer: {
-    paddingHorizontal: 16,
-    paddingLeft: 19,
-    marginTop: 21,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: width * 341,
-    minHeight: height * 100,
-
-    borderStyle: 'solid',
-    borderRadius: 4,
-    backgroundColor: '#ffffff',
-  },
-
-  titleText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.darkGrey,
-    marginBottom: 10,
-    textAlign: 'center',
-    alignItems: 'center',
-  },
-  savedText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.primary,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-
-  addArea: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 23,
-  },
-
-  handleAddText: {
+  addObjectItem: {
     fontSize: 18,
     color: colors.lightGrey,
     fontWeight: 'bold',
   },
-  inputHolder: {
-    width: width * 200,
-    minHeight: height * 40,
-    borderWidth: 1,
-    borderColor: colors.darkGrey,
-    marginLeft: 20,
-  },
   submitButton: {
-    alignSelf: 'flex-end',
+    flexDirection: 'row',
+    flex: 1,
     justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
+  },
+  submitText: {
+    color: colors.primary,
+    fontSize: 22,
+    fontWeight: 'bold',
   },
 });
 

@@ -37,7 +37,7 @@ export const postingSlice = createSlice({
           failure: {content: null, image: []},
         },
         conditioning: {
-          mind: ['ㅇㅇ', 'ㅇㅇ', 'ㅇㅇ'],
+          mind: [],
           physical: [],
           //  injury 는 통째로
           injury: [
@@ -62,6 +62,13 @@ export const postingSlice = createSlice({
         },
       },
     },
+    // 목표 달성
+    ObjectNote: {
+      object: ['태권도 선수'],
+      capability: ['테스트1', '테스트2'],
+      effort: ['노력1', '노력2', '노력3'],
+      routine: ['루틴1', '루틴2', '루틴3'],
+    },
   },
 
   reducers: {
@@ -72,12 +79,6 @@ export const postingSlice = createSlice({
       ].content = action.payload.content;
 
       if (action.payload.image) {
-        const test = [
-          // ...state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
-          //   .image,
-          ...action.payload.image,
-        ];
-
         state.writtenNote.noteContentGroup.training[
           action.payload.noteIdx
         ].image.push(...action.payload.image);
@@ -90,7 +91,7 @@ export const postingSlice = createSlice({
       }
     },
 
-    // params / content
+    // 심리, 신체 컨디션 및 부상 추가
     submitCondition: (state, action) => {
       const conditionGroup =
         state.writtenNote.noteContentGroup.conditioning[
@@ -105,10 +106,6 @@ export const postingSlice = createSlice({
     },
 
     deleteInjury: (state, action) => {
-      // const [noteContent] = state.writtenNote.filter(data => {
-      //   return data.date === state.todayDate;
-      // });
-
       let deleteIndex = '';
 
       const injuryGroup =
@@ -145,6 +142,17 @@ export const postingSlice = createSlice({
           action.payload.routineName
         ];
     },
+
+    // 목표달성 추가
+    submitObject: (state, action) => {
+      state.ObjectNote[action.payload.ObjectType].push(action.payload.content);
+    },
+    // 목표달성 삭제
+    deleteObject: (state, action) => {
+      state.ObjectNote[action.payload.ObjectType] = state.ObjectNote[
+        action.payload.ObjectType
+      ].filter(item => item !== action.payload.content);
+    },
   },
   extraReducers: {
     [fetchNoteData.pending](state, action) {
@@ -171,11 +179,14 @@ export const {
   submitCondition,
   submitInjury,
   deleteInjury,
+  submitObject,
+  deleteObject,
 } = postingSlice.actions;
 
 export const selectLogin = state => state.posting.loggedIn;
 export const selectToken = state => state.posting.token;
 export const selectWrittenNote = state => state.posting.writtenNote;
 export const selectTodayDate = state => state.posting.todayDate;
+export const setObjectNote = state => state.posting.ObjectNote;
 
 export default postingSlice.reducer;
