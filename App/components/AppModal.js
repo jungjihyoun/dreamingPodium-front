@@ -80,7 +80,7 @@ const AppModal = props => {
 
         <Animated.View
           style={
-            isInjuryModal
+            isInjuryModal === 'injury'
               ? {
                   ...styles.bottomSheetContainer,
                 }
