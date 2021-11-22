@@ -16,7 +16,7 @@ export const colors = {
 
   //social button colors
   apple: '#040708',
-  kakaoTalk: '#FFDE00',
+  kakaoTalk: '#FBE950',
 };
 
 export const storyBoardDimensions = {
