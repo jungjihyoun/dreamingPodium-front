@@ -7,16 +7,18 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  TextInput,
   ImagePropTypes,
 } from 'react-native';
+
+// REDUX
 import {useSelector, useDispatch} from 'react-redux';
 import {setProfile, setUser, setUserImage} from '../../reducer/userSlice';
 import {signOutKakaoTalk} from '../../screens/Auth/loginKakao';
 
 import ImagePicker from 'react-native-image-crop-picker';
+import DatePicker from 'react-native-date-picker';
 
-import TextInputLine from '../../components/TextInputLine';
+import ProfileInputLine from '../../components/ProfileInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
 
 import API from '../../utils/note';
@@ -51,9 +53,10 @@ function ProfileScreen({navigation, ...props}) {
         username: name,
         gender: gender,
         birth: birth,
-        userImage: image['_parts'][0][1]['uri']
-          ? image['_parts'][0][1]['uri']
-          : '',
+        userImage:
+          image !== '' && image !== undefined
+            ? image['_parts'][0][1]['uri']
+            : '',
         field: field,
         team: team,
       }),
@@ -85,7 +88,7 @@ function ProfileScreen({navigation, ...props}) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
       <View style={styles.profileTitleArea}>
-        <Text style={styles.profileTitle}>Profile</Text>
+        <Text style={styles.profileTitle}>프로필</Text>
         <TouchableOpacity
           style={styles.logoutButton}
           onPress={() => {
@@ -93,7 +96,7 @@ function ProfileScreen({navigation, ...props}) {
           }}>
           <Text
             style={{color: colors.primary, fontWeight: 'bold', fontSize: 16}}>
-            LogOut
+            로그아웃
           </Text>
         </TouchableOpacity>
       </View>
@@ -121,35 +124,38 @@ function ProfileScreen({navigation, ...props}) {
       </View>
 
       <View style={{flex: 3}}>
-        <TextInputLine
+        <ProfileInputLine
           inputName="이름"
           value={name}
           onChangeText={event => {
             setName(event);
           }}
         />
-        <TextInputLine
+        <ProfileInputLine
           inputName="성별"
           value={gender}
           onChangeText={event => {
             setGender(event);
           }}
         />
-        <TextInputLine
+        <ProfileInputLine
+          inputType="date"
           inputName="생일"
           value={birth}
-          onChangeText={event => {
+          onConfirm={event => {
+            console.log(event);
             setBirth(event);
           }}
         />
-        <TextInputLine
+
+        <ProfileInputLine
           inputName="소속"
           onChangeText={event => {
             setTeam(event);
           }}
           value={team}
         />
-        <TextInputLine
+        <ProfileInputLine
           inputName="종목"
           onChangeText={event => {
             setField(event);
