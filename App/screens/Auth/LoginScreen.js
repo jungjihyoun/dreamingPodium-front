@@ -1,33 +1,27 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   View,
   Text,
-  TouchableOpacity,
-  TextInput,
   StyleSheet,
   Image,
   Platform,
 } from 'react-native';
-import jwtDecode from 'jwt-decode';
+import AsyncStorage from '@react-native-community/async-storage';
+
+// REDUX
 import {useSelector, useDispatch} from 'react-redux';
 import {setUser} from '../../reducer/userSlice';
 import {fetchNoteData} from '../../reducer/postingSlice';
-import axios from 'axios';
-
-import appleAuth, {
-  AppleButton,
-} from '@invertase/react-native-apple-authentication';
-import jwt_decode from 'jwt-decode';
-
-import AsyncStorage from '@react-native-community/async-storage';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
 import {SocialButton} from '../../components/SocialButton';
 import {signInKakaoTalk} from './loginKakao';
 import {signInApple} from './loginApple';
+
+import Logo from '../../assets/svg/dreamingLogo';
 
 function LoginScreen({navigation}) {
   const dispatch = useDispatch();
@@ -38,95 +32,65 @@ function LoginScreen({navigation}) {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <View style={{flex: 1.5}}>
-        <Image style={styles.mainLogoImg} source={images.logo} />
-        <Text style={styles.mainLogoText}>Dreaming Podium</Text>
+      <View style={{flex: 2}}>
+        <Logo width={150} height={400} />
       </View>
 
-      <View style={{flex: 2}}>
-        <TextInput
-          style={styles.loginInput}
-          // onChangeText={onChangeNumber}
-          // value={number}
-          placeholder="아이디"
-          keyboardType="numeric"
-        />
+      <View style={{flex: 1}}>
+        <Text style={styles.headerSection}>
+          운동을 올바르게{' '}
+          <Text style={{color: '#20C1A1', fontWeight: 'bold', fontSize: 18}}>
+            right
+          </Text>
+        </Text>
+        <Text style={styles.headerSection}>
+          똑똑하게 기록하기{' '}
+          <Text style={{fontWeight: 'bold', color: '#20C1A1', fontSize: 18}}>
+            write
+          </Text>
+        </Text>
+      </View>
 
-        <TextInput
-          style={styles.loginInput}
-          // onChangeText={onChangeNumber}
-          // value={number}
-          placeholder="비밀번호"
-          keyboardType="numeric"
-        />
-
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={async () => {
-            navigation.navigate('HomeApp');
-          }}>
-          <Text style={{color: colors.white}}>로그인</Text>
-        </TouchableOpacity>
-        <View
-          style={{flexDirection: 'row', alignItems: 'center', marginTop: 21}}>
-          <View
-            style={{flex: 1, height: 1, backgroundColor: colors.borderGrey}}
-          />
-          <View>
-            <Text
-              style={{
-                width: 50,
-                textAlign: 'center',
-                color: colors.lightGrey,
-                fontWeight: 'bold',
-              }}>
-              OR
-            </Text>
-          </View>
-          <View
-            style={{flex: 1, height: 1, backgroundColor: colors.borderGrey}}
-          />
+      <View style={styles.bottomDivider}>
+        <View style={{flex: 1, height: 1, backgroundColor: '#F8FAFF'}} />
+        <View>
+          <Text style={styles.dividerText}>⚡️ 3초만에 빠른 회원가입 </Text>
         </View>
+        <View style={{flex: 1, height: 1, backgroundColor: '#F8FAFF'}} />
       </View>
 
       <View
         style={{
-          flex: 1,
+          flex: 1.5,
+          alignItems: 'center',
         }}>
         <SocialButton
           style={{backgroundColor: colors.kakaoTalk}}
           onPress={() => {
-            console.log('카카오 로그인 클릭');
+            console.log('카카오 로그인 ');
             signInKakaoTalk(setUserInfo);
           }}>
-          <Image style={styles.socialIcon} source={images.kakao} />
-          <Text style={styles.socialText}>카카오톡으로 로그인하기</Text>
+          <Image style={{width: 15, height: 15}} source={images.kakao} />
+          <Text style={{...styles.socialText, color: '#421919'}}>
+            카카오톡으로 로그인하기
+          </Text>
         </SocialButton>
-
         {Platform.OS === 'ios' && (
           <View>
-            <AppleButton
-              buttonStyle={AppleButton.Style.BLACK}
-              buttonType={AppleButton.Type.SIGN_IN}
-              style={{
-                width: 350, // You must specify a width
-                height: 45, // You must specify a height
-              }}
-              onPress={signInApple}
-            />
+            <SocialButton
+              style={{backgroundColor: colors.apple}}
+              onPress={() => {
+                console.log('애플 로그인 ');
+                signInApple(setUserInfo);
+              }}>
+              <Image style={{width: 14, height: 17}} source={images.apple} />
+              <Text style={{...styles.socialText, color: colors.white}}>
+                Apple로 로그인하기
+              </Text>
+            </SocialButton>
           </View>
         )}
       </View>
-      {/* 
-      <View
-        style={{
-          flex: 1,
-        }}>
-        <Text style={styles.aboutSignUp}>비밀번호를 잊었나요?</Text>
-        <Text style={{color: colors.lightGrey, fontSize: 12, marginTop: 10}}>
-          계정이 없다면? <Text style={styles.aboutSignUp}>회원가입</Text>
-        </Text>
-      </View> */}
     </SafeAreaView>
   );
 }
@@ -140,53 +104,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.white,
   },
-  mainLogoImg: {
-    width: width * 115,
-    height: height * 91,
-    marginTop: 75,
-    marginLeft: 13,
+  headerSection: {
+    width: width * 200,
+    textAlign: 'center',
+    color: '#424141',
+    fontWeight: '600',
+    fontSize: 16,
   },
-  mainLogoText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: colors.primary,
-  },
-  loginInput: {
-    width: width * 343,
-    height: height * 48,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderStyle: 'solid',
-    borderColor: colors.borderGrey,
-    marginBottom: 16,
-    paddingLeft: 16,
-  },
-  loginButton: {
-    backgroundColor: colors.primary,
-    width: width * 343,
-    height: height * 57,
-    borderRadius: 5,
+  bottomDivider: {
+    flexDirection: 'row',
     alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    color: 'white',
+    marginTop: 10,
+    flex: 0.5,
   },
-  socialIcon: {
-    width: 22,
-    height: 22,
+  dividerText: {
+    width: width * 150,
+    textAlign: 'center',
+    color: colors.lightGrey,
+    fontWeight: 'bold',
   },
   socialText: {
-    color: colors.darkGrey,
+    color: colors.textGrey,
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft: 6,
   },
-  aboutSignUp: {
-    color: colors.primary,
-    fontWeight: 'bold',
-    fontSize: 12,
-    marginTop: 15,
-  },
-  appleButton: {width: '70%', height: 45},
 });
 
 export default LoginScreen;

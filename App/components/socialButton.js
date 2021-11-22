@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   socialButton: {
     flexDirection: 'row',
     width: height * 328,
-    height: height * 45,
+    height: height * 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
