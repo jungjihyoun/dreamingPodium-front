@@ -39,18 +39,18 @@ function AppXBar({amount, ...props}) {
 const styles = StyleSheet.create({
   graphColors: {
     backgroundColor: colors.primary,
-    height: height * 13,
+    height: height * 10,
     borderTopLeftRadius: 7,
     borderBottomLeftRadius: 7,
   },
   graphFull: {
     backgroundColor: colors.primary,
-    height: height * 13,
+    height: height * 10,
     borderRadius: 7,
   },
   graph: {
     width: width * 170,
-    height: height * 15,
+    height: height * 12,
     borderWidth: 1,
     borderRadius: 7,
     borderColor: '#E3E3E3',

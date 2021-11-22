@@ -121,11 +121,10 @@ const styles = StyleSheet.create({
   injuryPlusButton: {
     position: 'absolute',
     zIndex: 9,
-    right: 5,
+    right: width * 18,
     borderColor: colors.primary,
     borderWidth: 2,
     backgroundColor: colors.primary,
-    margin: 20,
     width: 80,
     height: 30,
     alignItems: 'center',

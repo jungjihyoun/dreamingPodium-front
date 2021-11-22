@@ -14,7 +14,11 @@ const HeaderProfile = ({style, ...props}) => {
     <>
       <View style={styles.profileGroup}>
         <View style={{flex: 1, alignItems: 'flex-end'}}>
-          <Image source={{uri: userInfo.userImage}} style={styles.image} />
+          {userInfo.userImage ? (
+            <Image source={{uri: userInfo.userImage}} style={styles.image} />
+          ) : (
+            <Image source={images.profileImgGroup} style={styles.image} />
+          )}
         </View>
 
         <View style={styles.columnGroup}>
@@ -61,10 +65,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     color: colors.textGrey,
-    fontWeight: 'bold',
+    fontWeight: '500',
     paddingBottom: 3,
   },
-  content: {fontSize: 18, fontWeight: 'bold'},
+  content: {fontSize: 18, fontWeight: '600'},
   image: {
     width: 120,
     height: 120,

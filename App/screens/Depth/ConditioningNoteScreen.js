@@ -41,7 +41,7 @@ function ConditioningNoteScreen(props) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: colors.white}}>
       <AppCalendar />
       <View style={styles.selectTabGroup}>
         <TouchableOpacity

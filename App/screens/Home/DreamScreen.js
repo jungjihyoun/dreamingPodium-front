@@ -20,7 +20,6 @@ import {submitObject, deleteObject} from '../../reducer/postingSlice';
 
 function DreamScreen(props) {
   const objectNote = useSelector(state => state.posting.ObjectNote);
-  const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
   // const deleteButton = (text, array) => {
@@ -70,6 +69,7 @@ function DreamScreen(props) {
       behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
       enabled
       style={{
+        backgroundColor: colors.white,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',

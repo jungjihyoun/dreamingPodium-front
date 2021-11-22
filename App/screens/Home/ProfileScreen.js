@@ -11,42 +11,91 @@ import {
   ImagePropTypes,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {setDepartment, setUser, setUserImage} from '../../reducer/userSlice';
+import {setProfile, setUser, setUserImage} from '../../reducer/userSlice';
+import {signOutKakaoTalk} from '../../screens/Auth/loginKakao';
 
 import ImagePicker from 'react-native-image-crop-picker';
 
 import TextInputLine from '../../components/TextInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
 
-function ProfileScreen(props) {
+import API from '../../utils/note';
+
+function ProfileScreen({navigation, ...props}) {
   const user = useSelector(state => state.user);
+  const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
-  const submitUserProfile = () => {
-    dispatch(
-      setUser({username: '정지현', field: field, team: team, userImage: image}),
-    );
+  const [name, setName] = useState(user.username);
+  const [gender, setGender] = useState(user.gender);
+  const [birth, setBirth] = useState(user.birthday);
+  const [image, setImage] = useState(user.userImage);
+  const [team, setTeam] = useState(user.team);
+  const [field, setField] = useState(user.field);
+
+  const logout = () => {
+    // asyncstorage 지우기
+
+    if (user.provider === 'kakao') {
+      signOutKakaoTalk();
+      navigation.navigate('Login');
+    } else {
+      // 애플 로그아웃
+    }
   };
 
-  const [image, setImage] = useState('');
-  const [team, setTeam] = useState();
-  const [field, setField] = useState();
+  const submitUserProfile = async () => {
+    //redux
+    dispatch(
+      setProfile({
+        username: name,
+        gender: gender,
+        birth: birth,
+        userImage: image['_parts'][0][1]['uri']
+          ? image['_parts'][0][1]['uri']
+          : '',
+        field: field,
+        team: team,
+      }),
+    );
+    // 이미지 포스트
+    // if (image !== '') {
+    //   await API.postImage('KA1992149316', 'profile', todayDate, image);
+    // }
+  };
 
-  const showImage = () => {
+  const showImage = async () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
       cropping: true,
       multiple: false,
     }).then(_image => {
-      setImage(_image.sourceURL);
+      var body = new FormData();
+      body.append('file', {
+        uri: _image.sourceURL,
+        type: 'image/jpeg',
+        name: _image.filename,
+      });
+      // 이미지 state
+      setImage(body);
     });
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
       <View style={styles.profileTitleArea}>
         <Text style={styles.profileTitle}>Profile</Text>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={() => {
+            logout();
+          }}>
+          <Text
+            style={{color: colors.primary, fontWeight: 'bold', fontSize: 16}}>
+            LogOut
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={{flex: 1.5}}>
@@ -55,7 +104,7 @@ function ProfileScreen(props) {
           onPress={() => {
             showImage();
           }}>
-          {image ? (
+          {image !== '' && image !== undefined ? (
             <Image
               style={{
                 width: 150,
@@ -63,7 +112,7 @@ function ProfileScreen(props) {
               }}
               resizeMode="cover"
               resizeMethod="auto"
-              source={{uri: image}}
+              source={{uri: image['_parts'][0][1]['uri']}}
             />
           ) : (
             <Image source={images.profileImgGroup} />
@@ -72,20 +121,40 @@ function ProfileScreen(props) {
       </View>
 
       <View style={{flex: 3}}>
-        <TextInputLine inputName="이름" value="정지현" />
-        <TextInputLine inputName="성별" value="여자" />
-        <TextInputLine inputName="생일" value="98-06-02" />
+        <TextInputLine
+          inputName="이름"
+          value={name}
+          onChangeText={event => {
+            setName(event);
+          }}
+        />
+        <TextInputLine
+          inputName="성별"
+          value={gender}
+          onChangeText={event => {
+            setGender(event);
+          }}
+        />
+        <TextInputLine
+          inputName="생일"
+          value={birth}
+          onChangeText={event => {
+            setBirth(event);
+          }}
+        />
         <TextInputLine
           inputName="소속"
           onChangeText={event => {
             setTeam(event);
           }}
+          value={team}
         />
         <TextInputLine
           inputName="종목"
           onChangeText={event => {
             setField(event);
           }}
+          value={field}
         />
       </View>
 
@@ -111,9 +180,7 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   profileTitleArea: {
-    flex: 0.5,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: 'row',
   },
   profileImgArea: {
     width: 150,
@@ -141,6 +208,11 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  logoutButton: {
+    position: 'absolute',
+    right: 30,
+    top: 40,
   },
 });
 

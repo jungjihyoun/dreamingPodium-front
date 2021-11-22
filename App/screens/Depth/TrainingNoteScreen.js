@@ -48,18 +48,6 @@ function TrainingNoteScreen({navigation, route}) {
             routineName: data,
           }),
         );
-
-        // APITODO : post 보내기
-        // await API.postRecord(
-        //   '1951543508',
-        //   todayDate,
-        //   data,
-        //   !writtenNote.noteContentGroup.training.routines[data],
-        // );
-        // console.log(
-        //   data,
-        //   !writtenNote.noteContentGroup.training.routines[data],
-        // );
       }
     });
   };
@@ -85,24 +73,12 @@ function TrainingNoteScreen({navigation, route}) {
       ...trainingNote,
     };
 
-    if (noteIdx === 'success') {
+    if (noteIdx === 'success' || noteIdx === 'failure') {
       console.log('image', trainingNote[noteIdx].image);
       return trainingNote[noteIdx].image;
     } else {
       return null;
     }
-
-    // var [_photo] = writtenNote.filter(data => {
-    //   return data.date === todayDate;
-    // });
-
-    // if (_photo !== undefined) {
-    //   _photo = _photo.noteContentGroup.filter(data => {
-    //     return data.noteIdx === noteIdx;
-    //   })[0].notePhoto;
-    // }
-
-    // return _photo;
   };
 
   return (

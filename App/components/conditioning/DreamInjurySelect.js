@@ -20,15 +20,15 @@ import AppPicker from '../AppPicker';
 import {submitCondition} from '../../reducer/postingSlice';
 import {setModalHidden} from '../../reducer/modalSlice';
 
+import API from '../../utils/note';
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
 const DreamInjurySelect = props => {
   const dispatch = useDispatch();
   const todayDate = useSelector(state => state.posting.todayDate);
+  const writtenNote = useSelector(state => state.posting.writtenNote);
 
-  const [pain, setPain] = useState(5);
-  const [interruption, setInterruption] = useState(5);
   const [submitList, setSubmitList] = useState({
     injuryDirection: '왼쪽',
     injurySection: '얼굴',
@@ -159,7 +159,7 @@ const DreamInjurySelect = props => {
 
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() => {
+          onPress={async () => {
             dispatch(setModalHidden());
             dispatch(
               submitCondition({
@@ -167,6 +167,12 @@ const DreamInjurySelect = props => {
                 conditionIdx: 'injury',
                 content: submitList,
               }),
+            );
+            await API.postRecord(
+              'KA1992149316',
+              todayDate,
+              'injury',
+              writtenNote.noteContentGroup.conditioning.injury,
             );
           }}>
           <Text

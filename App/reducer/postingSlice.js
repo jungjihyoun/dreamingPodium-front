@@ -4,14 +4,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {_fetchNoteData} from '../utils/note';
 import {ActionSheetIOS} from 'react-native';
 
-import dreamAPI from '../utils/note';
+import API from '../utils/note';
 
 export const fetchNoteData = createAsyncThunk(
   // record 불러오기
   'record/get',
   async payload => {
     console.log('노트 불러오기', payload);
-    const response = await dreamAPI.getRecord(payload.user_id, payload.date);
+    const response = await API.getRecord(payload.user_id, payload.date);
     if (response.status !== 200) {
       throw Error(response.data);
     }
@@ -32,7 +32,7 @@ export const postingSlice = createSlice({
         training: {
           train_detail: {content: null},
           feedback: {content: null},
-          routines: {ㅇㅇㅇ: true, ㅂㅈㄷ: false},
+          routines: {폼롤러하기: false, 물마시기: false},
           success: {content: null, image: []},
           failure: {content: null, image: []},
         },
@@ -44,19 +44,18 @@ export const postingSlice = createSlice({
             {
               injuryDirection: '오른쪽',
               injurySection: '무릎',
-              injuryForm: '연골파열?',
+              injuryForm: '골절',
               painData: 1,
               interruptData: 1,
-              injuryMemo: '열받은 유',
+              injuryMemo: '부상 어쩌고',
             },
             {
               injuryDirection: '오른쪽',
               injurySection: '무릎',
-              injuryForm: '연골파열?',
+              injuryForm: '연골파부상',
               painData: 6,
               interruptData: 1,
-              injuryMemo:
-                '열받은 유재석.zip 《런닝맨 / 예능맛ZIP / RunningMan 》아오 열받아 (쒸익) 😤#예능맛ZIP​​​ #런닝맨​​​#Runningman',
+              injuryMemo: '부상 메모',
             },
           ],
         },
@@ -141,6 +140,13 @@ export const postingSlice = createSlice({
         !state.writtenNote.noteContentGroup.training.routines[
           action.payload.routineName
         ];
+      console.log(state.writtenNote.noteContentGroup.training.routines);
+      API.postRecord(
+        'KA1992149316',
+        state.todayDate,
+        'routines',
+        state.writtenNote.noteContentGroup.training.routines,
+      );
     },
 
     // 목표달성 추가

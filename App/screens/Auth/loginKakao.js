@@ -22,7 +22,7 @@ const signInKakaoTalk = async setUserInfo => {
           refresh_token: data.refreshToken,
         })
         .then(function (response) {
-          console.log(response);
+          console.log('api 카카오 성공', response);
         })
         .catch(function (error) {
           console.log(error);
@@ -34,12 +34,14 @@ const signInKakaoTalk = async setUserInfo => {
     .then(data => {
       KakaoLogins.getProfile()
         .then(response => {
-          console.log({response}, 'KakaoTalk user profile');
+          console.log({response}, 'API KakaoTalk user profile');
 
-          const {id, email, nickname} = response;
-          console.log(id, email);
+          const {id, nickname, gender, birthday} = response;
+
           setUserInfo({
-            username: email,
+            username: nickname,
+            gender: gender,
+            birth: birthday,
             provider: 'kakao',
             serviceId: id,
             platform: Platform.OS.toUpperCase(), //푸시알림을 등록하기 위한 플랫폼
@@ -48,18 +50,6 @@ const signInKakaoTalk = async setUserInfo => {
         })
         .catch(err => {
           console.log({err});
-          alert(err);
-        });
-
-      //log out the user
-      KakaoLogins.logout()
-        .then(result => {
-          console.log('logout');
-          console.log(result);
-        })
-        .catch(err => {
-          console.log('logout error');
-          console.log(err);
           alert(err);
         });
     })
@@ -76,4 +66,18 @@ const signInKakaoTalk = async setUserInfo => {
     });
 };
 
-export {signInKakaoTalk};
+const signOutKakaoTalk = async () => {
+  // const fcmToken = await AsyncStorage.getItem('deviceToken');
+  KakaoLogins.logout()
+    .then(result => {
+      console.log('kakao logout');
+      console.log(result);
+    })
+    .catch(err => {
+      console.log('kakao logout error');
+      console.log(err);
+      alert(err);
+    });
+};
+
+export {signInKakaoTalk, signOutKakaoTalk};

@@ -13,11 +13,30 @@ const getRecord = async (user_id, date) => {
 const postRecord = async (user_id, wdate, key_type, content) => {
   // 작성된 글
   console.log(user_id, wdate, key_type, content);
-  return await API.post(`/record/write/${user_id}`, null, {
+
+  return await API.post(`/record/write/${user_id}`, {
     params: {
+      wdate: wdate,
+      key_type: key_type,
+      content: content,
+    },
+  })
+    .then(response => response.status)
+    .catch(err => console.warn(err));
+};
+
+const postImage = async (user_id, image_type, wdate, image) => {
+  // 작성된 글 image form 데이터
+  console.log(user_id, image_type, wdate, image);
+
+  return await API.post('/test/uploadfile', image, {
+    // headers: {
+    //   'content-type': 'multipart/form-data',
+    // },
+    params: {
+      user_id,
+      image_type,
       wdate,
-      key_type,
-      content,
     },
   })
     .then(response => response.status)
@@ -27,4 +46,5 @@ const postRecord = async (user_id, wdate, key_type, content) => {
 export default {
   getRecord,
   postRecord,
+  postImage,
 };

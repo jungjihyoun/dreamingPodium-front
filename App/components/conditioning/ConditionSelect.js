@@ -28,18 +28,18 @@ function ConditionSelect({title, idx, ...props}) {
 
   const postCondition = async () => {
     console.log(writtenNote.noteContentGroup.conditioning.mind);
-    // await API.postRecord(
-    //   '1951543508',
-    //   todayDate,
-    //   'physical',
-    //   writtenNote.noteContentGroup.conditioning.physical,
-    // );
-    // await API.postRecord(
-    //   '1951543508',
-    //   todayDate,
-    //   'mind',
-    //   writtenNote.noteContentGroup.conditioning.mind,
-    // );
+    await API.postRecord(
+      'KA1992149316',
+      todayDate,
+      'physical',
+      writtenNote.noteContentGroup.conditioning.physical,
+    );
+    await API.postRecord(
+      'KA1992149316',
+      todayDate,
+      'mind',
+      writtenNote.noteContentGroup.conditioning.mind,
+    );
   };
 
   return (

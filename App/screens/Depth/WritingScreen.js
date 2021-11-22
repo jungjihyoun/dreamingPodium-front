@@ -55,6 +55,7 @@ function WritingScreen({navigation, route}) {
           uri: image.sourceURL, // require, file absoluete path
           type: image.mime, // options, if none, will get mimetype from `filepath` extension
         });
+        console.log('sucess failure 이미지', fd);
       }
     });
   };
@@ -76,12 +77,16 @@ function WritingScreen({navigation, route}) {
         }),
       );
 
-      // await API.postRecord(
-      //   '1951543508',
-      //   todayDate,
-      //   route.params.noteIdx,
-      //   content,
-      // );
+      // 글 작성 post
+      await API.postRecord(
+        'KA1992149316',
+        todayDate,
+        route.params.noteIdx,
+        content,
+      );
+
+      // 사진 post
+      await API.postRecord('KA1992149316', todayDate, route.params.noteIdx, fd);
 
       navigation.navigate('TrainingNote', {
         content: content,

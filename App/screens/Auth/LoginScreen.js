@@ -31,6 +31,7 @@ import {signInApple} from './loginApple';
 
 function LoginScreen({navigation}) {
   const dispatch = useDispatch();
+
   const setUserInfo = params => {
     dispatch(setUser(params));
   };
@@ -62,7 +63,6 @@ function LoginScreen({navigation}) {
         <TouchableOpacity
           style={styles.loginButton}
           onPress={async () => {
-            // dispatch(fetchNoteData());
             navigation.navigate('HomeApp');
           }}>
           <Text style={{color: colors.white}}>로그인</Text>

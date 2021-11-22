@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -20,14 +20,15 @@ function HomeScreen(props) {
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
-  const zero = num => {
-    return num < 10 && num >= 0 ? '0' + num : num;
-  };
-  const dateKo = date => {
-    return `${date.getFullYear()}년 ${zero(date.getMonth() + 1)}월 ${zero(
-      date.getDate(),
-    )}일`;
-  };
+  // 데이터 불러오기
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchNoteData({
+  //       user_id: 'KA1992149316',
+  //       date: todayDate,
+  //     }),
+  //   );
+  // }, []);
 
   return (
     <SafeAreaView>
@@ -37,12 +38,6 @@ function HomeScreen(props) {
         <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));
-            // dispatch(
-            //   fetchNoteData({
-            //     user_id: '1951543508',
-            //     date: todayDate,
-            //   }),
-            // );
             props.navigation.push('TrainingNote');
           }}
           partCardImg={images.trainingPart}

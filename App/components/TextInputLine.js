@@ -17,22 +17,14 @@ function TextInputLine(props) {
       <View style={styles.inputArea}>
         <View style={styles.inputGroup}>
           <Text style={styles.inputName}> {props.inputName} </Text>
-          {props.value ? (
-            <TextInput
-              onChangeText={props.onChangeText}
-              style={styles.inputHolder}
-              placeholder="입력해주세요"
-              value={props.value}
-              editable={false}
-            />
-          ) : (
-            <TextInput
-              onChangeText={props.onChangeText}
-              style={styles.inputHolder}
-              value={props.value}
-              placeholder="입력해주세요"
-            />
-          )}
+
+          <TextInput
+            onChangeText={props.onChangeText}
+            style={styles.inputHolder}
+            value={props.value}
+            placeholder="입력해주세요"
+            editable={true}
+          />
         </View>
       </View>
     </>
