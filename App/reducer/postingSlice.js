@@ -102,6 +102,14 @@ export const postingSlice = createSlice({
       } else {
         conditionGroup.push(action.payload.content);
       }
+      API.postRecord(
+        'KA1951543508',
+        state.todayDate,
+        'injury',
+        state.writtenNote.noteContentGroup.conditioning[
+          action.payload.conditionIdx
+        ],
+      );
     },
 
     deleteInjury: (state, action) => {
