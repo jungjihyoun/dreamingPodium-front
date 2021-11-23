@@ -23,32 +23,74 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
       date.getDate(),
     )}일`;
 
+  const inputUI = () => {
+    // 성별
+    if (inputType === 'gender') {
+      return (
+        <View style={styles.selectGender}>
+          <TouchableOpacity
+            style={styles.genderButton}
+            onPress={() => {
+              props.onChangeGender('여자');
+            }}>
+            <Text
+              style={
+                props.value === '여자'
+                  ? styles.genderSelected
+                  : styles.genderText
+              }>
+              여자
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.genderButton}
+            onPress={() => {
+              props.onChangeGender('남자');
+            }}>
+            <Text
+              style={
+                props.value === '남자'
+                  ? styles.genderSelected
+                  : styles.genderText
+              }>
+              남자
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+      // 날짜
+    } else if (inputType === 'date') {
+      return props.value === new Date().toDateString() ? (
+        <Button title="선택" onPress={() => setOpen(true)} />
+      ) : (
+        <TouchableOpacity onPress={() => setOpen(true)}>
+          <Text style={{...styles.inputHolder, width: width * 150}}>
+            {dateKo(new Date(props.value))}
+          </Text>
+        </TouchableOpacity>
+      );
+      // 택스트 인풋
+    } else {
+      return (
+        <TextInput
+          onChangeText={props.onChangeText}
+          style={styles.inputHolder}
+          value={props.value}
+          placeholder="입력해주세요"
+          editable={true}
+        />
+      );
+    }
+  };
+
   return (
     <>
       <View style={styles.inputArea}>
         <View style={styles.inputGroup}>
           <Text style={styles.inputName}> {props.inputName} </Text>
-          {inputType === 'date' ? (
-            date === new Date() ? (
-              <>
-                <Button title="선택" onPress={() => setOpen(true)} />
-              </>
-            ) : (
-              <TouchableOpacity onPress={() => setOpen(true)}>
-                <Text>{dateKo(date)}</Text>
-              </TouchableOpacity>
-            )
-          ) : (
-            <TextInput
-              onChangeText={props.onChangeText}
-              style={styles.inputHolder}
-              value={props.value}
-              placeholder="입력해주세요"
-              editable={true}
-            />
-          )}
 
-          {/* DatePicker */}
+          {inputUI()}
+
           <DatePicker
             modal
             mode="date"
@@ -76,6 +118,9 @@ const styles = StyleSheet.create({
   },
   inputHolder: {
     marginRight: 30,
+    fontSize: 18,
+    width: width * 100,
+    textAlign: 'right',
   },
   inputName: {
     color: colors.darkGrey,
@@ -87,12 +132,32 @@ const styles = StyleSheet.create({
     // paddingBottom: 10,
     // paddingTop: 30,
     width: width * 325,
-    borderBottomWidth: 1,
+    height: height * 30,
+    borderBottomWidth: 1.5,
     borderStyle: 'solid',
-    borderColor: colors.darkGrey,
+    borderColor: colors.whiteGrey,
     flexDirection: 'row',
     justifyContent: 'space-between',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  selectGender: {
+    flexDirection: 'row',
+    textAlign: 'right',
+  },
+  genderButton: {
+    marginRight: 10,
+    width: 40,
+  },
+  genderText: {
+    fontSize: 18,
+    textAlign: 'right',
+    color: colors.darkGrey,
+  },
+  genderSelected: {
+    fontSize: 18,
+    textAlign: 'right',
+    color: colors.primary,
     fontWeight: 'bold',
   },
 });

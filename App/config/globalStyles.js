@@ -14,6 +14,8 @@ export const colors = {
   lightGrey: '#9098B1',
   borderGrey: '#d2d2d2',
 
+  whiteGrey: colors.whiteGrey,
+
   //social button colors
   apple: '#040708',
   kakaoTalk: '#FBE950',

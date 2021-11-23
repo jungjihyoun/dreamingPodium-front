@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import WritingScreen from '../screens/Depth/WritingScreen';
+import ProfileEditScreen from '../screens/Depth/ProfileEditScreen';
 
 const StackDepth = createStackNavigator();
 const navOptionHandler = () => ({
@@ -13,6 +14,11 @@ const DepthStack = ({navigation, route}) => {
       <StackDepth.Screen
         name="WritingScreen"
         component={WritingScreen}
+        options={navOptionHandler}
+      />
+      <StackDepth.Screen
+        name="ProfileEditScreen"
+        component={ProfileEditScreen}
         options={navOptionHandler}
       />
     </StackDepth.Navigator>
