@@ -22,6 +22,7 @@ const AppCollapsibleContent = ({
     return image.map(data => {
       return (
         <Image
+          key={data.uri}
           source={{uri: data.uri}}
           resizeMode="contain"
           resizeMethod="auto"

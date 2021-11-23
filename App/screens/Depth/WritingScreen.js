@@ -10,9 +10,8 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  Image,
   ScrollView,
-  Button,
+  Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
@@ -66,7 +65,7 @@ function WritingScreen({navigation, route}) {
 
   const goToNext = async () => {
     if (!content) {
-      alert('내용을 입력해주세요');
+      Alert.alert('라잇', '내용을 입력해 주세요 ✍️', [{text: '확인'}]);
     } else {
       dispatch(
         submitNote({
@@ -78,15 +77,15 @@ function WritingScreen({navigation, route}) {
       );
 
       // 글 작성 post
-      await API.postRecord(
-        'KA1992149316',
-        todayDate,
-        route.params.noteIdx,
-        content,
-      );
+      // await API.postRecord(
+      //   'KA1951543508',
+      //   todayDate,
+      //   route.params.noteIdx,
+      //   content,
+      // );
 
       // 사진 post
-      await API.postRecord('KA1992149316', todayDate, route.params.noteIdx, fd);
+      // await API.postImage('KA1951543508', todayDate, route.params.noteIdx, fd);
 
       navigation.navigate('TrainingNote', {
         content: content,

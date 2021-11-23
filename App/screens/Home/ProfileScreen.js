@@ -7,7 +7,11 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  ImagePropTypes,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
 } from 'react-native';
 
 // REDUX
@@ -61,9 +65,12 @@ function ProfileScreen({navigation, ...props}) {
         team: team,
       }),
     );
-    // 이미지 포스트
+
+    Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
+
+    // 이미지 포스트 API
     // if (image !== '') {
-    //   await API.postImage('KA1992149316', 'profile', todayDate, image);
+    //   await API.postImage('KA1951543508', 'profile', todayDate, image);
     // }
   };
 
@@ -86,94 +93,109 @@ function ProfileScreen({navigation, ...props}) {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
-      <View style={styles.profileTitleArea}>
-        <Text style={styles.profileTitle}>프로필</Text>
-        <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={() => {
-            logout();
-          }}>
-          <Text
-            style={{color: colors.primary, fontWeight: 'bold', fontSize: 16}}>
-            로그아웃
-          </Text>
-        </TouchableOpacity>
-      </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={height * 20}
+        behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
+        enabled
+        style={{flex: 1, backgroundColor: colors.white}}>
+        <SafeAreaView style={{height: '100%'}}>
+          <View style={styles.profileTitleArea}>
+            <Text style={styles.profileTitle}>프로필</Text>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => {
+                logout();
+              }}>
+              <Text
+                style={{
+                  color: colors.primary,
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                }}>
+                로그아웃
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-      <View style={{flex: 1.5}}>
-        <TouchableOpacity
-          style={styles.profileImgArea}
-          onPress={() => {
-            showImage();
-          }}>
-          {image !== '' && image !== undefined ? (
-            <Image
-              style={{
-                width: 150,
-                height: 150,
+          <View style={{flex: 1.5}}>
+            <TouchableOpacity
+              style={styles.profileImgArea}
+              onPress={() => {
+                showImage();
+              }}>
+              {image !== '' && image !== undefined ? (
+                <Image
+                  style={{
+                    width: 150,
+                    height: 150,
+                  }}
+                  resizeMode="cover"
+                  resizeMethod="auto"
+                  source={{
+                    uri: image['_parts'][0][1]['uri'],
+                  }}
+                />
+              ) : (
+                <Image source={images.profileImgGroup} />
+              )}
+            </TouchableOpacity>
+          </View>
+
+          <View style={{flex: 3}}>
+            <ProfileInputLine
+              inputName="이름"
+              value={name}
+              onChangeText={event => {
+                setName(event);
               }}
-              resizeMode="cover"
-              resizeMethod="auto"
-              source={{uri: image['_parts'][0][1]['uri']}}
             />
-          ) : (
-            <Image source={images.profileImgGroup} />
-          )}
-        </TouchableOpacity>
-      </View>
+            <ProfileInputLine
+              inputName="성별"
+              value={gender}
+              onChangeText={event => {
+                setGender(event);
+              }}
+            />
+            <ProfileInputLine
+              inputType="date"
+              inputName="생일"
+              value={birth}
+              onConfirm={event => {
+                console.log(event);
+                setBirth(event);
+              }}
+            />
 
-      <View style={{flex: 3}}>
-        <ProfileInputLine
-          inputName="이름"
-          value={name}
-          onChangeText={event => {
-            setName(event);
-          }}
-        />
-        <ProfileInputLine
-          inputName="성별"
-          value={gender}
-          onChangeText={event => {
-            setGender(event);
-          }}
-        />
-        <ProfileInputLine
-          inputType="date"
-          inputName="생일"
-          value={birth}
-          onConfirm={event => {
-            console.log(event);
-            setBirth(event);
-          }}
-        />
+            <ProfileInputLine
+              inputName="소속"
+              onChangeText={event => {
+                setTeam(event);
+              }}
+              value={team}
+            />
+            <ProfileInputLine
+              inputName="종목"
+              onChangeText={event => {
+                setField(event);
+              }}
+              value={field}
+            />
+          </View>
 
-        <ProfileInputLine
-          inputName="소속"
-          onChangeText={event => {
-            setTeam(event);
-          }}
-          value={team}
-        />
-        <ProfileInputLine
-          inputName="종목"
-          onChangeText={event => {
-            setField(event);
-          }}
-          value={field}
-        />
-      </View>
-
-      <View style={{flex: 0.8, alignItems: 'center'}}>
-        <TouchableOpacity
-          onPress={() => {
-            submitUserProfile();
-          }}
-          style={styles.submitButton}>
-          <Text style={styles.submitButtonText}> 저장 </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          <View style={{flex: 0.8, alignItems: 'center'}}>
+            <TouchableOpacity
+              onPress={() => {
+                submitUserProfile();
+                Keyboard.dismiss();
+              }}
+              style={styles.submitButton}>
+              <Text style={styles.submitButtonText}> 저장 </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 

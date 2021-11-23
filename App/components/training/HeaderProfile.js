@@ -8,7 +8,9 @@ import {width, height, colors, images} from '../../config/globalStyles';
 
 const HeaderProfile = ({style, ...props}) => {
   const userInfo = useSelector(state => state.user);
-  const userObject = useSelector(state => state.posting.ObjectNote.object[0]);
+  const userObject = useSelector(
+    state => state.posting.ObjectNote.objectives[0],
+  );
 
   return (
     <>

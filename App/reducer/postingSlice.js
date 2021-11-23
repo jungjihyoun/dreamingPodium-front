@@ -63,10 +63,10 @@ export const postingSlice = createSlice({
     },
     // 목표 달성
     ObjectNote: {
-      object: ['태권도 선수'],
-      capability: ['테스트1', '테스트2'],
-      effort: ['노력1', '노력2', '노력3'],
-      routine: ['루틴1', '루틴2', '루틴3'],
+      objectives: [],
+      requirements: [],
+      efforts: [],
+      routines: [],
     },
   },
 
@@ -142,7 +142,7 @@ export const postingSlice = createSlice({
         ];
       console.log(state.writtenNote.noteContentGroup.training.routines);
       API.postRecord(
-        'KA1992149316',
+        'KA1951543508',
         state.todayDate,
         'routines',
         state.writtenNote.noteContentGroup.training.routines,
@@ -152,6 +152,7 @@ export const postingSlice = createSlice({
     // 목표달성 추가
     submitObject: (state, action) => {
       state.ObjectNote[action.payload.ObjectType].push(action.payload.content);
+      console.log(state.ObjectNote);
     },
     // 목표달성 삭제
     deleteObject: (state, action) => {

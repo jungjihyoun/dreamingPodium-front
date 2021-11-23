@@ -21,6 +21,7 @@ function ObjectCard({
   objectValues,
   addObjectItem,
   title,
+  onPress,
   ...props
 }) {
   const [showInputBox, setShowInputBox] = useState(false);
@@ -31,46 +32,45 @@ function ObjectCard({
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-      enabled>
-      <ScrollView style={styles.boxContainer}>
-        <View style={styles.addArea}>
-          <Text style={styles.titleText}>{title}</Text>
-          <TouchableOpacity
-            style={{alignSelf: 'flex-end'}}
-            onPress={() => setShowInputBox(true)}>
-            <Image
-              style={{
-                width: 25,
-                height: 25,
-              }}
-              source={images.addButton}
-            />
-          </TouchableOpacity>
-        </View>
-
-        {showInputBox && (
-          <TextInput
-            onChangeText={saveText}
-            style={styles.inputHolder}
-            placeholder="입력해주세요"
-            clearTextOnFocus={true}
-            autoFocus={true}
-            onSubmitEditing={() => [
-              addObjectItem(text),
-              setShowInputBox(false),
-              setText(''),
-            ]}
+    <ScrollView style={styles.boxContainer}>
+      <View style={styles.addArea}>
+        <Text style={styles.titleText}>{title}</Text>
+        <TouchableOpacity
+          style={{alignSelf: 'flex-end'}}
+          onPress={() => {
+            setShowInputBox(true);
+            onPress();
+          }}>
+          <Image
+            style={{
+              width: 25,
+              height: 25,
+            }}
+            source={images.addButton}
           />
-        )}
+        </TouchableOpacity>
+      </View>
 
-        <ObjectItems
-          deleteObjectItem={deleteObjectItem}
-          objectValues={objectValues}
+      {showInputBox && (
+        <TextInput
+          onChangeText={saveText}
+          style={styles.inputHolder}
+          placeholder="입력해주세요"
+          clearTextOnFocus={true}
+          autoFocus={true}
+          onSubmitEditing={() => [
+            addObjectItem(text),
+            setShowInputBox(false),
+            setText(''),
+          ]}
         />
-      </ScrollView>
-    </KeyboardAvoidingView>
+      )}
+
+      <ObjectItems
+        deleteObjectItem={deleteObjectItem}
+        objectValues={objectValues}
+      />
+    </ScrollView>
   );
 }
 
