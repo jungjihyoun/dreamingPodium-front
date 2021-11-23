@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   StyleSheet,
   Text,
+  Image,
   View,
   TouchableOpacity,
   ScrollView,
@@ -36,9 +37,19 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
 
           <View style={styles.section}>
             <TouchableOpacity style={styles.savedTextArea}>
-              <Text style={styles.title}>
-                {data.injuryDirection} {data.injurySection}
-              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <Image
+                  style={{width: 50, height: 50}}
+                  source={{
+                    uri: encodeURI(
+                      `https://wright-images.s3.ap-northeast-2.amazonaws.com/front_injury/${data.injurySection}.png`,
+                    ),
+                  }}
+                />
+                <Text style={styles.title}>
+                  {data.injuryDirection} {data.injurySection} {data.injuryForm}
+                </Text>
+              </View>
 
               <View style={styles.degreeGroup}>
                 <Text style={styles.degreeTitle}>통증정도</Text>
@@ -126,7 +137,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 15,
     marginBottom: 15,
-    marginLeft: 15,
   },
   degreeGroup: {
     flexDirection: 'row',

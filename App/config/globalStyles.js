@@ -14,7 +14,7 @@ export const colors = {
   lightGrey: '#9098B1',
   borderGrey: '#d2d2d2',
 
-  whiteGrey: colors.whiteGrey,
+  whiteGrey: '#e0e0e0',
 
   //social button colors
   apple: '#040708',

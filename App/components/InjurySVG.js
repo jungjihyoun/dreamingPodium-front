@@ -17,9 +17,14 @@ import Face from '../assets/svg/Face';
 import Belly from '../assets/svg/belly';
 import Wrist from '../assets/svg/rightWrist';
 import Waist from '../assets/svg/waist';
-import Thigh from '../assets/svg/rightThigh';
 import Neck from '../assets/svg/neck';
 import Rib from '../assets/svg/rib';
+
+import Arm from '../assets/svg/arm';
+import Thigh from '../assets/svg/Thigh';
+import Elbow from '../assets/svg/elbow';
+import Pelvis from '../assets/svg/pelvis';
+import Shoulder from '../assets/svg/shoulder';
 
 function InjurySVG({injury, ...props}) {
   const svg = () => {
@@ -40,6 +45,16 @@ function InjurySVG({injury, ...props}) {
         return <Rib width={300} height={350} />;
       case '배':
         return <Belly width={300} height={350} />;
+      case '골반':
+        return <Pelvis width={300} height={350} />;
+      case '팔':
+        return <Arm width={300} height={350} />;
+      case '팔꿈치':
+        return <Elbow width={300} height={350} />;
+      case '어깨':
+        return <Shoulder width={300} height={350} />;
+      // case '손목':
+      //   return <Elbow width={300} height={350} />;
 
       default:
         return <></>;

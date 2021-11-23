@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   View,
@@ -24,7 +24,7 @@ import API from '../../utils/note';
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
-const DreamInjurySelect = props => {
+const InjurySelect = props => {
   const dispatch = useDispatch();
   const todayDate = useSelector(state => state.posting.todayDate);
   const writtenNote = useSelector(state => state.posting.writtenNote);
@@ -52,6 +52,7 @@ const DreamInjurySelect = props => {
         '배',
         '허리',
         '골반',
+        '허벅지',
         '어깨',
         '팔',
         '팔꿈치',
@@ -168,12 +169,13 @@ const DreamInjurySelect = props => {
                 content: submitList,
               }),
             );
-            await API.postRecord(
-              'KA1992149316',
-              todayDate,
-              'injury',
-              writtenNote.noteContentGroup.conditioning.injury,
-            );
+
+            // await API.postRecord(
+            //   'KA1951543508',
+            //   todayDate,
+            //   'injury',
+            //   writtenNote.noteContentGroup.conditioning.injury,
+            // );
           }}>
           <Text
             style={{
@@ -258,4 +260,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DreamInjurySelect;
+export default InjurySelect;
