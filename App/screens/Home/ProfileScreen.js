@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,11 +12,21 @@ import {
 // REDUX
 import {useSelector, useDispatch} from 'react-redux';
 import {signOutKakaoTalk} from '../../screens/Auth/loginKakao';
+import {fetchProfileData} from '../../reducer/userSlice';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
 function ProfileScreen({navigation, ...props}) {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+
+  useEffect(() => {
+    dispatch(
+      fetchProfileData({
+        user_id: 'KA1951543508',
+      }),
+    );
+  }, [dispatch]);
 
   const logout = () => {
     // asyncstorage 지우기

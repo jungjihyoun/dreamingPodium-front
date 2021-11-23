@@ -1,5 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import API from '../utils/profile';
 
 // export const getReserveData = createAsyncThunk(
 //   'user/getReserveData',
@@ -9,6 +11,18 @@ import AsyncStorage from '@react-native-community/async-storage';
 //     return response.data.reserved;
 //   },
 // );
+
+export const fetchProfileData = createAsyncThunk(
+  // record 불러오기
+  'profile/get',
+  async payload => {
+    const response = await API.getProfile(payload.user_id);
+    if (response.status !== 200) {
+      throw Error(response.data);
+    }
+    return response.data;
+  },
+);
 
 export const userSlice = createSlice({
   name: 'user',
@@ -30,22 +44,22 @@ export const userSlice = createSlice({
 
   // action 로직
   reducers: {
-    login: (state, action) => {
+    setLogin: (state, action) => {
       console.log('token login', action.payload.token);
+
       AsyncStorage.setItem('userToken', action.payload.token);
       state.loggedIn = true;
       state.token = action.payload.token;
     },
-    logout: state => {
+    setLogout: state => {
       console.log('token logout');
+
       AsyncStorage.removeItem('userToken');
       state.loggedIn = false;
     },
     // 로그인 시 정보 받기
     setUser: (state, action) => {
       //유저 정보를 세팅한다.
-      // state.user = action.payload;
-      // state.username = action.payload.username;
       state.provider = action.payload.provider;
       state.serviceId = action.payload.serviceId;
       state.loggedIn = true;
@@ -55,6 +69,7 @@ export const userSlice = createSlice({
       state.username = action.payload.username;
       state.gender = action.payload.gender;
       state.birth = action.payload.birth;
+
       console.log('redux 로그인 세팅', state);
     },
     setUserImage: (state, action) => {
@@ -87,11 +102,32 @@ export const userSlice = createSlice({
     //   state.user.reserved = null;
     // },
   },
+  extraReducers: {
+    [fetchProfileData.pending](state, action) {
+      // 요청
+      console.log('profile pending', action.payload);
+    },
+    [fetchProfileData.fulfilled](state, action) {
+      // 성공
+      console.log('profile success @@@ ', action.payload);
+      state.username = action.payload.name;
+      state.gender = action.payload.gender;
+      state.birth = action.payload.birthday;
+      state.team = action.payload.team;
+      state.field = action.payload.field;
+      state.userImage = action.payload.profile_image;
+      console.log('after fetch profile : ', state.writtenNote);
+    },
+    [fetchProfileData.rejected](state, action) {
+      // 실패
+      console.log('profile fail', action.payload);
+    },
+  },
 });
 export const {
-  login,
+  setLogin,
   setUser,
-  logout,
+  setLogout,
   register,
   setDepartment,
   setField,

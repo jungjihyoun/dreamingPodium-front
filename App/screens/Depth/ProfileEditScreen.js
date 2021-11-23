@@ -23,7 +23,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import ProfileInputLine from '../../components/ProfileInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
 
-import API from '../../utils/note';
+import API from '../../utils/profile';
 
 function ProfileEditScreen({navigation, ...props}) {
   const user = useSelector(state => state.user);
@@ -48,6 +48,8 @@ function ProfileEditScreen({navigation, ...props}) {
         team: team ? team : user.team,
       }),
     );
+
+    await API.postProfileInfo('KA1951543508', name, gender, birth, field, team);
 
     Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
 

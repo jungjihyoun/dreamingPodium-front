@@ -31,11 +31,11 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
           <TouchableOpacity
             style={styles.genderButton}
             onPress={() => {
-              props.onChangeGender('여자');
+              props.onChangeGender('female');
             }}>
             <Text
               style={
-                props.value === '여자'
+                props.value === 'female'
                   ? styles.genderSelected
                   : styles.genderText
               }>
@@ -45,11 +45,11 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
           <TouchableOpacity
             style={styles.genderButton}
             onPress={() => {
-              props.onChangeGender('남자');
+              props.onChangeGender('male');
             }}>
             <Text
               style={
-                props.value === '남자'
+                props.value === 'male'
                   ? styles.genderSelected
                   : styles.genderText
               }>
