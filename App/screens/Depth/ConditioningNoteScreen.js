@@ -16,7 +16,7 @@ import AppCalendar from '../../components/AppCalendar';
 import ConditionCard from '../../components/conditioning/ConditionCard';
 import AppModal from '../../components/AppModal';
 import ConditionSelect from '../../components/conditioning/ConditionSelect';
-import DreamInjurySelect from '../../components/conditioning/DreamInjurySelect';
+import InjurySelect from '../../components/conditioning/InjurySelect';
 import DreamInjuryCard from '../../components/conditioning/FullInjury';
 
 // REDUX
@@ -34,7 +34,7 @@ function ConditioningNoteScreen(props) {
         return <ConditionSelect title="컨디션" idx="condition" />;
 
       case 'injury':
-        return <DreamInjurySelect title="부상" idx="injury" />;
+        return <InjurySelect title="부상" idx="injury" />;
       default:
         break;
     }

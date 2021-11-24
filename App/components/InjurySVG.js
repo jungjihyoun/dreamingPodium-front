@@ -15,7 +15,6 @@ import {colors, width, height} from '../config/globalStyles';
 import Head from '../assets/svg/head';
 import Face from '../assets/svg/Face';
 import Belly from '../assets/svg/belly';
-import Wrist from '../assets/svg/rightWrist';
 import Waist from '../assets/svg/waist';
 import Neck from '../assets/svg/neck';
 import Rib from '../assets/svg/rib';
@@ -25,6 +24,14 @@ import Thigh from '../assets/svg/Thigh';
 import Elbow from '../assets/svg/elbow';
 import Pelvis from '../assets/svg/pelvis';
 import Shoulder from '../assets/svg/shoulder';
+import Wrist from '../assets/svg/wrist';
+import Hand from '../assets/svg/hand';
+import Finger from '../assets/svg/finger';
+import Shin from '../assets/svg/shin';
+import Achilles from '../assets/svg/achilles';
+import Ankle from '../assets/svg/ankle';
+import Foot from '../assets/svg/foot';
+import Knee from '../assets/svg/knee';
 
 function InjurySVG({injury, ...props}) {
   const svg = () => {
@@ -53,8 +60,20 @@ function InjurySVG({injury, ...props}) {
         return <Elbow width={300} height={350} />;
       case '어깨':
         return <Shoulder width={300} height={350} />;
-      // case '손목':
-      //   return <Elbow width={300} height={350} />;
+      case '손':
+        return <Hand width={300} height={350} />;
+      case '손가락':
+        return <Finger width={300} height={350} />;
+      case '정강이':
+        return <Shin width={300} height={350} />;
+      case '아킬레스건':
+        return <Achilles width={300} height={350} />;
+      case '발목':
+        return <Ankle width={300} height={350} />;
+      case '발':
+        return <Foot width={300} height={350} />;
+      case '무릎':
+        return <Knee width={300} height={350} />;
 
       default:
         return <></>;

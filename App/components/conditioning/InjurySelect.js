@@ -23,6 +23,10 @@ import {setModalHidden} from '../../reducer/modalSlice';
 import API from '../../utils/note';
 // CONFIG
 import {colors, width, height} from '../../config/globalStyles';
+import {
+  injurySectionPicker,
+  injuryFormPicker,
+} from '../../config/injuryPickerList';
 
 const InjurySelect = props => {
   const dispatch = useDispatch();
@@ -44,35 +48,9 @@ const InjurySelect = props => {
     if (title === 'injuryDirection') {
       selectList = ['왼쪽', '오른쪽'];
     } else if (title === 'injurySection') {
-      selectList = [
-        '얼굴',
-        '머리',
-        '목',
-        '갈비뼈',
-        '배',
-        '허리',
-        '골반',
-        '허벅지',
-        '어깨',
-        '팔',
-        '팔꿈치',
-        '손목',
-      ];
+      selectList = injurySectionPicker;
     } else if (title === 'injuryForm') {
-      selectList = [
-        '뇌진탕',
-        '골절',
-        '인대부상',
-        '근육/건 부상',
-        '연골부상',
-        '타박상',
-        '건염',
-        '관절염',
-        '충돌',
-        '근육경련(쥐)',
-        '피부조직 부상',
-        '기타',
-      ];
+      selectList = injuryFormPicker;
     }
     return (
       <View style={styles.drawerGroup}>

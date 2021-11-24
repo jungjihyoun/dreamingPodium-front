@@ -133,8 +133,9 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
+    color: colors.textGrey,
     marginTop: 15,
     marginBottom: 15,
   },
@@ -163,6 +164,8 @@ const styles = StyleSheet.create({
   },
   memoContent: {
     fontSize: 14,
+    color: colors.textGrey,
+    fontWeight: '600',
     marginLeft: width * 10,
   },
   deleteButton: {
