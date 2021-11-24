@@ -7,12 +7,13 @@ import {
   StyleSheet,
   Image,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // REDUX
 import {useSelector, useDispatch} from 'react-redux';
-import {setUser} from '../../reducer/userSlice';
+import {setUser, setLogin, setLogout} from '../../reducer/userSlice';
 import {fetchNoteData} from '../../reducer/postingSlice';
 
 import {colors, images, width, height} from '../../config/globalStyles';
@@ -25,14 +26,18 @@ import Logo from '../../assets/svg/dreamingLogo';
 
 function LoginScreen({navigation}) {
   const dispatch = useDispatch();
+  // dispatch(setLogin({userToken: '123456'}));
 
   const setUserInfo = params => {
     dispatch(setUser(params));
   };
+  const setLoggedIn = token => {
+    dispatch(setLogin(token));
+  };
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <View style={{flex: 2}}>
+      <View style={styles.LogoSection}>
         <Logo width={150} height={400} />
       </View>
 
@@ -51,7 +56,7 @@ function LoginScreen({navigation}) {
         </Text>
       </View>
 
-      <View style={styles.bottomDivider}>
+      <View style={styles.divederSection}>
         <View style={{flex: 1, height: 1, backgroundColor: '#F8FAFF'}} />
         <View>
           <Text style={styles.dividerText}>⚡️ 3초만에 빠른 회원가입 </Text>
@@ -59,29 +64,25 @@ function LoginScreen({navigation}) {
         <View style={{flex: 1, height: 1, backgroundColor: '#F8FAFF'}} />
       </View>
 
-      <View
-        style={{
-          flex: 1.5,
-          alignItems: 'center',
-        }}>
+      <View style={styles.snsSection}>
         <SocialButton
           style={{backgroundColor: colors.kakaoTalk}}
           onPress={() => {
-            console.log('카카오 로그인 ');
-            signInKakaoTalk(setUserInfo);
+            dispatch(setLogin({userToken: 'abcde'}));
+            // signInKakaoTalk(setUserInfo, setLoggedIn);
           }}>
           <Image style={{width: 15, height: 15}} source={images.kakao} />
           <Text style={{...styles.socialText, color: '#421919'}}>
             카카오톡으로 로그인하기
           </Text>
         </SocialButton>
+
         {Platform.OS === 'ios' && (
           <View>
             <SocialButton
               style={{backgroundColor: colors.apple}}
               onPress={() => {
-                console.log('애플 로그인 ');
-                signInApple(setUserInfo);
+                signInApple(setUserInfo, setLoggedIn);
               }}>
               <Image style={{width: 14, height: 17}} source={images.apple} />
               <Text style={{...styles.socialText, color: colors.white}}>
@@ -96,6 +97,7 @@ function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  LogoSection: {flex: 2},
   container: {
     flex: 1,
     padding: 20,
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
   },
-  bottomDivider: {
+  divederSection: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10,
@@ -128,6 +130,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 6,
+  },
+  snsSection: {
+    flex: 1.5,
+    alignItems: 'center',
   },
 });
 

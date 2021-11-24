@@ -12,7 +12,7 @@ import {
 // REDUX
 import {useSelector, useDispatch} from 'react-redux';
 import {signOutKakaoTalk} from '../../screens/Auth/loginKakao';
-import {fetchProfileData} from '../../reducer/userSlice';
+import {fetchProfileData, setLogout} from '../../reducer/userSlice';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
@@ -29,15 +29,7 @@ function ProfileScreen({navigation, ...props}) {
   }, [dispatch]);
 
   const logout = () => {
-    // asyncstorage 지우기
-
-    if (user.provider === 'kakao') {
-      signOutKakaoTalk();
-      navigation.navigate('Login');
-    } else {
-      // 애플 로그아웃
-    }
-    console.log('logout');
+    dispatch(setLogout());
   };
 
   const zero = num => (num < 10 && num >= 0 ? '0' + num : num);

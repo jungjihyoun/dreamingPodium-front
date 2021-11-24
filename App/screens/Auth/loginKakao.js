@@ -1,41 +1,35 @@
+/* eslint-disable no-alert */
 //카카오 로그인 프로세스
 import * as KakaoLogins from '@react-native-seoul/kakao-login';
 import {Platform} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
-
+import API from '../../utils/API';
 //When the error comes from KakaoTalk for invalid hash key
 //Make sure the alias name for keystore files are correct
 //androidreleasekey -> android/app/release.keystore
 //androiddebugkey -> android/app/debug.keystore
 
-const signInKakaoTalk = async setUserInfo => {
+const signInKakaoTalk = async (setUserInfo, setLoggedIn) => {
   const fcmToken = await AsyncStorage.getItem('deviceToken');
 
   KakaoLogins.login()
-    .then(data => {
+    .then(async data => {
       const postData = data;
-
-      axios
-        .post('http://3.35.43.76:8000/kakao/form', {
-          access_token: data.accessToken,
-          refresh_token: data.refreshToken,
-        })
+      // Token return And Set AsyncStorage To login
+      await API.post('http://3.35.43.76:8000/kakao/form', {
+        access_token: data.accessToken,
+        refresh_token: data.refreshToken,
+      })
         .then(function (response) {
-          console.log('api 카카오 성공', response);
+          setLoggedIn({userToken: response.data['user_id']});
         })
         .catch(function (error) {
           console.log(error);
-        })
-        .then(function () {
-          // 항상 실행
         });
     })
     .then(data => {
       KakaoLogins.getProfile()
         .then(response => {
-          console.log({response}, 'API KakaoTalk user profile');
-
           const {id, nickname, gender, birthday} = response;
 
           setUserInfo({
@@ -44,8 +38,8 @@ const signInKakaoTalk = async setUserInfo => {
             birth: birthday,
             provider: 'kakao',
             serviceId: id,
-            platform: Platform.OS.toUpperCase(), //푸시알림을 등록하기 위한 플랫폼
-            deviceToken: fcmToken, //푸시알림을 등록하기 위한 디바이스 토큰
+            platform: Platform.OS.toUpperCase(),
+            deviceToken: fcmToken,
           });
         })
         .catch(err => {
@@ -67,16 +61,14 @@ const signInKakaoTalk = async setUserInfo => {
 };
 
 const signOutKakaoTalk = async () => {
-  // const fcmToken = await AsyncStorage.getItem('deviceToken');
+  await AsyncStorage.removeItem('userToken');
+
   KakaoLogins.logout()
     .then(result => {
-      console.log('kakao logout');
-      console.log(result);
+      console.log('kakao logout', result);
     })
     .catch(err => {
-      console.log('kakao logout error');
-      console.log(err);
-      alert(err);
+      console.log('kakao logout error', err);
     });
 };
 

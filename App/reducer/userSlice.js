@@ -28,6 +28,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null, //유저 정보가 모두 담기는 변수
+    userToken: '', // TOKEN ID
     loggedIn: false,
     provider: '',
     serviceId: '',
@@ -44,16 +45,19 @@ export const userSlice = createSlice({
 
   // action 로직
   reducers: {
-    setLogin: (state, action) => {
-      console.log('token login', action.payload.token);
-
-      AsyncStorage.setItem('userToken', action.payload.token);
+    setUserToken: (state, action) => {
+      state.userToken = action.payload.userToken;
       state.loggedIn = true;
-      state.token = action.payload.token;
+      console.log('자동로그인', state.userToken);
+    },
+    setLogin: (state, action) => {
+      console.log('token login redux', action.payload.userToken);
+      AsyncStorage.setItem('userToken', action.payload.userToken);
+      state.loggedIn = true;
+      state.userToken = action.payload.userToken;
     },
     setLogout: state => {
-      console.log('token logout');
-
+      console.log('token logout redux');
       AsyncStorage.removeItem('userToken');
       state.loggedIn = false;
     },
@@ -133,10 +137,11 @@ export const {
   setField,
   setUserImage,
   setProfile,
+  setUserToken,
 } = userSlice.actions; //액션들을 익스포트
 
 export const selectLogin = state => state.user.loggedIn;
-export const selectToken = state => state.user.token;
+// export const selectToken = state => state.user.token;
 export const selectUser = state => state.user.user;
 // export const setUserImage = state => state.user.
 
