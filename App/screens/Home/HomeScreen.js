@@ -7,28 +7,31 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {HomePartCard} from '../../components/HomePartCard';
 import {HeaderProfile} from '../../components/training/HeaderProfile.js';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {selectDate, fetchNoteData} from '../../reducer/postingSlice';
+import {setLogout} from '../../reducer/userSlice';
 
 import {colors, images} from '../../config/globalStyles';
 
 function HomeScreen(props) {
   const todayDate = useSelector(state => state.posting.todayDate);
+  const userToken = useSelector(state => state.user.userToken);
   const dispatch = useDispatch();
 
-  // 데이터 불러오기
+  // 접속시 training, conditioning 데이터 불러오기
   // useEffect(() => {
   //   dispatch(
   //     fetchNoteData({
-  //       user_id: 'KA1992149316',
+  //       user_id: userToken,
   //       date: todayDate,
   //     }),
   //   );
-  // }, []);
+  // }, [dispatch, todayDate, userToken]);
 
   return (
     <SafeAreaView>

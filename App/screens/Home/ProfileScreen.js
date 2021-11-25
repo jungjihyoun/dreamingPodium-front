@@ -19,14 +19,15 @@ import {colors, images, width, height} from '../../config/globalStyles';
 function ProfileScreen({navigation, ...props}) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const userToken = useSelector(state => state.user.userToken);
 
   useEffect(() => {
     dispatch(
       fetchProfileData({
-        user_id: 'KA1951543508',
+        user_id: userToken,
       }),
     );
-  }, [dispatch]);
+  }, [dispatch, userToken]);
 
   const logout = () => {
     dispatch(setLogout());

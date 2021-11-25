@@ -4,6 +4,7 @@ import React, {useEffect, useContext, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {
+  Platform,
   SafeAreaView,
   View,
   Text,
@@ -22,46 +23,92 @@ import {SocialButton} from '../../components/SocialButton';
 import {submitNote} from '../../reducer/postingSlice';
 
 // CONFIG
-import {colors, images, width, height} from '../../config/globalStyles';
+import {colors, width, height} from '../../config/globalStyles';
 
 import API from '../../utils/note';
 
 function WritingScreen({navigation, route}) {
-  const writtenNote = useSelector(state => state.posting.writtenNote);
+  const userToken = useSelector(state => state.user.userToken);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
-  const [state, setState] = useState([]);
-
-  const fd = new FormData();
-  let imageGroup = '';
-  const showImage = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-      multiple: true,
-    }).then(image => {
-      if (image !== undefined) {
-        imageGroup = image.map(data => {
-          return {
-            name: data.filename, // require, file name
-            uri: data.sourceURL, // require, file absoluete path
-            type: data.mime,
-          };
-        });
-        fd.append({
-          name: image.filename, // require, file name
-          uri: image.sourceURL, // require, file absoluete path
-          type: image.mime, // options, if none, will get mimetype from `filepath` extension
-        });
-        console.log('sucess failure 이미지', fd);
-      }
-    });
-  };
-
   const [content, setContent] = useState(
     route.params.value ? route.params.value : null,
   );
+  const [pictures, setPictures] = useState([]);
+
+  const pickMultiple = () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      waitAnimationEnd: false,
+      sortOrder: 'asc',
+      includeExif: true,
+      forceJpg: true,
+    })
+      .then(images => {
+        if (pictures && pictures.length > 0) {
+          const totalLength = pictures.length + images.length;
+          if (totalLength > 5) {
+            return Alert.alert('알림', '최대 다섯개까지 가능합니다.');
+          } else {
+            const inputImage = images.map((v, i) => {
+              return {
+                uri: v.path,
+                type: v.mime,
+                name: 'image.jpeg',
+              };
+            });
+            const list = [...pictures, ...inputImage];
+            if (list.length <= 5) {
+              setPictures(list);
+            } else {
+              const length = list.length - 5;
+              list.splice(5, length);
+              setPictures(list);
+            }
+          }
+        } else {
+          if (images.length > 5) {
+            const maxImage = [];
+            images.map((v, i) => {
+              if (i < 5) {
+                return maxImage.push(v);
+              }
+            });
+            setPictures(
+              maxImage.map((v, i) => {
+                console.log('receive image', v);
+                return {
+                  uri: v.path,
+                  type: v.mime,
+                  name: 'image.jpeg',
+                };
+              }),
+            );
+          } else {
+            console.log(images);
+            setPictures(
+              images.map((v, i) => {
+                console.log('receive image', v);
+                return {
+                  uri: v.path,
+                  type: v.mime,
+                  name: 'image.jpeg',
+                };
+              }),
+            );
+          }
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  var formData = new FormData();
+  const uploadImageData = pictures.filter(value => value.name === 'image.jpeg');
+  uploadImageData.forEach((v, i) => {
+    formData.append('file', v);
+    console.log(pictures);
+  });
 
   const goToNext = async () => {
     if (!content) {
@@ -72,20 +119,15 @@ function WritingScreen({navigation, route}) {
           date: todayDate,
           noteIdx: route.params.noteIdx,
           content: content,
-          image: imageGroup,
+          image: pictures,
         }),
       );
 
-      // 글 작성 post
-      // await API.postRecord(
-      //   'KA1951543508',
-      //   todayDate,
-      //   route.params.noteIdx,
-      //   content,
-      // );
+      // // 글 작성 post
+      await API.postRecord(userToken, todayDate, route.params.noteIdx, content);
 
       // 사진 post
-      // await API.postImage('KA1951543508', todayDate, route.params.noteIdx, fd);
+      await API.postImage(userToken, todayDate, route.params.noteIdx, formData);
 
       navigation.navigate('TrainingNote', {
         content: content,
@@ -141,7 +183,7 @@ function WritingScreen({navigation, route}) {
             route.params.noteIdx === 'failure') && (
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() => showImage()}>
+              onPress={() => pickMultiple()}>
               <Text
                 style={{
                   color: colors.white,

@@ -28,6 +28,7 @@ import API from '../../utils/note';
 
 function TrainingNoteScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
+  const userToken = useSelector(state => state.user.userToken);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
@@ -46,6 +47,7 @@ function TrainingNoteScreen({navigation, route}) {
         dispatch(
           checkRoutine({
             routineName: data,
+            userToken: userToken,
           }),
         );
       }
@@ -74,7 +76,7 @@ function TrainingNoteScreen({navigation, route}) {
     };
 
     if (noteIdx === 'success' || noteIdx === 'failure') {
-      console.log('image', trainingNote[noteIdx].image);
+      // console.log('image', trainingNote[noteIdx].image);
       return trainingNote[noteIdx].image;
     } else {
       return null;

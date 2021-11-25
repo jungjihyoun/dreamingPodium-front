@@ -32,6 +32,7 @@ const InjurySelect = props => {
   const dispatch = useDispatch();
   const todayDate = useSelector(state => state.posting.todayDate);
   const writtenNote = useSelector(state => state.posting.writtenNote);
+  const userToken = useSelector(state => state.user.userToken);
 
   const [submitList, setSubmitList] = useState({
     injuryDirection: '왼쪽',
@@ -142,18 +143,19 @@ const InjurySelect = props => {
             dispatch(setModalHidden());
             dispatch(
               submitCondition({
+                userToken: userToken,
                 date: todayDate,
                 conditionIdx: 'injury',
                 content: submitList,
               }),
             );
 
-            // await API.postRecord(
-            //   'KA1951543508',
-            //   todayDate,
-            //   'injury',
-            //   writtenNote.noteContentGroup.conditioning.injury,
-            // );
+            await API.postRecord(
+              userToken,
+              todayDate,
+              'injury',
+              JSON.stringify(writtenNote.noteContentGroup.conditioning.injury),
+            );
           }}>
           <Text
             style={{

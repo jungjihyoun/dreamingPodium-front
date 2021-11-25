@@ -25,6 +25,7 @@ function DreamScreen(props) {
   const [test, setKeyBoardAvoid] = useState(true);
   const objectNote = useSelector(state => state.posting.ObjectNote);
   const dispatch = useDispatch();
+  const userToken = useSelector(state => state.user.userToken);
   const initData = async () => {
     try {
       return await AsyncStorage.getItem('visitCheck');
@@ -39,13 +40,7 @@ function DreamScreen(props) {
     const efforts = objectNote.efforts;
     const routines = objectNote.routines;
 
-    // API.postObjectInit(
-    //   'KA1951543508',
-    //   objectives,
-    //   requirements,
-    //   efforts,
-    //   routines,
-    // );
+    API.postObjectInit(userToken, objectives, requirements, efforts, routines);
   };
 
   const addObjectItem = (type, text) => {
@@ -54,7 +49,7 @@ function DreamScreen(props) {
         {text: '확인'},
       ]);
     } else if (text === '') {
-      Alert.alert('라잇', '내용을 작성해 주세요 ✍️', [{text: '확인'}]);
+      Alert.alert('라잇', '내용을 입력해 주세요 ✍️', [{text: '확인'}]);
     } else {
       dispatch(
         submitObject({
@@ -62,6 +57,9 @@ function DreamScreen(props) {
           content: text,
         }),
       );
+      // 존나급합 TODO : 통째로 손봐서
+      // console.log(type);
+      API.updateObject(userToken, type, [text]);
 
       // API update 호출
     }

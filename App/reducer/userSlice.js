@@ -120,7 +120,7 @@ export const userSlice = createSlice({
       state.team = action.payload.team;
       state.field = action.payload.field;
       state.userImage = action.payload.profile_image;
-      console.log('after fetch profile : ', state.writtenNote);
+      console.log('after fetch profile : ', state.userImage);
     },
     [fetchProfileData.rejected](state, action) {
       // 실패

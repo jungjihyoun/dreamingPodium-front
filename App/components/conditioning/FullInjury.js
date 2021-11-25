@@ -29,6 +29,8 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
     return conditionGroup;
   };
 
+  const uri = '';
+
   return (
     <>
       {filterConditionGroup(idx) && (
@@ -42,12 +44,12 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                   style={{width: 50, height: 50}}
                   source={{
                     uri: encodeURI(
-                      `https://wright-images.s3.ap-northeast-2.amazonaws.com/front_injury/${data.injurySection}.png`,
+                      `https://wright-images.s3.ap-northeast-2.amazonaws.com/front_injury/${data.injurySection.normalize()}.png`,
                     ),
                   }}
                 />
                 <Text style={styles.title}>
-                  {data.injuryDirection} {data.injurySection} {data.injuryForm}
+                  {data.injuryDirection} {encodeURI('머리')} {data.injuryForm}
                 </Text>
               </View>
 

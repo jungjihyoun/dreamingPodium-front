@@ -16,18 +16,18 @@ import {colors} from '../config/globalStyles';
 // TOPO : 최적화 시키기
 
 const AppCalendar = () => {
-  const todayDate = useSelector(state => state.posting.todayDate);
+  const userToken = useSelector(state => state.user.userToken);
   const dispatch = useDispatch();
 
   const toggle = selectedDate => {
     dispatch(selectDate({date: selectedDate.toDate().toDateString()}));
 
-    // dispatch(
-    //   fetchNoteData({
-    //     user_id: '1951543508',
-    //     date: selectedDate.toDate().toDateString(),
-    //   }),
-    // );
+    dispatch(
+      fetchNoteData({
+        user_id: userToken,
+        date: selectedDate.toDate().toDateString(),
+      }),
+    );
   };
 
   return (

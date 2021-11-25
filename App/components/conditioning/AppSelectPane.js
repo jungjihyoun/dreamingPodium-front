@@ -15,7 +15,7 @@ function AppSelectPane({title, idx, ...props}) {
   const [select, setSelect] = useState(false);
   const [seletList, setSelectList] = useState([]);
   const dispatch = useDispatch();
-
+  const userToken = useSelector(state => state.user.userToken);
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
 
@@ -42,6 +42,7 @@ function AppSelectPane({title, idx, ...props}) {
         setSelect(!select);
         dispatch(
           submitCondition({
+            userToken: userToken,
             date: todayDate,
             conditionIdx: idx,
             content: props.children,

@@ -25,20 +25,21 @@ function ConditionSelect({title, idx, ...props}) {
   const dispatch = useDispatch();
   const todayDate = useSelector(state => state.posting.todayDate);
   const writtenNote = useSelector(state => state.posting.writtenNote);
+  const userToken = useSelector(state => state.user.userToken);
 
   const postCondition = async () => {
     console.log(writtenNote.noteContentGroup.conditioning.mind);
     await API.postRecord(
-      'KA1992149316',
+      userToken,
       todayDate,
       'physical',
-      writtenNote.noteContentGroup.conditioning.physical,
+      JSON.stringify(writtenNote.noteContentGroup.conditioning.physical),
     );
     await API.postRecord(
-      'KA1992149316',
+      userToken,
       todayDate,
       'mind',
-      writtenNote.noteContentGroup.conditioning.mind,
+      JSON.stringify(writtenNote.noteContentGroup.conditioning.mind),
     );
   };
 

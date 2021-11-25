@@ -32,7 +32,7 @@ export const postingSlice = createSlice({
         training: {
           train_detail: {content: null},
           feedback: {content: null},
-          routines: {폼롤러하기: false, 물마시기: false},
+          routines: {},
           success: {content: null, image: []},
           failure: {content: null, image: []},
         },
@@ -40,24 +40,7 @@ export const postingSlice = createSlice({
           mind: [],
           physical: [],
           //  injury 는 통째로
-          injury: [
-            {
-              injuryDirection: '오른쪽',
-              injurySection: '무릎',
-              injuryForm: '골절',
-              painData: 1,
-              interruptData: 1,
-              injuryMemo: '부상 어쩌고',
-            },
-            {
-              injuryDirection: '오른쪽',
-              injurySection: '무릎',
-              injuryForm: '연골파부상',
-              painData: 6,
-              interruptData: 1,
-              injuryMemo: '부상 메모',
-            },
-          ],
+          injury: [],
         },
       },
     },
@@ -78,9 +61,18 @@ export const postingSlice = createSlice({
       ].content = action.payload.content;
 
       if (action.payload.image) {
-        state.writtenNote.noteContentGroup.training[
-          action.payload.noteIdx
-        ].image.push(...action.payload.image);
+        if (
+          state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
+            .image === null
+        ) {
+          state.writtenNote.noteContentGroup.training[
+            action.payload.noteIdx
+          ].image = action.payload.image;
+        } else {
+          state.writtenNote.noteContentGroup.training[
+            action.payload.noteIdx
+          ].image.push(...action.payload.image);
+        }
 
         console.log(
           '이미지 테스트중',
@@ -103,12 +95,14 @@ export const postingSlice = createSlice({
         conditionGroup.push(action.payload.content);
       }
       API.postRecord(
-        'KA1951543508',
+        action.payload.userToken,
         state.todayDate,
         'injury',
-        state.writtenNote.noteContentGroup.conditioning[
-          action.payload.conditionIdx
-        ],
+        JSON.stringify(
+          state.writtenNote.noteContentGroup.conditioning[
+            action.payload.conditionIdx
+          ],
+        ),
       );
     },
 
@@ -150,10 +144,10 @@ export const postingSlice = createSlice({
         ];
       console.log(state.writtenNote.noteContentGroup.training.routines);
       API.postRecord(
-        'KA1951543508',
+        action.payload.userToken,
         state.todayDate,
         'routines',
-        state.writtenNote.noteContentGroup.training.routines,
+        JSON.stringify(state.writtenNote.noteContentGroup.training.routines),
       );
     },
 

@@ -19,17 +19,19 @@ const AppCollapsibleContent = ({
   const navigation = useNavigation();
 
   const imageGroup = () => {
-    return image.map(data => {
-      return (
-        <Image
-          key={data.uri}
-          source={{uri: data.uri}}
-          resizeMode="contain"
-          resizeMethod="auto"
-          style={styles.swiperItem}
-        />
-      );
-    });
+    if (image !== null) {
+      return image.map(data => {
+        return (
+          <Image
+            key={data.uri}
+            source={{uri: data.uri}}
+            resizeMode="contain"
+            resizeMethod="auto"
+            style={styles.swiperItem}
+          />
+        );
+      });
+    }
   };
 
   const contentArea = () => {

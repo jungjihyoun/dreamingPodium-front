@@ -27,14 +27,48 @@ import API from '../../utils/profile';
 
 function ProfileEditScreen({navigation, ...props}) {
   const user = useSelector(state => state.user);
+  const userToken = useSelector(state => state.user.userToken);
+  const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
   const [name, setName] = useState(user.username);
   const [gender, setGender] = useState(user.gender);
   const [birth, setBirth] = useState(user.birth);
-  const [image, setImage] = useState(user.userImage);
+  const [image, setImage] = useState(
+    user.userImage !== null ? user.userImage : [],
+  );
   const [team, setTeam] = useState(user.team);
   const [field, setField] = useState(user.field);
+
+  const showImage = async () => {
+    ImagePicker.openPicker({
+      multiple: true,
+      waitAnimationEnd: false,
+      sortOrder: 'asc',
+      includeExif: true,
+      forceJpg: true,
+    })
+      .then(data => {
+        setImage(
+          data.map((v, i) => {
+            console.log('receive image', v);
+            return {
+              uri: v.path,
+              type: v.mime,
+              name: 'image.jpeg',
+            };
+          }),
+        );
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  var formData = new FormData();
+  const uploadImageData = image.filter(value => value.name === 'image.jpeg');
+  uploadImageData.forEach((v, i) => {
+    formData.append('file', v);
+  });
 
   const submitUserProfile = async () => {
     //redux
@@ -43,39 +77,21 @@ function ProfileEditScreen({navigation, ...props}) {
         username: name ? name : user.username,
         gender: gender ? gender : user.gender,
         birth: birth ? birth : user.birth,
-        userImage: image !== '' && image !== undefined ? image : '',
+        userImage: image.length !== 0 ? image[0].uri : '',
         field: field ? field : user.field,
         team: team ? team : user.team,
       }),
     );
 
-    await API.postProfileInfo('KA1951543508', name, gender, birth, field, team);
+    // 프로필 수정 저장  API
+    await API.postProfileInfo(userToken, name, gender, birth, field, team);
+    // 이미지 포스트 API
+    if (image !== []) {
+      console.log('보낸값', formData);
+      await API.postImage(userToken, 'profile', todayDate, formData);
+    }
 
     Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
-
-    // 이미지 포스트 API
-    // if (image !== '') {
-    //   await API.postImage('KA1951543508', 'profile', todayDate, image);
-    // }
-  };
-
-  const showImage = async () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-      multiple: false,
-    }).then(_image => {
-      var body = new FormData();
-      body.append('file', {
-        uri: _image.sourceURL,
-        type: 'image/jpeg',
-        name: _image.filename,
-      });
-      // 이미지 state
-      const img = body['_parts'][0][1]['uri'];
-      setImage(img);
-    });
   };
 
   return (
@@ -96,7 +112,7 @@ function ProfileEditScreen({navigation, ...props}) {
               onPress={() => {
                 showImage();
               }}>
-              {image !== '' ? (
+              {image.length !== 0 ? (
                 <Image
                   style={{
                     width: 150,
@@ -105,11 +121,17 @@ function ProfileEditScreen({navigation, ...props}) {
                   resizeMode="cover"
                   resizeMethod="auto"
                   source={{
-                    uri: image,
+                    uri: image[0].uri,
                   }}
                 />
               ) : (
-                <Image source={images.profileImgGroup} />
+                <Image
+                  style={{
+                    width: 150,
+                    height: 150,
+                  }}
+                  source={images.profileImgGroup}
+                />
               )}
             </TouchableOpacity>
           </View>
