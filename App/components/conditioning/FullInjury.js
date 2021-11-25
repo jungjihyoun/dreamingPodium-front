@@ -12,10 +12,10 @@ import {
 } from 'react-native';
 
 import {colors, width, height} from '../../config/globalStyles';
+import {S3Image} from '../../config/injuryPickerList';
 import AppXBar from './AppXBar';
 // REDUX
 import {deleteInjury} from '../../reducer/postingSlice';
-import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
 
 import InjurySVG from '../InjurySVG';
 
@@ -29,8 +29,6 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
     return conditionGroup;
   };
 
-  const uri = '';
-
   return (
     <>
       {filterConditionGroup(idx) && (
@@ -40,16 +38,21 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
           <View style={styles.section}>
             <TouchableOpacity style={styles.savedTextArea}>
               <View style={{flexDirection: 'row'}}>
-                <Image
-                  style={{width: 50, height: 50}}
-                  source={{
-                    uri: encodeURI(
-                      `https://wright-images.s3.ap-northeast-2.amazonaws.com/front_injury/${data.injurySection.normalize()}.png`,
-                    ),
-                  }}
-                />
-                <Text style={styles.title}>
-                  {data.injuryDirection} {encodeURI('머리')} {data.injuryForm}
+                {data.injurySection !== '기타' ? (
+                  <Image
+                    style={{width: 80, height: 50}}
+                    source={{
+                      uri: `https://wright-images.s3.ap-northeast-2.amazonaws.com/front_injury/${S3Image(
+                        data.injurySection,
+                      )}.png`,
+                    }}
+                  />
+                ) : (
+                  <View style={{width: 30}} />
+                )}
+
+                <Text style={{...styles.title}}>
+                  {data.injuryDirection} {data.injurySection} {data.injuryForm}
                 </Text>
               </View>
 
@@ -58,7 +61,6 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                 <AppXBar amount={data.painData} />
                 <Text style={styles.degreeNumber}>{data.painData}</Text>
               </View>
-
               <View style={styles.degreeGroup}>
                 <Text style={styles.degreeTitle}>운동방해정도</Text>
                 <AppXBar amount={data.interruptData} />
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
   },
   section: {
     position: 'absolute',
-    bottom: height * 30,
+    bottom: height * 20,
     borderRadius: 10,
     backgroundColor: colors.white,
     minHeight: 230,
@@ -135,11 +137,13 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: colors.textGrey,
     marginTop: 15,
     marginBottom: 15,
+    alignSelf: 'flex-end',
+    paddingRight: 3,
   },
   degreeGroup: {
     flexDirection: 'row',
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
   },
   scrollMemo: {
     width: 270,
-    height: height * 28,
+    height: height * 20,
     marginTop: 20,
     marginBottom: 30,
   },

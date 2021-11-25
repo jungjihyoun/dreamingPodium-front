@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     marginTop: height * 10,
   },
   name: {fontSize: 22, fontWeight: 'bold'},
-  contentGroup: {width: width * 90},
+  contentGroup: {width: width * 110},
   homeTitle: {
     fontSize: 16,
     fontWeight: 'bold',
