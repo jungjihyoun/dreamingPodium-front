@@ -4,8 +4,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 
 import CheckButton from '../CheckButton';
-import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
-import {width, height, colors, images} from '../../config/globalStyles';
+import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
+import {width, height, colors, fonts} from '../../config/globalStyles';
 
 const AppCollapsibleTitle = ({
   style,
@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
     height: height * 65,
   },
   titleText: {
+    fontFamily: fonts.spoqaBold,
     fontSize: 18,
-    fontWeight: 'bold',
     marginBottom: 3,
     color: colors.darkGrey,
   },
   subtitleText: {
+    fontFamily: fonts.spoqaRegular,
     fontSize: 13,
-    fontWeight: 'bold',
     color: colors.lightGrey,
   },
 });

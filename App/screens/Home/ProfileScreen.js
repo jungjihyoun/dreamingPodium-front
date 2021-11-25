@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
   userInfoText: {
     fontSize: 18,
     alignSelf: 'center',
+    fontWeight: '700',
   },
   userInfoTitle: {
     fontSize: 14,

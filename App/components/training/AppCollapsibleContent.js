@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {width, height, colors, images} from '../../config/globalStyles';
+import {width, height, colors, fonts, images} from '../../config/globalStyles';
 import Swiper from 'react-native-swiper';
 
 import {useNavigation} from '@react-navigation/native';
@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
   },
 
   text: {
+    fontFamily: fonts.spoqaLight,
     paddingTop: 16,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '600',
     backgroundColor: colors.primary,
     color: colors.white,
   },

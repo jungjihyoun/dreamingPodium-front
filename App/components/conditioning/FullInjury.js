@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-import {colors, width, height} from '../../config/globalStyles';
+import {colors, width, height, fonts} from '../../config/globalStyles';
 import {S3Image} from '../../config/injuryPickerList';
 import AppXBar from './AppXBar';
 // REDUX
@@ -89,7 +89,12 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                   );
                 }}
                 style={styles.deleteButton}>
-                <Text style={{fontSize: 16, color: colors.white}}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: colors.white,
+                    fontFamily: fonts.spoqaRegular,
+                  }}>
                   부상 삭제
                 </Text>
               </TouchableOpacity>
@@ -169,9 +174,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   memoContent: {
-    fontSize: 14,
+    fontFamily: fonts.spoqaRegular,
+    fontSize: 15,
     color: colors.textGrey,
-    fontWeight: '600',
     marginLeft: width * 10,
   },
   deleteButton: {

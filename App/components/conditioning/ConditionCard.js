@@ -25,12 +25,10 @@ function ConditionCard({subtitle, title, content, style, idx, ...props}) {
   const dispatch = useDispatch();
 
   const filterConditionGroup = param => {
-    if (writtenNote.noteContentGroup.conditioning[param] !== []) {
-      const conditionGroup = writtenNote.noteContentGroup.conditioning[param];
-      return conditionGroup;
-    } else {
-      return [];
-    }
+    const conditionGroup = writtenNote.noteContentGroup.conditioning[param];
+    console.log(param);
+    console.log(writtenNote.noteContentGroup.conditioning[param]);
+    return conditionGroup;
   };
 
   const injurySwiperItems = param => {
@@ -58,7 +56,7 @@ function ConditionCard({subtitle, title, content, style, idx, ...props}) {
   return (
     <>
       {idx === 'injury' ? (
-        filterConditionGroup(idx) ? (
+        filterConditionGroup(idx).length > 0 ? (
           <>
             <TouchableOpacity
               style={styles.injuryPlusButton}
@@ -75,7 +73,9 @@ function ConditionCard({subtitle, title, content, style, idx, ...props}) {
             <AppSwiper swiperItems={injurySwiperItems(idx)} />
           </>
         ) : (
-          <AppSwiper swiperItems={[<EmptyCard title="부상" idx="injury" />]} />
+          <>
+            <EmptyCard title="부상" idx="injury" />
+          </>
         )
       ) : !isEmpty() ? (
         <ScrollView style={{flex: 1}}>

@@ -23,7 +23,7 @@ import {SocialButton} from '../../components/SocialButton';
 import {submitNote} from '../../reducer/postingSlice';
 
 // CONFIG
-import {colors, width, height} from '../../config/globalStyles';
+import {colors, width, height, fonts} from '../../config/globalStyles';
 
 import API from '../../utils/note';
 
@@ -216,8 +216,9 @@ const styles = StyleSheet.create({
     color: colors.darkGrey,
   },
   input: {
+    fontFamily: fonts.spoqaLight,
     width: width * 343,
-    fontSize: 13,
+    fontSize: 15,
     lineHeight: 25,
     padding: 13,
   },
@@ -231,6 +232,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   },
   submitButton: {
+    fontFamily: fonts.spoqaRegular,
     marginTop: 10,
     borderRadius: 8,
     width: 62,

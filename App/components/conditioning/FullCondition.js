@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-import {colors, width, height} from '../../config/globalStyles';
+import {colors, width, height, fonts} from '../../config/globalStyles';
 
 // REDUX
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
@@ -106,12 +106,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 22,
-    fontWeight: 'bold',
     marginBottom: 10,
   },
   subTitle: {
+    fontFamily: fonts.spoqaBold,
     fontSize: 18,
-    fontWeight: 'bold',
     marginVertical: 10,
     marginLeft: 10,
     color: 'black',
@@ -126,6 +125,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 15,
   },
   savedText: {
+    fontFamily: fonts.spoqaRegular,
     color: 'black',
     fontSize: 16,
   },

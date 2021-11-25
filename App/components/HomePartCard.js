@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 //custom imports
-import {width, height, colors} from '../config/globalStyles';
+import {width, height, colors, fonts} from '../config/globalStyles';
 
 export const HomePartCard = ({style, onPress, ...props}) => {
   return (
@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
     marginTop: 37,
   },
   partTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: fonts.spoqaBold,
+    fontSize: 26,
     color: colors.white,
   },
   partSubtitle: {
-    fontSize: 12,
-    fontWeight: 'bold',
+    fontFamily: fonts.spoqaBold,
+    fontSize: 14,
     color: colors.white,
   },
 });

@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import {StyleSheet, Text, View, Platform, Image} from 'react-native';
 import {fetchProfileData} from '../../reducer/userSlice';
-import {width, height, colors, images} from '../../config/globalStyles';
+import {width, height, colors, images, fonts} from '../../config/globalStyles';
 
 const HeaderProfile = ({style, ...props}) => {
   const dispatch = useDispatch();
@@ -91,12 +91,14 @@ const styles = StyleSheet.create({
     height: height * 130,
   },
   title: {
+    fontFamily: fonts.gmarket,
     fontSize: Platform.OS === 'android' ? 12 : 14,
     color: colors.textGrey,
     fontWeight: '600',
     width: width * 60,
   },
   content: {
+    fontFamily: fonts.spoqaBold,
     fontSize: Platform.OS === 'android' ? 16 : 18,
     fontWeight: 'bold',
     width: width * 180,
@@ -107,6 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   name: {
+    fontFamily: fonts.spoqaBold,
     fontSize: Platform.OS === 'android' ? 18 : 22,
     fontWeight: 'bold',
     width: width * 300,
@@ -121,6 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   homeTitle: {
+    fontFamily: fonts.gmarket,
     fontSize: Platform.OS === 'android' ? 13 : 15,
     fontWeight: '500',
     color: colors.darkGrey,

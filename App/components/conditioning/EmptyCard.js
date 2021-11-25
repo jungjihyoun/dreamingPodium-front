@@ -3,7 +3,7 @@ import React, {useEffect, useLayoutEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import {colors, width, height} from '../../config/globalStyles';
+import {colors, width, height, fonts} from '../../config/globalStyles';
 
 // REDUX
 import {setModalVisible, setModalInner} from '../../reducer/modalSlice';
@@ -15,7 +15,7 @@ function EmptyCard({subtitle, title, content, style, idx, ...props}) {
     <View>
       <View style={styles.emptySection}>
         <View style={styles.emptyInnerText}>
-          <Text>
+          <Text style={{fontFamily: fonts.gmarket, fontWeight: '400'}}>
             입력한 {title} 기록이 없습니다. {'\n'} 오늘의 기록을 남겨주세요 :-)
           </Text>
         </View>
@@ -30,7 +30,9 @@ function EmptyCard({subtitle, title, content, style, idx, ...props}) {
             );
             dispatch(setModalInner({modalInner: idx}));
           }}>
-          <Text>작성하기</Text>
+          <Text style={{fontFamily: fonts.gmarket, fontWeight: '400'}}>
+            작성하기
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
