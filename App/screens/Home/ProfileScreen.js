@@ -21,14 +21,6 @@ function ProfileScreen({navigation, ...props}) {
   const user = useSelector(state => state.user);
   const userToken = useSelector(state => state.user.userToken);
 
-  useEffect(() => {
-    dispatch(
-      fetchProfileData({
-        user_id: userToken,
-      }),
-    );
-  }, [dispatch, userToken]);
-
   const logout = () => {
     dispatch(setLogout());
   };
@@ -43,7 +35,7 @@ function ProfileScreen({navigation, ...props}) {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.profileHeader}>
         <View style={styles.profileImg}>
-          {user.userImage !== '' ? (
+          {user.userImage !== null ? (
             <Image
               style={{
                 width: 150,
@@ -52,7 +44,7 @@ function ProfileScreen({navigation, ...props}) {
               resizeMode="cover"
               resizeMethod="auto"
               source={{
-                uri: user.userImage,
+                uri: user.userImage.image_0,
               }}
             />
           ) : (

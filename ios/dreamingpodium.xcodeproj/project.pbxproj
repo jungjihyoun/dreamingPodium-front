@@ -551,7 +551,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dreamingpodium/dreamingpodium.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 45QK4X3PJA;
+				DEVELOPMENT_TEAM = R852D9NJ2T;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator14.5]" = arm64;
@@ -617,7 +617,7 @@
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wright;
 				PRODUCT_NAME = dreamingpodium;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -633,7 +633,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = dreamingpodium/dreamingpodium.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 45QK4X3PJA;
+				DEVELOPMENT_TEAM = R852D9NJ2T;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator14.5]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -688,7 +688,7 @@
 					/usr/lib/swift,
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wright;
 				PRODUCT_NAME = dreamingpodium;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

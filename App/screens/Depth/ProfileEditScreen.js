@@ -23,7 +23,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import ProfileInputLine from '../../components/ProfileInputLine';
 import {colors, images, width, height} from '../../config/globalStyles';
 
-import API from '../../utils/profile';
+import NOTEAPI from '../../utils/note';
+import PROFILEAPI from '../../utils/profile';
 
 function ProfileEditScreen({navigation, ...props}) {
   const user = useSelector(state => state.user);
@@ -34,41 +35,38 @@ function ProfileEditScreen({navigation, ...props}) {
   const [name, setName] = useState(user.username);
   const [gender, setGender] = useState(user.gender);
   const [birth, setBirth] = useState(user.birth);
+  // pictures for redux & image for api
+  const [picture, setPicture] = useState(
+    user.userImage !== null ? user.userImage : '',
+  );
   const [image, setImage] = useState(
-    user.userImage !== null ? user.userImage : [],
+    user.userImage !== null ? user.userImage : '',
   );
   const [team, setTeam] = useState(user.team);
   const [field, setField] = useState(user.field);
 
   const showImage = async () => {
     ImagePicker.openPicker({
-      multiple: true,
+      multiple: false,
       waitAnimationEnd: false,
       sortOrder: 'asc',
       includeExif: true,
       forceJpg: true,
     })
       .then(data => {
-        setImage(
-          data.map((v, i) => {
-            console.log('receive image', v);
-            return {
-              uri: v.path,
-              type: v.mime,
-              name: 'image.jpeg',
-            };
-          }),
-        );
+        setImage({
+          uri: data.path,
+          type: data.mime,
+          name: 'image.jpeg',
+        });
+        setPicture({image_0: data.path});
       })
       .catch(e => {
         console.log(e);
       });
   };
   var formData = new FormData();
-  const uploadImageData = image.filter(value => value.name === 'image.jpeg');
-  uploadImageData.forEach((v, i) => {
-    formData.append('file', v);
-  });
+  formData.append('files', image);
 
   const submitUserProfile = async () => {
     //redux
@@ -77,20 +75,24 @@ function ProfileEditScreen({navigation, ...props}) {
         username: name ? name : user.username,
         gender: gender ? gender : user.gender,
         birth: birth ? birth : user.birth,
-        userImage: image.length !== 0 ? image[0].uri : '',
+        userImage: picture !== '' ? picture : '',
         field: field ? field : user.field,
         team: team ? team : user.team,
       }),
     );
-
     // 프로필 수정 저장  API
-    await API.postProfileInfo(userToken, name, gender, birth, field, team);
+    await PROFILEAPI.postProfileInfo(
+      userToken,
+      name,
+      gender,
+      birth,
+      field,
+      team,
+    );
     // 이미지 포스트 API
-    if (image !== []) {
-      console.log('보낸값', formData);
-      await API.postImage(userToken, 'profile', todayDate, formData);
+    if (formData.has('files') === true) {
+      await NOTEAPI.postImage(userToken, 'profile', todayDate, formData);
     }
-
     Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
   };
 
@@ -121,7 +123,7 @@ function ProfileEditScreen({navigation, ...props}) {
                   resizeMode="cover"
                   resizeMethod="auto"
                   source={{
-                    uri: image[0].uri,
+                    uri: picture['image_0'],
                   }}
                 />
               ) : (

@@ -19,13 +19,17 @@ const postProfileInfo = async (
   team,
   field,
 ) => {
-  console.log(user_id);
+  console.log(user_id, name, gender, birthday, team, field);
   try {
     return await API.post(
       `/profile/create_profile/${user_id}?name=${name}&gender=${gender}&birthday=${birthday}&team=${team}&field=${field}`,
-    );
+    )
+      .then(res => {
+        console.log('sucess update profile Info', res);
+      })
+      .catch(err => console.log(err));
   } catch (error) {
-    console.warn('프로필 불러오기 실패', error);
+    console.warn('fail update profile', error);
   }
 };
 

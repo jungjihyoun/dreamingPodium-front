@@ -106,8 +106,7 @@ function WritingScreen({navigation, route}) {
   var formData = new FormData();
   const uploadImageData = pictures.filter(value => value.name === 'image.jpeg');
   uploadImageData.forEach((v, i) => {
-    formData.append('file', v);
-    console.log(pictures);
+    formData.append('files', v);
   });
 
   const goToNext = async () => {
@@ -127,7 +126,7 @@ function WritingScreen({navigation, route}) {
       await API.postRecord(userToken, todayDate, route.params.noteIdx, content);
 
       // 사진 post
-      await API.postImage(userToken, todayDate, route.params.noteIdx, formData);
+      await API.postImage(userToken, route.params.noteIdx, todayDate, formData);
 
       navigation.navigate('TrainingNote', {
         content: content,

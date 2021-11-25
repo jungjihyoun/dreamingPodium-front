@@ -24,14 +24,14 @@ function HomeScreen(props) {
   const dispatch = useDispatch();
 
   // 접속시 training, conditioning 데이터 불러오기
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchNoteData({
-  //       user_id: userToken,
-  //       date: todayDate,
-  //     }),
-  //   );
-  // }, [dispatch, todayDate, userToken]);
+  useEffect(() => {
+    dispatch(
+      fetchNoteData({
+        user_id: userToken,
+        date: todayDate,
+      }),
+    );
+  }, [dispatch, todayDate, userToken]);
 
   return (
     <SafeAreaView>

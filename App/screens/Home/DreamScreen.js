@@ -57,9 +57,10 @@ function DreamScreen(props) {
           content: text,
         }),
       );
-      // 존나급합 TODO : 통째로 손봐서
-      // console.log(type);
-      API.updateObject(userToken, type, [text]);
+
+      let submitList = [];
+      submitList.push(...objectNote[type], text);
+      API.updateObject(userToken, type, submitList);
 
       // API update 호출
     }

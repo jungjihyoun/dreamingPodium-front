@@ -1,7 +1,7 @@
 // 기록 API 관리
 import API from './API';
 import axios from 'axios';
-import * as test from '../../config';
+import * as APIURL from '../../config';
 
 const getRecord = async (user_id, date) => {
   console.log(user_id, date);
@@ -30,7 +30,7 @@ const postImage = async (user_id, image_type, wdate, image) => {
 
   return axios
     .post(
-      `http://3.35.43.76:8000/test/uploadfile?user_id=${user_id}&image_type=${image_type}&wdate=${wdate}`,
+      `${APIURL.BASE_URL}/test/uploadfile?user_id=${user_id}&image_type=${image_type}&wdate=${wdate}`,
       image,
       {
         headers: {
@@ -38,9 +38,21 @@ const postImage = async (user_id, image_type, wdate, image) => {
         },
       },
     )
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(res => console.log('success image post', res))
+    .catch(err => console.log('fail image post', err));
 
+  // return await API.post('/test/uploadfile', image, {
+  //   // headers: {
+  //   //   'content-type': 'multipart/form-data',
+  //   // },
+  //   params: {
+  //     user_id,
+  //     image_type,
+  //     wdate,
+  //   },
+  // })
+  //   .then(response => response.status)
+  //   .catch(err => console.warn(err));
   // return await API.post(
   //   `/test/uploadfile?user_id=${user_id}&image_type=${image_type}&wdate=${wdate}`,
   //   image,

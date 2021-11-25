@@ -3,21 +3,35 @@ import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-
+import {fetchProfileData} from '../../reducer/userSlice';
 import {width, height, colors, images} from '../../config/globalStyles';
 
 const HeaderProfile = ({style, ...props}) => {
+  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user);
+  const userToken = useSelector(state => state.user.userToken);
+
   const userObject = useSelector(
     state => state.posting.ObjectNote.objectives[0],
   );
+
+  useEffect(() => {
+    dispatch(
+      fetchProfileData({
+        user_id: userToken,
+      }),
+    );
+  }, [dispatch, userToken]);
 
   return (
     <>
       <View style={styles.profileGroup}>
         <View style={{flex: 1, alignItems: 'flex-end'}}>
           {userInfo.userImage ? (
-            <Image source={{uri: userInfo.userImage}} style={styles.image} />
+            <Image
+              source={{uri: userInfo.userImage['image_0']}}
+              style={styles.image}
+            />
           ) : (
             <Image source={images.profileImgGroup} style={styles.image} />
           )}
