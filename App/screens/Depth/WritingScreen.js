@@ -136,7 +136,7 @@ function WritingScreen({navigation, route}) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{...styles.container, backgroundColor: 'white'}}>
       <Text style={styles.title}>{route.params.title}</Text>
 
       <ScrollView style={{height: '100%'}}>
@@ -160,8 +160,26 @@ function WritingScreen({navigation, route}) {
 
         <View
           style={{
-            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            flexDirection: 'row',
           }}>
+          {(route.params.noteIdx === 'success' ||
+            route.params.noteIdx === 'failure') && (
+            <TouchableOpacity
+              style={{...styles.submitButton, marginRight: 10}}
+              onPress={() => pickMultiple()}>
+              <Text
+                style={{
+                  color: colors.white,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  fontSize: 12,
+                }}>
+                사진첨부
+              </Text>
+            </TouchableOpacity>
+          )}
+
           <TouchableOpacity
             style={styles.submitButton}
             onPress={() => {
@@ -177,23 +195,6 @@ function WritingScreen({navigation, route}) {
               작성완료
             </Text>
           </TouchableOpacity>
-
-          {(route.params.noteIdx === 'success' ||
-            route.params.noteIdx === 'failure') && (
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={() => pickMultiple()}>
-              <Text
-                style={{
-                  color: colors.white,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  fontSize: 12,
-                }}>
-                사진첨부
-              </Text>
-            </TouchableOpacity>
-          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -233,7 +234,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 8,
     width: 62,
-    height: 18,
+    height: 24,
     backgroundColor: colors.primary,
     fontSize: 8,
     justifyContent: 'center',

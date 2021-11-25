@@ -97,7 +97,7 @@ function LoginScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  LogoSection: {flex: 2},
+  LogoSection: {flex: 2, marginBottom: height * 20},
   container: {
     flex: 1,
     padding: 20,
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     width: width * 200,
     textAlign: 'center',
     color: '#424141',
-    fontWeight: '600',
-    fontSize: 16,
+    fontWeight: '300',
+    fontSize: 14,
   },
   divederSection: {
     flexDirection: 'row',

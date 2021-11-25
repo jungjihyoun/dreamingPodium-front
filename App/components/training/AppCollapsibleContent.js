@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 8,
     width: 62,
-    height: 18,
+    height: 24,
     backgroundColor: colors.white,
     alignSelf: 'flex-end',
     justifyContent: 'center',

@@ -28,11 +28,23 @@ function FullCondition({subtitle, title, content, style, idx, ...props}) {
     if (filterConditionGroup() !== []) {
       return filterConditionGroup().map((data, index) => {
         return (
-          <View key={data} style={styles.paneUI}>
-            <Text style={styles.savedText} key={index}>
-              {data}
-            </Text>
-          </View>
+          <>
+            <View key={data} style={styles.paneUI}>
+              <Text style={styles.savedText} key={index}>
+                {data}
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  marginVertical: 10,
+                  height: 2,
+                  backgroundColor: '#EEEEEE',
+                  width: width * 320,
+                }}
+              />
+            </View>
+          </>
         );
       });
     } else {
@@ -90,7 +102,7 @@ const styles = StyleSheet.create({
     width: '90%',
     minHeight: 200,
     alignSelf: 'center',
-    marginTop: 20,
+    marginBottom: 20,
   },
   titleText: {
     fontSize: 22,
@@ -102,22 +114,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
     marginLeft: 10,
-    color: colors.darkGrey,
+    color: 'black',
   },
   savedTextArea: {
     flexWrap: 'wrap',
-    flexDirection: 'row',
     width: '100%',
-    marginVertical: 6,
+    marginVertical: 10,
     alignItems: 'flex-start',
     alignSelf: 'flex-start',
     justifyContent: 'flex-start',
     marginLeft: width * 15,
   },
   savedText: {
-    color: colors.textGrey,
-    fontSize: 14,
-    fontWeight: 'bold',
+    color: 'black',
+    fontSize: 16,
   },
   textInputButton: {
     color: colors.lightGrey,
@@ -125,16 +135,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   paneUI: {
-    width: 150,
-    margin: 2,
-    backgroundColor: colors.lightBlue,
-    borderRadius: 15,
-    paddingLeft: 5,
-    paddingRight: 5,
-    height: 45,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // width: 150,
+    // margin: 2,
+    // backgroundColor: colors.lightBlue,
+    // borderRadius: 15,
+    // paddingLeft: 5,
+    // paddingRight: 5,
+    // height: 45,
+    // flexDirection: 'column',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 });
 

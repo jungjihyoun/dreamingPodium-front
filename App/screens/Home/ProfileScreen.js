@@ -32,14 +32,14 @@ function ProfileScreen({navigation, ...props}) {
     )}일`;
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
       <View style={styles.profileHeader}>
         <View style={styles.profileImg}>
           {user.userImage ? (
             <Image
               style={{
-                width: 150,
-                height: 150,
+                width: 116,
+                height: 116,
               }}
               resizeMode="cover"
               resizeMethod="auto"
@@ -50,8 +50,8 @@ function ProfileScreen({navigation, ...props}) {
           ) : (
             <Image
               style={{
-                width: 150,
-                height: 150,
+                width: 116,
+                height: 116,
               }}
               source={images.profileImgGroup}
             />
@@ -63,8 +63,10 @@ function ProfileScreen({navigation, ...props}) {
             style={{
               ...styles.userInfoText,
               fontWeight: 'bold',
-              fontSize: 20,
-              marginTop: height * 20,
+              fontSize: 24,
+              height: 30,
+              marginTop: height * 90,
+              marginBottom: height * 8,
             }}>
             {user.username}
           </Text>
@@ -75,24 +77,29 @@ function ProfileScreen({navigation, ...props}) {
               fontSize: 16,
               color: colors.textGrey,
               marginBottom: height * 15,
+              fontWeight: '600',
             }}>
             {dateKo(new Date(user.birth))}
           </Text>
 
-          <View style={styles.userInfoRow}>
-            <Text style={{...styles.userInfoTitle, marginRight: 10}}>소속</Text>
-            <Text style={styles.userInfoText}>{user.team}</Text>
-          </View>
+          <View>
+            <View style={styles.userInfoRow}>
+              <Text style={{...styles.userInfoTitle, marginRight: 15}}>
+                소속
+              </Text>
+              <Text style={styles.userInfoText}>{user.team}</Text>
+            </View>
 
-          <View style={styles.userInfoRow}>
-            <Text
-              style={{
-                ...styles.userInfoTitle,
-                marginRight: 10,
-              }}>
-              종목
-            </Text>
-            <Text style={styles.userInfoText}>{user.field}</Text>
+            <View style={styles.userInfoRow}>
+              <Text
+                style={{
+                  ...styles.userInfoTitle,
+                  marginRight: 15,
+                }}>
+                종목
+              </Text>
+              <Text style={styles.userInfoText}>{user.field}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -102,7 +109,7 @@ function ProfileScreen({navigation, ...props}) {
           flex: 3,
           alignSelf: 'center',
           alignItems: 'center',
-          marginTop: height * 20,
+          marginTop: height * 100,
         }}>
         <TouchableOpacity
           onPress={() => navigation.push('ProfileEditScreen')}
@@ -128,22 +135,22 @@ const styles = StyleSheet.create({
   userInfoArea: {
     width: width * 300,
     height: height * 100,
-    marginTop: height * 6,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },
   userInfoRow: {
     flexDirection: 'row',
-    marginTop: 4,
+    marginTop: 10,
   },
   userInfoText: {
     fontSize: 18,
-    fontWeight: '600',
+    alignSelf: 'center',
   },
   userInfoTitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.textGrey,
+    alignSelf: 'center',
   },
   profileHeader: {
     flex: 4,
@@ -152,10 +159,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: height * 25,
   },
-
   profileImg: {
-    width: 150,
-    height: 150,
+    width: 116,
+    height: 116,
     overflow: 'hidden',
     borderRadius: 100,
     alignItems: 'center',
@@ -164,18 +170,17 @@ const styles = StyleSheet.create({
     width: width * 160,
     height: height * 160,
   },
-
   buttonSection: {
     width: width * 300,
     height: height * 40,
     marginBottom: 16,
     borderWidth: 1.5,
-    borderColor: colors.whiteGrey,
+    borderColor: '#EEEEEE',
     borderRadius: 10,
     justifyContent: 'center',
   },
   buttonText: {
-    fontWeight: '700',
+    fontWeight: '500',
     fontSize: 16,
     alignSelf: 'center',
   },

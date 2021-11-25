@@ -26,7 +26,7 @@ const HeaderProfile = ({style, ...props}) => {
   return (
     <>
       <View style={styles.profileGroup}>
-        <View style={{flex: 1, alignItems: 'flex-end'}}>
+        <View style={styles.userImageSection}>
           {userInfo.userImage ? (
             <Image
               source={{uri: userInfo.userImage['image_0']}}
@@ -39,19 +39,15 @@ const HeaderProfile = ({style, ...props}) => {
 
         <View style={styles.columnGroup}>
           <Text style={styles.name}>{userInfo.username}</Text>
-
-          <View style={styles.rowGroup}>
-            <View style={styles.contentGroup}>
-              <Text style={styles.title}>소속</Text>
-              <Text style={styles.content}>{userInfo.team}</Text>
-            </View>
-            <View style={styles.contentGroup}>
-              <Text style={styles.title}>종목</Text>
-              <Text style={styles.content}>{userInfo.field}</Text>
-            </View>
+          <View style={styles.contentGroup}>
+            <Text style={styles.title}>소속</Text>
+            <Text style={styles.content}>{userInfo.team}</Text>
           </View>
-
-          <View>
+          <View style={styles.contentGroup}>
+            <Text style={styles.title}>종목</Text>
+            <Text style={styles.content}>{userInfo.field}</Text>
+          </View>
+          <View style={styles.contentGroup}>
             <Text style={styles.title}>나의 목표</Text>
             <Text style={styles.content}>{userObject}</Text>
           </View>
@@ -65,40 +61,71 @@ const HeaderProfile = ({style, ...props}) => {
 };
 
 const styles = StyleSheet.create({
-  profileGroup: {
-    width: width * 400,
-    height: height * 200,
+  userImageSection: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'left',
     marginTop: height * 20,
+  },
+  profileGroup: {
+    width: width * 410,
+    height: height * 180,
+    borderBottomWidth: 4,
+    borderColor: '#EEEEEE',
     flexDirection: 'row',
     alignContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: Platform.OS === 'android' ? height * 20 : 0,
   },
-  columnGroup: {flex: 1, flexDirection: 'column', marginRight: width * 35},
-  rowGroup: {
-    flexDirection: 'row',
-    marginVertical: Platform.OS === 'android' ? height * 2 : height * 15,
+  columnGroup: {
+    marginLeft: width * 35,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'left',
+    justifyContent: 'flex-end',
+    alignContent: 'flex-end',
+    width: width * 300,
+    height: height * 130,
   },
   title: {
     fontSize: Platform.OS === 'android' ? 12 : 14,
     color: colors.textGrey,
-    fontWeight: '500',
-    paddingBottom: 3,
+    fontWeight: '600',
+    width: width * 60,
   },
-  content: {fontSize: Platform.OS === 'android' ? 15 : 18, fontWeight: '600'},
-  image: {
-    width: 120,
-    height: 120,
-    borderRadius: 100,
-    marginRight: width * 28,
-    marginTop: height * 10,
-  },
-  name: {fontSize: Platform.OS === 'android' ? 18 : 22, fontWeight: 'bold'},
-  contentGroup: {width: width * 110},
-  homeTitle: {
-    fontSize: 16,
+  content: {
+    fontSize: Platform.OS === 'android' ? 16 : 18,
     fontWeight: 'bold',
+    width: width * 180,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+  },
+  name: {
+    fontSize: Platform.OS === 'android' ? 18 : 22,
+    fontWeight: 'bold',
+    width: width * 300,
+    paddingBottom: 10,
+  },
+  contentGroup: {
+    width: width * 300,
+    paddingBottom: height * 7,
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  homeTitle: {
+    fontSize: Platform.OS === 'android' ? 13 : 15,
+    fontWeight: '500',
     color: colors.darkGrey,
-    paddingBottom: 28,
+    paddingBottom: 14,
+    marginTop: height * 30,
   },
 });
 

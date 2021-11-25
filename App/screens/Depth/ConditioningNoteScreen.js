@@ -47,7 +47,7 @@ function ConditioningNoteScreen(props) {
         <TouchableOpacity
           style={
             selectTab === 'condition'
-              ? [styles.selectTab, {backgroundColor: '#E6E6E6'}]
+              ? [styles.selectTab, {backgroundColor: '#EEEEEE'}]
               : styles.selectTab
           }
           onPress={() => {
@@ -56,7 +56,7 @@ function ConditioningNoteScreen(props) {
           <Text
             style={
               selectTab === 'condition'
-                ? [styles.selectedText]
+                ? [styles.selectedText, {marginLeft: 12}]
                 : styles.selectText
             }>
             컨디션리포트
@@ -66,7 +66,7 @@ function ConditioningNoteScreen(props) {
         <TouchableOpacity
           style={
             selectTab === 'injury'
-              ? [{backgroundColor: '#E6E6E6'}, styles.selectTab]
+              ? [{backgroundColor: '#EEEEEE'}, styles.selectTab]
               : styles.selectTab
           }
           onPress={() => {
@@ -83,16 +83,13 @@ function ConditioningNoteScreen(props) {
 
       <View style={styles.boxContainer}>
         {selectTab === 'condition' ? (
-          <View
-            style={{minHeight: height * 500}}
-            ref={elem => (this.conditionComponent = elem)}>
+          <View style={{minHeight: height * 500}}>
             <ConditionCard idx="mind" />
           </View>
         ) : (
           <>
             {/* 부상일때 */}
             <View
-              ref={elem => (this.injuryComponent = elem)}
               style={{
                 minHeight: height * 500,
                 height: '100%',
@@ -111,31 +108,28 @@ function ConditioningNoteScreen(props) {
 
 const styles = StyleSheet.create({
   boxContainer: {
-    // paddingHorizontal: 24,
-    // paddingTop: 30,
     width: '100%',
     height: '100%',
-    minHeight: height * 120,
-    backgroundColor: '#E6E6E6',
-    paddingTop: 30,
+    minHeight: height * 100,
+    backgroundColor: '#EEEEEE',
+    paddingTop: 10,
   },
   selectTabGroup: {
+    paddingTop: 10,
+    backgroundColor: '#EEEEEE',
     flexDirection: 'row',
   },
   selectTab: {
     marginRight: 1,
-    marginLeft: 6,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    width: width * 100,
+    // marginLeft: 12,
+    width: width * 120,
     height: height * 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#E6E6E6',
+    borderColor: '#EEEEEE',
   },
-  selectText: {fontSize: 16, fontWeight: 'bold', color: colors.lightGrey},
-  selectedText: {fontSize: 16, fontWeight: 'bold', color: '#000000'},
+  selectText: {fontSize: 18, fontWeight: 'bold', color: colors.lightGrey},
+  selectedText: {fontSize: 18, fontWeight: 'bold', color: '#000000'},
 });
 
 export default ConditioningNoteScreen;

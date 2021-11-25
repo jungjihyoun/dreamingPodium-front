@@ -34,7 +34,7 @@ function HomeScreen(props) {
   // }, [dispatch, todayDate, userToken]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>
       <View style={styles.HomePartCard}>
         <HeaderProfile />
 
