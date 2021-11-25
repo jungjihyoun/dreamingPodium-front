@@ -8,6 +8,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Platform,
   TouchableWithoutFeedback,
 } from 'react-native';
 
@@ -56,7 +57,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                 </Text>
               </View>
 
-              <View style={styles.degreeGroup}>
+              <View style={{...styles.degreeGroup, marginBottom: 5}}>
                 <Text style={styles.degreeTitle}>통증정도</Text>
                 <AppXBar amount={data.painData} />
                 <Text style={styles.degreeNumber}>{data.painData}</Text>
@@ -122,10 +123,10 @@ const styles = StyleSheet.create({
   },
   section: {
     position: 'absolute',
-    bottom: height * 20,
+    bottom: Platform.OS === 'android' ? height * 5 : height * 10,
     borderRadius: 10,
     backgroundColor: colors.white,
-    minHeight: 230,
+    height: Platform.OS === 'android' ? height * 250 : height * 230,
     width: width * 310,
     alignSelf: 'center',
   },
@@ -147,7 +148,6 @@ const styles = StyleSheet.create({
   },
   degreeGroup: {
     flexDirection: 'row',
-    marginBottom: 10,
   },
   degreeTitle: {
     fontSize: 16,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   scrollMemo: {
     width: 270,
-    height: height * 20,
+    height: height * 30,
     marginTop: 20,
     marginBottom: 30,
   },

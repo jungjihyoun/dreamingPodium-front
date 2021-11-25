@@ -26,12 +26,19 @@ function DreamScreen(props) {
   const objectNote = useSelector(state => state.posting.ObjectNote);
   const dispatch = useDispatch();
   const userToken = useSelector(state => state.user.userToken);
-  const initData = async () => {
+
+  const isVisitedUser = async () => {
     try {
-      return await AsyncStorage.getItem('visitCheck');
+      const value = await AsyncStorage.getItem('visitedUser');
+      if (value !== null) {
+        console.log('첫 방문 유져인가', value);
+        return value;
+      }
     } catch (error) {
-      console.log(error);
+      // Error retrieving data
     }
+    console.log('방문 안함');
+    return false;
   };
 
   const submitObjectList = () => {
@@ -39,7 +46,7 @@ function DreamScreen(props) {
     const requirements = objectNote.requirements;
     const efforts = objectNote.efforts;
     const routines = objectNote.routines;
-
+    AsyncStorage.setItem('visitedUser', 'true');
     API.postObjectInit(userToken, objectives, requirements, efforts, routines);
   };
 
@@ -60,7 +67,9 @@ function DreamScreen(props) {
 
       let submitList = [];
       submitList.push(...objectNote[type], text);
-      API.updateObject(userToken, type, submitList);
+
+      // TODO : 주석해제
+      // API.updateObject(userToken, type, submitList);
 
       // API update 호출
     }
@@ -94,13 +103,12 @@ function DreamScreen(props) {
           </View>
 
           {/* 첫 접속 유져일때만 보여주기 */}
-          {initData !== 'true' && (
+          {isVisitedUser() !== 'true' && (
             <TouchableOpacity
               style={styles.submitButton}
               onPress={() => {
                 submitObjectList();
-                // AsyncStorage.setItem('visitCheck', 'true');
-                // props.navigation.push('HomeApp');
+                props.navigation.push('HomeApp');
               }}>
               <Text style={styles.submitText}>완료</Text>
             </TouchableOpacity>

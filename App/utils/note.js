@@ -40,30 +40,6 @@ const postImage = async (user_id, image_type, wdate, image) => {
     )
     .then(res => console.log('success image post', res))
     .catch(err => console.log('fail image post', err));
-
-  // return await API.post('/test/uploadfile', image, {
-  //   // headers: {
-  //   //   'content-type': 'multipart/form-data',
-  //   // },
-  //   params: {
-  //     user_id,
-  //     image_type,
-  //     wdate,
-  //   },
-  // })
-  //   .then(response => response.status)
-  //   .catch(err => console.warn(err));
-  // return await API.post(
-  //   `/test/uploadfile?user_id=${user_id}&image_type=${image_type}&wdate=${wdate}`,
-  //   image,
-  //   {
-  //     headers: {
-  //       'content-type': 'multipart/form-data',
-  //     },
-  //   },
-  // )
-  //   .then(response => response.status)
-  //   .catch(err => console.warn(err));
 };
 
 // 목표설정 API
@@ -74,27 +50,36 @@ const postObjectInit = async (
   efforts,
   routines,
 ) => {
-  console.log(user_id, requirements);
-  // console.log(objectives);
-  // console.log(JSON.stringify(objectives));
-  return await API.post(
-    `/objective/create_objectives/${user_id}?objectives=${JSON.stringify(
-      objectives,
-    )}&requirements=${JSON.stringify(requirements)}&efforts=${JSON.stringify(
-      efforts,
-    )}&routines=${JSON.stringify(routines)}`,
-  )
-    .then(response => response.status)
-    .catch(err => console.warn(err));
+  console.log({
+    user_id: user_id,
+    objectives: objectives,
+    requirements: requirements,
+    efforts: efforts,
+    routines: routines,
+  });
+
+  return axios
+    .post(`${APIURL.BASE_URL}/objective/create_objectives`, {
+      user_id: user_id,
+      objectives: objectives,
+      requirements: requirements,
+      efforts: efforts,
+      routines: routines,
+    })
+    .then(res => console.log('success object post', res))
+    .catch(err => console.log('fail object post', err));
 };
+
+//   return await API.post('/objective/create_objectives')
+//     .then(response => console.log('성공 테스트', response.status))
+//     .catch(err => console.warn(err));
+// };
 
 const updateObject = async (user_id, keyword, content) => {
   console.log(user_id, keyword, content);
 
   return await API.post(
-    `/objective/update_objectives/${user_id}?keyword=${keyword}&content=${JSON.stringify(
-      content,
-    )}`,
+    `/objective/update_objectives/${user_id}?keyword=${keyword}&content=${content}`,
   )
     .then(response => response.status)
     .catch(err => console.warn(err));

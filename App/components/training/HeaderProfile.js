@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Text, View, Platform, Image} from 'react-native';
 import {fetchProfileData} from '../../reducer/userSlice';
 import {width, height, colors, images} from '../../config/globalStyles';
 
@@ -76,15 +76,15 @@ const styles = StyleSheet.create({
   columnGroup: {flex: 1, flexDirection: 'column', marginRight: width * 35},
   rowGroup: {
     flexDirection: 'row',
-    marginVertical: 15,
+    marginVertical: Platform.OS === 'android' ? height * 2 : height * 15,
   },
   title: {
-    fontSize: 14,
+    fontSize: Platform.OS === 'android' ? 12 : 14,
     color: colors.textGrey,
     fontWeight: '500',
     paddingBottom: 3,
   },
-  content: {fontSize: 18, fontWeight: '600'},
+  content: {fontSize: Platform.OS === 'android' ? 15 : 18, fontWeight: '600'},
   image: {
     width: 120,
     height: 120,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginRight: width * 28,
     marginTop: height * 10,
   },
-  name: {fontSize: 22, fontWeight: 'bold'},
+  name: {fontSize: Platform.OS === 'android' ? 18 : 22, fontWeight: 'bold'},
   contentGroup: {width: width * 110},
   homeTitle: {
     fontSize: 16,

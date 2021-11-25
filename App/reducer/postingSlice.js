@@ -172,6 +172,7 @@ export const postingSlice = createSlice({
       // 성공
       console.log('성공!', action.payload);
       state.writtenNote = action.payload;
+
       console.log('api 요청 후 데이터', state.writtenNote);
     },
     [fetchNoteData.rejected](state, action) {

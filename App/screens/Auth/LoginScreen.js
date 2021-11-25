@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
   },
   dividerText: {
-    width: width * 150,
+    width: width * 200,
     textAlign: 'center',
     color: colors.lightGrey,
     fontWeight: 'bold',

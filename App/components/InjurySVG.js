@@ -37,43 +37,43 @@ function InjurySVG({injury, ...props}) {
   const svg = () => {
     switch (injury) {
       case '머리':
-        return <Head width={300} height={350} />;
+        return <Head width={width * 350} height={height * 330} />;
       case '얼굴':
-        return <Face width={300} height={350} />;
+        return <Face width={width * 350} height={height * 330} />;
       case '허리':
-        return <Waist width={300} height={350} />;
+        return <Waist width={width * 350} height={height * 330} />;
       case '손목':
-        return <Wrist width={300} height={350} />;
+        return <Wrist width={width * 350} height={height * 330} />;
       case '허벅지':
-        return <Thigh width={300} height={350} />;
+        return <Thigh width={width * 350} height={height * 330} />;
       case '목':
-        return <Neck width={300} height={350} />;
+        return <Neck width={width * 350} height={height * 330} />;
       case '갈비뼈':
-        return <Rib width={300} height={350} />;
+        return <Rib width={width * 350} height={height * 330} />;
       case '배':
-        return <Belly width={300} height={350} />;
+        return <Belly width={width * 350} height={height * 330} />;
       case '골반':
-        return <Pelvis width={300} height={350} />;
+        return <Pelvis width={width * 350} height={height * 330} />;
       case '팔':
-        return <Arm width={300} height={350} />;
+        return <Arm width={width * 350} height={height * 330} />;
       case '팔꿈치':
-        return <Elbow width={300} height={350} />;
+        return <Elbow width={width * 350} height={height * 330} />;
       case '어깨':
-        return <Shoulder width={300} height={350} />;
+        return <Shoulder width={width * 350} height={height * 330} />;
       case '손':
-        return <Hand width={300} height={350} />;
+        return <Hand width={width * 350} height={height * 330} />;
       case '손가락':
-        return <Finger width={300} height={350} />;
+        return <Finger width={width * 350} height={height * 330} />;
       case '정강이':
-        return <Shin width={300} height={350} />;
+        return <Shin width={width * 350} height={height * 330} />;
       case '아킬레스건':
-        return <Achilles width={300} height={350} />;
+        return <Achilles width={width * 350} height={height * 330} />;
       case '발목':
-        return <Ankle width={300} height={350} />;
+        return <Ankle width={width * 350} height={height * 330} />;
       case '발':
-        return <Foot width={300} height={350} />;
+        return <Foot width={width * 350} height={height * 330} />;
       case '무릎':
-        return <Knee width={300} height={350} />;
+        return <Knee width={width * 350} height={height * 330} />;
 
       default:
         return <></>;
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     zIndex: 99,
     position: 'absolute',
-    bottom: height * 200,
+    bottom: height * 210,
     alignSelf: 'center',
   },
 });

@@ -2,7 +2,7 @@
 import API from './API';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const postKakaoToken = async (accessToken, refreshToken) => {
+const postKakaoToken = async (accessToken, refreshToken ) => {
   return await API.post('http://3.35.43.76:8000/kakao/form', {
     access_token: accessToken,
     refresh_token: refreshToken,

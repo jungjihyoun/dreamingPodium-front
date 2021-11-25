@@ -35,7 +35,7 @@ function ProfileScreen({navigation, ...props}) {
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.profileHeader}>
         <View style={styles.profileImg}>
-          {user.userImage !== null ? (
+          {user.userImage ? (
             <Image
               style={{
                 width: 150,
@@ -48,18 +48,34 @@ function ProfileScreen({navigation, ...props}) {
               }}
             />
           ) : (
-            <Image source={images.profileImgGroup} />
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+              }}
+              source={images.profileImgGroup}
+            />
           )}
         </View>
 
         <View style={styles.userInfoArea}>
           <Text
-            style={{...styles.userInfoText, fontWeight: 'bold', fontSize: 20}}>
+            style={{
+              ...styles.userInfoText,
+              fontWeight: 'bold',
+              fontSize: 20,
+              marginTop: height * 20,
+            }}>
             {user.username}
           </Text>
 
           <Text
-            style={{...styles.userInfoText, fontSize: 16, marginVertical: 5}}>
+            style={{
+              ...styles.userInfoText,
+              fontSize: 16,
+              color: colors.textGrey,
+              marginBottom: height * 15,
+            }}>
             {dateKo(new Date(user.birth))}
           </Text>
 
@@ -69,13 +85,25 @@ function ProfileScreen({navigation, ...props}) {
           </View>
 
           <View style={styles.userInfoRow}>
-            <Text style={{...styles.userInfoTitle, marginRight: 10}}>종목</Text>
+            <Text
+              style={{
+                ...styles.userInfoTitle,
+                marginRight: 10,
+              }}>
+              종목
+            </Text>
             <Text style={styles.userInfoText}>{user.field}</Text>
           </View>
         </View>
       </View>
 
-      <View style={{flex: 3, alignSelf: 'center', alignItems: 'center'}}>
+      <View
+        style={{
+          flex: 3,
+          alignSelf: 'center',
+          alignItems: 'center',
+          marginTop: height * 20,
+        }}>
         <TouchableOpacity
           onPress={() => navigation.push('ProfileEditScreen')}
           style={styles.buttonSection}>
@@ -111,6 +139,7 @@ const styles = StyleSheet.create({
   },
   userInfoText: {
     fontSize: 18,
+    fontWeight: '600',
   },
   userInfoTitle: {
     fontSize: 16,
@@ -129,6 +158,7 @@ const styles = StyleSheet.create({
     height: 150,
     overflow: 'hidden',
     borderRadius: 100,
+    alignItems: 'center',
   },
   profileImgGroup: {
     width: width * 160,
@@ -136,7 +166,6 @@ const styles = StyleSheet.create({
   },
 
   buttonSection: {
-    // flex: 1,
     width: width * 300,
     height: height * 40,
     marginBottom: 16,

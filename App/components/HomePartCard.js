@@ -29,10 +29,9 @@ const styles = StyleSheet.create({
   HomePartCard: {
     flexDirection: 'column',
     width: width * 341,
-    height: height * 204,
-    borderRadius: 20,
+    height: height * 190,
+    borderRadius: 10,
     borderStyle: 'solid',
-
     marginBottom: 27,
   },
   titleGroup: {

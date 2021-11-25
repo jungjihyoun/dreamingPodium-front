@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -5,7 +6,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
+  Platform,
   Button,
   TextInput,
 } from 'react-native';
@@ -63,8 +64,12 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
       return props.value === new Date().toDateString() ? (
         <Button title="선택" onPress={() => setOpen(true)} />
       ) : (
-        <TouchableOpacity onPress={() => setOpen(true)}>
-          <Text style={{...styles.inputHolder, width: width * 150}}>
+        <TouchableOpacity
+          onPress={() => setOpen(true)}
+          style={{
+            justifyContent: 'center',
+          }}>
+          <Text style={{...styles.inputHolder}}>
             {dateKo(new Date(props.value))}
           </Text>
         </TouchableOpacity>
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
   inputHolder: {
     marginRight: 30,
     fontSize: 18,
-    width: width * 100,
+    width: Platform.OS === 'android' ? width * 300 : width * 200,
     textAlign: 'right',
   },
   inputName: {
@@ -129,10 +134,8 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   inputGroup: {
-    // paddingBottom: 10,
-    // paddingTop: 30,
-    width: width * 325,
-    height: height * 30,
+    width: Platform.OS === 'android' ? width * 400 : width * 325,
+    height: Platform.OS === 'android' ? '100%' : height * 30,
     borderBottomWidth: 1.5,
     borderStyle: 'solid',
     borderColor: colors.whiteGrey,
@@ -144,6 +147,7 @@ const styles = StyleSheet.create({
   selectGender: {
     flexDirection: 'row',
     textAlign: 'right',
+    alignItems: 'center',
   },
   genderButton: {
     marginRight: 10,
