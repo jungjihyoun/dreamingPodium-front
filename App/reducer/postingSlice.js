@@ -10,8 +10,21 @@ export const fetchNoteData = createAsyncThunk(
   // record 불러오기
   'record/get',
   async payload => {
-    console.log('노트 불러오기', payload);
+    console.log('record api 호출 파라미터', payload);
     const response = await API.getRecord(payload.user_id, payload.date);
+    if (response.status !== 200) {
+      throw Error(response.data);
+    }
+    return response.data;
+  },
+);
+
+export const fetchObjective = createAsyncThunk(
+  // record 불러오기
+  'objective/get',
+  async payload => {
+    console.log('objective api 호출 파라미터', payload);
+    const response = await API.getObjective(payload.user_id);
     if (response.status !== 200) {
       throw Error(response.data);
     }
@@ -56,11 +69,17 @@ export const postingSlice = createSlice({
   reducers: {
     // 작성 제출
     submitNote: (state, action) => {
-      state.writtenNote.noteContentGroup.training[
-        action.payload.noteIdx
-      ].content = action.payload.content;
+      if (action.payload.noteIdx === 'feedback') {
+        state.writtenNote.noteContentGroup.training[action.payload.noteIdx] =
+          action.payload.content;
+        console.log(action.payload.noteIdx, action.payload.content);
+      } else {
+        state.writtenNote.noteContentGroup.training[
+          action.payload.noteIdx
+        ].content = action.payload.content;
+      }
 
-      if (action.payload.image) {
+      if (action.payload.image.length > 0) {
         if (
           state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
             .image === null
@@ -88,22 +107,21 @@ export const postingSlice = createSlice({
         state.writtenNote.noteContentGroup.conditioning[
           action.payload.conditionIdx
         ];
+
       if (conditionGroup.includes(action.payload.content)) {
         const index = conditionGroup.indexOf(action.payload.content);
         conditionGroup.splice(index, 1);
       } else {
         conditionGroup.push(action.payload.content);
       }
-      API.postRecord(
-        action.payload.userToken,
-        state.todayDate,
-        'injury',
-        JSON.stringify(
-          state.writtenNote.noteContentGroup.conditioning[
-            action.payload.conditionIdx
-          ],
-        ),
-      );
+
+      // 신체상태 API
+      API.postRecord(action.payload.userToken, state.todayDate, 'injury', [
+        ...state.writtenNote.noteContentGroup.conditioning[
+          action.payload.conditionIdx
+        ],
+        action.payload.content,
+      ]);
     },
 
     deleteInjury: (state, action) => {
@@ -126,6 +144,14 @@ export const postingSlice = createSlice({
 
         if (deleteIndex !== '') {
           injuryGroup.splice(deleteIndex, 1);
+
+          // 신체상태 API
+          API.postRecord(
+            action.payload.userToken,
+            state.todayDate,
+            'injury',
+            state.writtenNote.noteContentGroup.conditioning.injury,
+          );
         }
       });
     },
@@ -142,19 +168,17 @@ export const postingSlice = createSlice({
         !state.writtenNote.noteContentGroup.training.routines[
           action.payload.routineName
         ];
-      console.log(state.writtenNote.noteContentGroup.training.routines);
       API.postRecord(
         action.payload.userToken,
         state.todayDate,
         'routines',
-        JSON.stringify(state.writtenNote.noteContentGroup.training.routines),
+        state.writtenNote.noteContentGroup.training.routines,
       );
     },
 
     // 목표달성 추가
     submitObject: (state, action) => {
       state.ObjectNote[action.payload.ObjectType].push(action.payload.content);
-      console.log(state.ObjectNote);
     },
     // 목표달성 삭제
     deleteObject: (state, action) => {
@@ -164,20 +188,23 @@ export const postingSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchNoteData.pending](state, action) {
-      // 요청
-      console.log('대기!', action.payload);
-    },
     [fetchNoteData.fulfilled](state, action) {
-      // 성공
-      console.log('성공!', action.payload);
       state.writtenNote = action.payload;
-
-      console.log('api 요청 후 데이터', state.writtenNote);
+      console.log('record api 요청 후 데이터 => ', state.writtenNote);
     },
     [fetchNoteData.rejected](state, action) {
-      // 실패
-      console.log('실패!', action.payload);
+      console.log('fail record api', action.payload);
+    },
+
+    [fetchObjective.fulfilled](state, action) {
+      state.ObjectNote.objectives = action.payload['objectives'];
+      state.ObjectNote.requirements = action.payload['requirements'];
+      state.ObjectNote.efforts = action.payload['efforts'];
+      state.ObjectNote.routines = action.payload['routines'];
+      console.log('objective api 요청 후 데이터 =>', state.ObjectNote);
+    },
+    [fetchObjective.rejected](state, action) {
+      console.log('fail objective api', action.payload);
     },
   },
 });
@@ -191,6 +218,7 @@ export const {
   deleteInjury,
   submitObject,
   deleteObject,
+  getObjective,
 } = postingSlice.actions;
 
 export const selectLogin = state => state.posting.loggedIn;

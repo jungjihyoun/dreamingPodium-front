@@ -23,8 +23,8 @@ const AppCollapsibleContent = ({
       return image.map(data => {
         return (
           <Image
-            key={data.uri}
-            source={{uri: data.uri}}
+            key={data}
+            source={{uri: data}}
             resizeMode="contain"
             resizeMethod="auto"
             style={styles.swiperItem}
@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    width: width * 380,
-    height: height * 380,
+    width: width * 350,
+    height: height * 350,
   },
 
   text: {

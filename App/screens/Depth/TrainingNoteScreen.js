@@ -52,6 +52,7 @@ function TrainingNoteScreen({navigation, route}) {
         );
       }
     });
+    console.log('routineName => ', Object.keys(routineName));
   };
 
   // //TODO : 작성된 글 불러오기 코드정리
@@ -61,10 +62,12 @@ function TrainingNoteScreen({navigation, route}) {
       ...trainingNote,
     };
     // console.log(trainingNote[noteIdx].content);
-    if (trainingNote[noteIdx]) {
+    if (trainingNote[noteIdx] && noteIdx !== 'feedback') {
       return trainingNote[noteIdx].content;
+    } else if (trainingNote[noteIdx] && noteIdx === 'feedback') {
+      return trainingNote[noteIdx];
     } else {
-      return null;
+      null;
     }
   };
 

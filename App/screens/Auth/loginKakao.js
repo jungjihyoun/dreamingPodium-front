@@ -21,7 +21,9 @@ const signInKakaoTalk = async (setUserInfo, setLoggedIn) => {
         refresh_token: data.refreshToken,
       })
         .then(function (response) {
-          setLoggedIn({userToken: response.data['user_id']});
+          console.log('userId return from server # ', response.data);
+
+          setLoggedIn({userToken: response.data});
         })
         .catch(function (error) {
           console.log(error);
@@ -53,6 +55,8 @@ const signInKakaoTalk = async (setUserInfo, setLoggedIn) => {
         alert('로그인을 취소했습니다.');
       } else {
         console.log(
+          err.message,
+          err.code,
           {err},
           '카카오톡 로그인 프로세스를 취소하는 동안 오류가 발생했습니다.',
         );

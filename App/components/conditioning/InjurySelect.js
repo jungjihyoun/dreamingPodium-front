@@ -149,13 +149,11 @@ const InjurySelect = props => {
                 content: submitList,
               }),
             );
-
-            await API.postRecord(
-              userToken,
-              todayDate,
-              'injury',
-              JSON.stringify(writtenNote.noteContentGroup.conditioning.injury),
-            );
+            // 신체상태 API
+            API.postRecord(userToken, todayDate.todayDate, 'injury', [
+              ...writtenNote.noteContentGroup.conditioning.injury,
+              submitList,
+            ]);
           }}>
           <Text
             style={{

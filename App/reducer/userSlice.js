@@ -3,15 +3,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import API from '../utils/profile';
 
-// export const getReserveData = createAsyncThunk(
-//   'user/getReserveData',
-//   async payload => {
-//     const response = await parkingAPI.getUser(payload);
-//     if (response.status != 200) throw Error(response.data);
-//     return response.data.reserved;
-//   },
-// );
-
 export const fetchProfileData = createAsyncThunk(
   // record 불러오기
   'profile/get',
@@ -51,7 +42,10 @@ export const userSlice = createSlice({
       console.log('자동로그인', state.userToken);
     },
     setLogin: (state, action) => {
-      console.log('token login redux', action.payload.userToken);
+      console.log(
+        'token login redux 토큰 저장을 성공하였습니다.',
+        action.payload.userToken,
+      );
       AsyncStorage.setItem('userToken', action.payload.userToken);
       state.loggedIn = true;
       state.userToken = action.payload.userToken;

@@ -1,6 +1,7 @@
 // 애플 로그인 프로세스
 import {Platform} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import API from '../../utils/API';
 
 import {
   AppleButton,
@@ -30,8 +31,23 @@ const signInApple = async (setUserInfo, setLoggedIn) => {
     });
 
     // user is authenticated
-    console.log(credentialState);
-    console.log(appleAuthRequestResponse);
+    console.log('credentialState', credentialState);
+    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+
+    await API.post('http://3.35.43.76:8000/create_user', {
+      authorizationCode: appleAuthRequestResponse.authorizationCode,
+      identityToken: appleAuthRequestResponse.identityToken,
+    })
+      .then(function (response) {
+        console.log(
+          '애플 로그인 코드',
+          appleAuthRequestResponse.authorizationCode,
+        );
+        console.log('애플 로그인 토큰', appleAuthRequestResponse.identityToken);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 };
 export {signInApple};

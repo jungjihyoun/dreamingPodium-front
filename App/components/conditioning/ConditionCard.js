@@ -26,8 +26,7 @@ function ConditionCard({subtitle, title, content, style, idx, ...props}) {
 
   const filterConditionGroup = param => {
     const conditionGroup = writtenNote.noteContentGroup.conditioning[param];
-    console.log(param);
-    console.log(writtenNote.noteContentGroup.conditioning[param]);
+
     return conditionGroup;
   };
 

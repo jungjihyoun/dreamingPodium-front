@@ -27,20 +27,6 @@ function DreamScreen(props) {
   const dispatch = useDispatch();
   const userToken = useSelector(state => state.user.userToken);
 
-  const isVisitedUser = async () => {
-    try {
-      const value = await AsyncStorage.getItem('visitedUser');
-      if (value !== null) {
-        console.log('첫 방문 유져인가', value);
-        return value;
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-    console.log('방문 안함');
-    return false;
-  };
-
   const submitObjectList = () => {
     const objectives = objectNote.objectives;
     const requirements = objectNote.requirements;
@@ -51,7 +37,7 @@ function DreamScreen(props) {
   };
 
   const addObjectItem = (type, text) => {
-    if (objectNote[type].includes(text)) {
+    if (objectNote[type].length > 0 && objectNote[type].includes(text)) {
       Alert.alert('라잇', '중복된 내용은 작성할 수 없습니다 😢 ', [
         {text: '확인'},
       ]);
@@ -64,14 +50,8 @@ function DreamScreen(props) {
           content: text,
         }),
       );
-
       let submitList = [];
       submitList.push(...objectNote[type], text);
-
-      // TODO : 주석해제
-      // API.updateObject(userToken, type, submitList);
-
-      // API update 호출
     }
   };
 
@@ -102,17 +82,14 @@ function DreamScreen(props) {
             <Text style={styles.dreamTitle}>목표달성</Text>
           </View>
 
-          {/* 첫 접속 유져일때만 보여주기 */}
-          {isVisitedUser() !== 'true' && (
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={() => {
-                submitObjectList();
-                props.navigation.push('HomeApp');
-              }}>
-              <Text style={styles.submitText}>완료</Text>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={() => {
+              submitObjectList();
+              props.navigation.push('HomeApp');
+            }}>
+            <Text style={styles.submitText}>완료</Text>
+          </TouchableOpacity>
         </View>
 
         <ScrollView>

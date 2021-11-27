@@ -27,6 +27,7 @@ const App = navigation => {
   // 자동로그인
   useEffect(() => {
     AsyncStorage.getItem('userToken').then(token => {
+      console.log('진입 유저 토큰', token);
       if (token !== null) {
         dispatch(setUserToken({userToken: token}));
       }

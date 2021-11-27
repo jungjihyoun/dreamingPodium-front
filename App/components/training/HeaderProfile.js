@@ -11,9 +11,7 @@ const HeaderProfile = ({style, ...props}) => {
   const userInfo = useSelector(state => state.user);
   const userToken = useSelector(state => state.user.userToken);
 
-  const userObject = useSelector(
-    state => state.posting.ObjectNote.objectives[0],
-  );
+  const userObject = useSelector(state => state.posting.ObjectNote.objectives);
 
   useEffect(() => {
     dispatch(
@@ -28,10 +26,7 @@ const HeaderProfile = ({style, ...props}) => {
       <View style={styles.profileGroup}>
         <View style={styles.userImageSection}>
           {userInfo.userImage ? (
-            <Image
-              source={{uri: userInfo.userImage['image_0']}}
-              style={styles.image}
-            />
+            <Image source={{uri: userInfo.userImage}} style={styles.image} />
           ) : (
             <Image source={images.profileImgGroup} style={styles.image} />
           )}

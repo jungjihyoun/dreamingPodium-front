@@ -32,6 +32,8 @@ function ProfileEditScreen({navigation, ...props}) {
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
+  const [choosePicture, setChoosePicture] = useState(false);
+
   const [name, setName] = useState(user.username);
   const [gender, setGender] = useState(user.gender);
   const [birth, setBirth] = useState(user.birth);
@@ -59,7 +61,8 @@ function ProfileEditScreen({navigation, ...props}) {
           type: data.mime,
           name: 'image.jpeg',
         });
-        setPicture({image_0: data.path});
+        setPicture(data.path);
+        setChoosePicture(true);
       })
       .catch(e => {
         console.log(e);
@@ -81,18 +84,21 @@ function ProfileEditScreen({navigation, ...props}) {
       }),
     );
     // 프로필 수정 저장  API
+
     await PROFILEAPI.postProfileInfo(
       userToken,
-      name,
-      gender,
-      birth,
-      field,
-      team,
+      name ? name : user.username,
+      gender ? gender : user.gender,
+      birth ? birth : user.birth,
+      team ? team : user.team,
+      field ? field : user.field,
     );
-    // 이미지 포스트 API
-    if (formData.has('files') === true) {
+
+    // 프로필 이미지 저장  API
+    if (choosePicture === true) {
       await NOTEAPI.postImage(userToken, 'profile', todayDate, formData);
     }
+
     Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
   };
 
@@ -123,7 +129,7 @@ function ProfileEditScreen({navigation, ...props}) {
                   resizeMode="cover"
                   resizeMethod="auto"
                   source={{
-                    uri: picture['image_0'],
+                    uri: picture,
                   }}
                 />
               ) : (

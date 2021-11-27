@@ -78,7 +78,7 @@ const S3Image = injurySection => {
       return 'knee';
 
     default:
-      return <></>;
+      return '';
   }
 };
 

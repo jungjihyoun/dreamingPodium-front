@@ -35,6 +35,7 @@ function WritingScreen({navigation, route}) {
     route.params.value ? route.params.value : null,
   );
   const [pictures, setPictures] = useState([]);
+  const [choosePicture, setChoosePicture] = useState(false);
 
   const pickMultiple = () => {
     ImagePicker.openPicker({
@@ -60,10 +61,12 @@ function WritingScreen({navigation, route}) {
             const list = [...pictures, ...inputImage];
             if (list.length <= 5) {
               setPictures(list);
+              setChoosePicture(true);
             } else {
               const length = list.length - 5;
               list.splice(5, length);
               setPictures(list);
+              setChoosePicture(true);
             }
           }
         } else {
@@ -84,6 +87,7 @@ function WritingScreen({navigation, route}) {
                 };
               }),
             );
+            setChoosePicture(true);
           } else {
             console.log(images);
             setPictures(
@@ -96,6 +100,7 @@ function WritingScreen({navigation, route}) {
                 };
               }),
             );
+            setChoosePicture(true);
           }
         }
       })
@@ -113,21 +118,28 @@ function WritingScreen({navigation, route}) {
     if (!content) {
       Alert.alert('라잇', '내용을 입력해 주세요 ✍️', [{text: '확인'}]);
     } else {
+      // 글 상태 관리
       dispatch(
         submitNote({
           date: todayDate,
           noteIdx: route.params.noteIdx,
           content: content,
-          image: pictures,
+          image: pictures.map(data => {
+            return data.uri;
+          }),
         }),
       );
-
       // // 글 작성 post
       await API.postRecord(userToken, todayDate, route.params.noteIdx, content);
-
       // 사진 post
-      await API.postImage(userToken, route.params.noteIdx, todayDate, formData);
-
+      if (choosePicture) {
+        await API.postImage(
+          userToken,
+          route.params.noteIdx,
+          todayDate,
+          formData,
+        );
+      }
       navigation.navigate('TrainingNote', {
         content: content,
         noteTitle: route.params.title,

@@ -9,10 +9,13 @@ import {
   Image,
 } from 'react-native';
 
+import AppModal from '../../components/AppModal';
+import TermsScreen from '../../config/TermsScreen';
 // REDUX
 import {useSelector, useDispatch} from 'react-redux';
 import {signOutKakaoTalk} from '../../screens/Auth/loginKakao';
 import {fetchProfileData, setLogout} from '../../reducer/userSlice';
+import {setModalVisible} from '../../reducer/modalSlice';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 
@@ -35,7 +38,7 @@ function ProfileScreen({navigation, ...props}) {
     <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
       <View style={styles.profileHeader}>
         <View style={styles.profileImg}>
-          {user.userImage ? (
+          {user.userImage !== null ? (
             <Image
               style={{
                 width: 116,
@@ -44,7 +47,7 @@ function ProfileScreen({navigation, ...props}) {
               resizeMode="cover"
               resizeMethod="auto"
               source={{
-                uri: user.userImage.image_0,
+                uri: user.userImage,
               }}
             />
           ) : (
@@ -125,6 +128,21 @@ function ProfileScreen({navigation, ...props}) {
             logout();
           }}>
           <Text style={styles.buttonText}>로그아웃</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonSection}
+          onPress={() => {
+            dispatch(
+              setModalVisible({
+                disableYDrawer: 'terms',
+              }),
+            );
+          }}>
+          <Text style={styles.buttonText}>이용약관 보기</Text>
+          <AppModal>
+            <Text>{<TermsScreen />}</Text>
+          </AppModal>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

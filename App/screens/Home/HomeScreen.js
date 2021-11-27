@@ -13,9 +13,14 @@ import {HomePartCard} from '../../components/HomePartCard';
 import {HeaderProfile} from '../../components/training/HeaderProfile.js';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {selectDate, fetchNoteData} from '../../reducer/postingSlice';
+import {
+  selectDate,
+  fetchNoteData,
+  fetchObjective,
+  setObjectNoteInit,
+} from '../../reducer/postingSlice';
 import {setLogout} from '../../reducer/userSlice';
-
+import API from '../../utils/note';
 import {colors, images} from '../../config/globalStyles';
 
 function HomeScreen(props) {
@@ -24,14 +29,24 @@ function HomeScreen(props) {
   const dispatch = useDispatch();
 
   // 접속시 training, conditioning 데이터 불러오기 주석해제
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchNoteData({
-  //       user_id: userToken,
-  //       date: todayDate,
-  //     }),
-  //   );
-  // }, [dispatch, todayDate, userToken]);
+  useEffect(() => {
+    dispatch(
+      fetchNoteData({
+        user_id: userToken,
+        date: todayDate,
+      }),
+    );
+  }, [dispatch, todayDate, userToken]);
+
+  useEffect(() => {
+    console.log('effef');
+
+    dispatch(
+      fetchObjective({
+        user_id: userToken,
+      }),
+    );
+  }, [dispatch, userToken]);
 
   return (
     <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>

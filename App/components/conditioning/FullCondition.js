@@ -17,15 +17,16 @@ function FullCondition({subtitle, title, content, style, idx, ...props}) {
 
   const filterConditionGroup = () => {
     const conditionGroup = writtenNote.noteContentGroup.conditioning[idx];
+
     if (conditionGroup.length !== 0) {
-      return conditionGroup;
+      return writtenNote.noteContentGroup.conditioning[idx];
     } else {
       return [];
     }
   };
 
-  const savedTextUI = param => {
-    if (filterConditionGroup() !== []) {
+  const savedTextUI = () => {
+    if (filterConditionGroup() !== undefined) {
       return filterConditionGroup().map((data, index) => {
         return (
           <>
@@ -74,8 +75,8 @@ function FullCondition({subtitle, title, content, style, idx, ...props}) {
             dispatch(setModalInner({modalInner: 'condition'}));
           }}
           style={styles.savedTextArea}>
-          {filterConditionGroup(idx).length > 0 ? (
-            savedTextUI(idx)
+          {filterConditionGroup().length > 0 ? (
+            savedTextUI()
           ) : (
             <TouchableOpacity
               onPress={() => {
