@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   background: {
-    flex: 1,
+    // flex: 1,
   },
   bottomSheetContainer: {
     overflow: 'hidden',

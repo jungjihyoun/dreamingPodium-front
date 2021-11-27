@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  ScrollView,
+  Modal,
 } from 'react-native';
 
 import AppModal from '../../components/AppModal';
@@ -20,6 +22,7 @@ import {setModalVisible} from '../../reducer/modalSlice';
 import {colors, images, width, height} from '../../config/globalStyles';
 
 function ProfileScreen({navigation, ...props}) {
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const userToken = useSelector(state => state.user.userToken);
@@ -133,16 +136,18 @@ function ProfileScreen({navigation, ...props}) {
         <TouchableOpacity
           style={styles.buttonSection}
           onPress={() => {
-            dispatch(
-              setModalVisible({
-                disableYDrawer: 'terms',
-              }),
-            );
+            setModal(!modal);
           }}>
           <Text style={styles.buttonText}>이용약관 보기</Text>
-          <AppModal>
-            <Text>{<TermsScreen />}</Text>
-          </AppModal>
+          <Modal animationType="slide" transparent={true} visible={modal}>
+            {
+              <TermsScreen
+                setModal={() => {
+                  setModal(false);
+                }}
+              />
+            }
+          </Modal>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
