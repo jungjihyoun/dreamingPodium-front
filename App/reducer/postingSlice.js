@@ -44,11 +44,12 @@ export const postingSlice = createSlice({
       noteContentGroup: {
         training: {
           train_detail: {content: null},
-          feedback: {content: null},
+          // feedback: '',
           routines: {},
           success: {content: null, image: []},
           failure: {content: null, image: []},
         },
+        feedback: '',
         conditioning: {
           mind: [],
           physical: [],
@@ -70,9 +71,8 @@ export const postingSlice = createSlice({
     // 작성 제출
     submitNote: (state, action) => {
       if (action.payload.noteIdx === 'feedback') {
-        state.writtenNote.noteContentGroup.training[action.payload.noteIdx] =
+        state.writtenNote.noteContentGroup[action.payload.noteIdx] =
           action.payload.content;
-        console.log(action.payload.noteIdx, action.payload.content);
       } else {
         state.writtenNote.noteContentGroup.training[
           action.payload.noteIdx
@@ -92,12 +92,6 @@ export const postingSlice = createSlice({
             action.payload.noteIdx
           ].image.push(...action.payload.image);
         }
-
-        console.log(
-          '이미지 테스트중',
-          state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
-            .image,
-        );
       }
     },
 
@@ -143,7 +137,10 @@ export const postingSlice = createSlice({
         }
 
         if (deleteIndex !== '') {
-          injuryGroup.splice(deleteIndex, 1);
+          state.writtenNote.noteContentGroup.conditioning.injury.splice(
+            deleteIndex,
+            1,
+          );
 
           // 신체상태 API
           API.postRecord(
@@ -152,6 +149,36 @@ export const postingSlice = createSlice({
             'injury',
             state.writtenNote.noteContentGroup.conditioning.injury,
           );
+        }
+      });
+    },
+
+    deleteImage: (state, action) => {
+      let deleteIndex = '';
+
+      const imageGroup =
+        state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
+          .image;
+
+      console.log('action', action.payload.imageURI);
+
+      imageGroup.map((element, index) => {
+        if (element === action.payload.imageURI) {
+          deleteIndex = index;
+        }
+
+        if (deleteIndex !== '') {
+          state.writtenNote.noteContentGroup.training[
+            action.payload.noteIdx
+          ].image.splice(deleteIndex, 1);
+
+          // TODO : image API
+          // API.postRecord(
+          //   action.payload.userToken,
+          //   state.todayDate,
+          //   'injury',
+          //   state.writtenNote.noteContentGroup.conditioning.injury,
+          // );
         }
       });
     },
@@ -190,6 +217,7 @@ export const postingSlice = createSlice({
   extraReducers: {
     [fetchNoteData.fulfilled](state, action) {
       state.writtenNote = action.payload;
+
       console.log('record api 요청 후 데이터 => ', state.writtenNote);
     },
     [fetchNoteData.rejected](state, action) {
@@ -219,6 +247,7 @@ export const {
   submitObject,
   deleteObject,
   getObjective,
+  deleteImage,
 } = postingSlice.actions;
 
 export const selectLogin = state => state.posting.loggedIn;

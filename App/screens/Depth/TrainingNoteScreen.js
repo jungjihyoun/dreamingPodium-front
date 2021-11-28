@@ -61,11 +61,11 @@ function TrainingNoteScreen({navigation, route}) {
     trainingNote = {
       ...trainingNote,
     };
-    // console.log(trainingNote[noteIdx].content);
+
     if (trainingNote[noteIdx] && noteIdx !== 'feedback') {
       return trainingNote[noteIdx].content;
-    } else if (trainingNote[noteIdx] && noteIdx === 'feedback') {
-      return trainingNote[noteIdx];
+    } else if (noteIdx === 'feedback') {
+      return writtenNote.noteContentGroup.feedback;
     } else {
       null;
     }

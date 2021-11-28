@@ -13,6 +13,7 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
+  Image,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
@@ -20,7 +21,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {SocialButton} from '../../components/SocialButton';
 
 // REDUX
-import {submitNote} from '../../reducer/postingSlice';
+import {submitNote, deleteImage} from '../../reducer/postingSlice';
 
 // CONFIG
 import {colors, width, height, fonts} from '../../config/globalStyles';
@@ -30,6 +31,9 @@ import API from '../../utils/note';
 function WritingScreen({navigation, route}) {
   const userToken = useSelector(state => state.user.userToken);
   const todayDate = useSelector(state => state.posting.todayDate);
+  const NoteList = useSelector(
+    state => state.posting.writtenNote.noteContentGroup.training,
+  );
   const dispatch = useDispatch();
   const [content, setContent] = useState(
     route.params.value ? route.params.value : null,
@@ -47,28 +51,16 @@ function WritingScreen({navigation, route}) {
     })
       .then(images => {
         if (pictures && pictures.length > 0) {
-          const totalLength = pictures.length + images.length;
-          if (totalLength > 5) {
-            return Alert.alert('알림', '최대 다섯개까지 가능합니다.');
-          } else {
-            const inputImage = images.map((v, i) => {
-              return {
-                uri: v.path,
-                type: v.mime,
-                name: 'image.jpeg',
-              };
-            });
-            const list = [...pictures, ...inputImage];
-            if (list.length <= 5) {
-              setPictures(list);
-              setChoosePicture(true);
-            } else {
-              const length = list.length - 5;
-              list.splice(5, length);
-              setPictures(list);
-              setChoosePicture(true);
-            }
-          }
+          const inputImage = images.map((v, i) => {
+            return {
+              uri: v.path,
+              type: v.mime,
+              name: 'image.jpeg',
+            };
+          });
+          const list = [...pictures, ...inputImage];
+          setPictures(list);
+          setChoosePicture(true);
         } else {
           if (images.length > 5) {
             const maxImage = [];
@@ -103,6 +95,7 @@ function WritingScreen({navigation, route}) {
             setChoosePicture(true);
           }
         }
+        return Alert.alert('라잇', '사진 첨부가 완료되었습니다');
       })
       .catch(e => {
         console.log(e);
@@ -113,6 +106,57 @@ function WritingScreen({navigation, route}) {
   uploadImageData.forEach((v, i) => {
     formData.append('files', v);
   });
+
+  const handleDeleteImage = imageURI => {
+    Alert.alert('라잇', '사진을 삭제 하시겠습니까 ? ', [
+      {
+        text: '취소',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: '삭제',
+        onPress: () => {
+          console.log('OK Pressed', imageURI);
+
+          dispatch(
+            deleteImage({
+              noteIdx: route.params.noteIdx,
+              imageURI: imageURI,
+            }),
+          );
+
+          Alert.alert('라잇', '사진 삭제가 완료되었습니다', [{text: '확인'}]);
+          // dispatch(
+          //   submitNote({
+          //     date: todayDate,
+          //     noteIdx: route.params.noteIdx,
+          //     content: content,
+          //     image: pictures.map(data => {
+          //       return data.uri;
+          //     }),
+          //   }),
+          // );
+          // // 글 작성 post
+          // await API.postRecord(
+          //   userToken,
+          //   todayDate,
+          //   route.params.noteIdx,
+          //   content,
+          // );
+          // // 사진 post
+          // if (choosePicture) {
+          //   await API.postImage(
+          //     userToken,
+          //     route.params.noteIdx,
+          //     todayDate,
+          //     formData,
+          //   );
+          // }
+        },
+      },
+    ]);
+  };
 
   const goToNext = async () => {
     if (!content) {
@@ -208,6 +252,35 @@ function WritingScreen({navigation, route}) {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {route.params.noteIdx !== 'feedback' &&
+          route.params.noteIdx !== 'train_detail' &&
+          NoteList[route.params.noteIdx].image && (
+            <View
+              style={{
+                flexDirection: 'row',
+                // width: width * 300,
+                // overflow: 'visible',
+                // height: '100%',
+              }}>
+              {NoteList[route.params.noteIdx].image.map(data => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleDeleteImage(data);
+                    }}>
+                    <Image
+                      key={data}
+                      source={{uri: data}}
+                      resizeMode="cover"
+                      resizeMethod="auto"
+                      style={styles.imageList}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -253,6 +326,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
     justifyContent: 'center',
   },
+  imageList: {width: width * 70, height: height * 100},
 });
 
 export default WritingScreen;
