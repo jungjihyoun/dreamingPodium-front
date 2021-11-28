@@ -97,6 +97,7 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
           {inputUI()}
 
           <DatePicker
+            locale="ko"
             modal
             mode="date"
             open={open}
