@@ -1,5 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -188,7 +190,17 @@ function ProfileEditScreen({navigation, ...props}) {
               onPress={() => {
                 submitUserProfile();
                 Keyboard.dismiss();
-                navigation.push('ProfileScreen');
+
+                AsyncStorage.getItem('isVisitedUser').then(data => {
+                  // 방문 기록이 없는 유저이면
+                  if (data !== 'true') {
+                    navigation.navigate('HomeScreen');
+                  } else {
+                    navigation.push('ProfileScreen');
+                  }
+                });
+
+                AsyncStorage.setItem('isVisitedUser', 'true');
               }}
               style={styles.submitButton}>
               <Text style={styles.submitButtonText}> 저장 </Text>

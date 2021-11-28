@@ -23,12 +23,12 @@ import {setLogout} from '../../reducer/userSlice';
 import API from '../../utils/note';
 import {colors, images} from '../../config/globalStyles';
 
-function HomeScreen(props) {
+function HomeScreen({navigation, ...props}) {
   const todayDate = useSelector(state => state.posting.todayDate);
   const userToken = useSelector(state => state.user.userToken);
   const dispatch = useDispatch();
 
-  // 접속시 training, conditioning 데이터 불러오기 주석해제
+  // 접속시 training, condit4ioning 데이터 불러오기 주석해제
   useEffect(() => {
     dispatch(
       fetchNoteData({
@@ -36,7 +36,12 @@ function HomeScreen(props) {
         date: todayDate,
       }),
     );
-  }, [dispatch, todayDate, userToken]);
+    AsyncStorage.getItem('isVisitedUser').then(data => {
+      if (data !== 'true') {
+        navigation.push('DreamScreen');
+      }
+    });
+  }, [dispatch, navigation, todayDate, userToken]);
 
   useEffect(() => {
     console.log('effef');
@@ -56,7 +61,7 @@ function HomeScreen(props) {
         <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));
-            props.navigation.push('TrainingNote');
+            navigation.push('TrainingNote');
           }}
           partCardImg={images.trainingPart}
           partTitle="트레이닝 파트"
@@ -65,7 +70,7 @@ function HomeScreen(props) {
         <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));
-            props.navigation.push('ConditioningNote');
+            navigation.push('ConditioningNote');
           }}
           partCardImg={images.conditioningPart}
           partTitle="컨디셔닝 파트"

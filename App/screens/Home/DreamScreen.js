@@ -18,14 +18,19 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ObjectCard from '../../components/ObjectCard';
 import {colors, width, height} from '../../config/globalStyles';
 
-import {submitObject, deleteObject} from '../../reducer/postingSlice';
+import {
+  submitObject,
+  deleteObject,
+  fetchNoteData,
+} from '../../reducer/postingSlice';
 import API from '../../utils/note';
 
-function DreamScreen(props) {
+function DreamScreen({navigation, ...props}) {
   const [test, setKeyBoardAvoid] = useState(true);
+  const todayDate = useSelector(state => state.posting.todayDate);
+  const userToken = useSelector(state => state.user.userToken);
   const objectNote = useSelector(state => state.posting.ObjectNote);
   const dispatch = useDispatch();
-  const userToken = useSelector(state => state.user.userToken);
 
   const submitObjectList = () => {
     const objectives = objectNote.objectives;
@@ -34,6 +39,22 @@ function DreamScreen(props) {
     const routines = objectNote.routines;
     AsyncStorage.setItem('visitedUser', 'true');
     API.postObjectInit(userToken, objectives, requirements, efforts, routines);
+
+    dispatch(
+      fetchNoteData({
+        user_id: userToken,
+        date: todayDate,
+      }),
+    );
+
+    AsyncStorage.getItem('isVisitedUser').then(data => {
+      // 방문 기록이 없는 유저이면
+      if (data !== 'true') {
+        navigation.navigate('ProfileEditScreen');
+      } else {
+        navigation.push('HomeApp');
+      }
+    });
   };
 
   const addObjectItem = (type, text) => {
@@ -86,7 +107,6 @@ function DreamScreen(props) {
             style={styles.submitButton}
             onPress={() => {
               submitObjectList();
-              props.navigation.push('HomeApp');
             }}>
             <Text style={styles.submitText}>완료</Text>
           </TouchableOpacity>
