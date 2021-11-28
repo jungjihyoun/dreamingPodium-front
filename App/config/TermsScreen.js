@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {useWindowDimensions, ScrollView, TouchableOpacity} from 'react-native';
+import {useWindowDimensions, ScrollView, View} from 'react-native';
 import RenderHtml from 'react-native-render-html';
 
 const source = {
@@ -669,29 +669,28 @@ export default function TermsScreen(props) {
   return (
     <ScrollView
       style={{
+        position: 'absolute',
         marginVertical: 200,
         width: '80%',
-        height: '90%',
+        height: '50%',
         alignSelf: 'center',
         backgroundColor: '#ffffff',
         borderWidth: 3,
         borderRadius: 10,
         borderColor: '#eeeeee',
         flex: 1,
+        zIndex: 9,
       }}>
-      <TouchableOpacity
-        onPress={() => {
-          props.setModal();
-        }}
+      <View
         style={{
-          padding: 10,
+          // padding: 10,
           width: '100%',
           height: '100%',
           alignSelf: 'center',
           marginBottom: 20,
         }}>
         <RenderHtml contentWidth={width} source={source} />
-      </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }

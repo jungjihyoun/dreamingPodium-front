@@ -139,14 +139,20 @@ function ProfileScreen({navigation, ...props}) {
             setModal(!modal);
           }}>
           <Text style={styles.buttonText}>이용약관 보기</Text>
-          <Modal animationType="slide" transparent={true} visible={modal}>
-            {
-              <TermsScreen
-                setModal={() => {
-                  setModal(false);
-                }}
-              />
-            }
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modal}
+            onRequestClose={() => setModal(!modal)}>
+            <TouchableOpacity
+              style={{
+                width: '100%',
+                height: '100%',
+                zIndex: 1,
+              }}
+              onPress={() => setModal(!modal)}
+            />
+            {<TermsScreen />}
           </Modal>
         </TouchableOpacity>
       </View>
