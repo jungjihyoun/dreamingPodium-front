@@ -2,16 +2,26 @@
 import API from './API';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const postKakaoToken = async (accessToken, refreshToken ) => {
-  return await API.post('http://3.35.43.76:8000/kakao/form', {
+const postKakaoToken = async (accessToken, refreshToken, setLoggedIn) => {
+  return await API.post('/kakao/form', {
     access_token: accessToken,
     refresh_token: refreshToken,
   })
     .then(function (response) {
-      AsyncStorage.setItem('userToken', response.data['user_id']);
-      AsyncStorage.getItem('userToken', (_err, result) => {
-        console.log('UserToken for Login', result);
-      });
+      console.log('userId return from server KAKAO====>', response.data);
+
+      setLoggedIn({userToken: response.data});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+const postAppleToken = async (appleAuthRequestResponse, setLoggedIn) => {
+  return await API.post('/create_user', appleAuthRequestResponse)
+    .then(function (response) {
+      console.log('userId return from server APPLE ====>', response.data);
+      setLoggedIn({userToken: response.data});
     })
     .catch(function (error) {
       console.log(error);
@@ -20,4 +30,5 @@ const postKakaoToken = async (accessToken, refreshToken ) => {
 
 export default {
   postKakaoToken,
+  postAppleToken,
 };

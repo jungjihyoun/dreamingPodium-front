@@ -3,31 +3,26 @@
 import * as KakaoLogins from '@react-native-seoul/kakao-login';
 import {Platform} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import API from '../../utils/API';
+// import API from '../../utils/API';
+import API from '../../utils/auth';
+
 //When the error comes from KakaoTalk for invalid hash key
 //Make sure the alias name for keystore files are correct
 //androidreleasekey -> android/app/release.keystore
 //androiddebugkey -> android/app/debug.keystore
 
-const signInKakaoTalk = async (setUserInfo, setLoggedIn) => {
+const signInKakaoTalk = async (setUserInfo, setLoggedIn, navigation) => {
   const fcmToken = await AsyncStorage.getItem('deviceToken');
 
   KakaoLogins.login()
     .then(async data => {
       const postData = data;
       // Token return And Set AsyncStorage To login
-      await API.post('http://3.35.43.76:8000/kakao/form', {
-        access_token: data.accessToken,
-        refresh_token: data.refreshToken,
-      })
-        .then(function (response) {
-          console.log('userId return from server # ', response.data);
-
-          setLoggedIn({userToken: response.data});
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      await API.postKakaoToken(
+        data.accessToken,
+        data.refreshToken,
+        setLoggedIn,
+      );
     })
     .then(data => {
       KakaoLogins.getProfile()
