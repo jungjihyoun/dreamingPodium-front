@@ -1,36 +1,25 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import {colors, width, height} from '../../config/globalStyles';
 
 function AppXBar({amount, ...props}) {
+  const graphUI = () => {
+    if (amount === 0) {
+      return <View style={{...styles.graphColors, width: 0}} />;
+    } else if (amount === 10) {
+      return <View style={{...styles.graphFull, width: width * 169}} />;
+    } else {
+      return (
+        <View style={{...styles.graphColors, width: width * 17 * amount}} />
+      );
+    }
+  };
   return (
     <>
       <View style={{position: 'absolute', right: width * 25}}>
-        <View style={styles.graph}>
-          <View
-            style={
-              amount < 10
-                ? {
-                    ...styles.graphColors,
-                    width: width * 17 * 1 * amount,
-                  }
-                : {
-                    ...styles.graphFull,
-                    width: width * 17 * 1 * amount,
-                  }
-            }
-          />
-        </View>
+        <View style={styles.graph}>{graphUI()}</View>
       </View>
     </>
   );
