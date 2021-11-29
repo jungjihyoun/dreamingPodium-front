@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   StyleSheet,
@@ -8,24 +9,47 @@ import {
 } from 'react-native';
 //custom imports
 import {width, height, colors, fonts} from '../config/globalStyles';
+import Logo from '../assets/svg/conditioningCard';
 
 export const HomePartCard = ({style, onPress, ...props}) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <ImageBackground
-        source={props.partCardImg}
-        style={styles.HomePartCard}
-        {...props}>
-        <View style={styles.titleGroup}>
-          <Text style={styles.partTitle}>{props.partTitle}</Text>
-          <Text style={styles.partSubtitle}>{props.partSubtitle}</Text>
-        </View>
-      </ImageBackground>
+      {props.partSvgImg ? (
+        <>
+          <View style={styles.partCardSvg}>
+            <Logo
+              style={{
+                position: 'absolute',
+              }}
+            />
+            <View style={styles.titleGroup}>
+              <Text style={styles.partTitle}>{props.partTitle}</Text>
+              <Text style={styles.partSubtitle}>{props.partSubtitle}</Text>
+            </View>
+          </View>
+        </>
+      ) : (
+        <ImageBackground
+          source={props.partCardImg}
+          style={styles.HomePartCard}
+          {...props}>
+          <View style={styles.titleGroup}>
+            <Text style={styles.partTitle}>{props.partTitle}</Text>
+            <Text style={styles.partSubtitle}>{props.partSubtitle}</Text>
+          </View>
+        </ImageBackground>
+      )}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  partCardSvg: {
+    width: width * 341,
+    height: height * 200,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   HomePartCard: {
     flexDirection: 'column',
     width: width * 341,

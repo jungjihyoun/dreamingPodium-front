@@ -72,7 +72,7 @@ function HomeScreen({navigation, ...props}) {
             dispatch(selectDate({date: new Date().toDateString()}));
             navigation.push('ConditioningNote');
           }}
-          partCardImg={images.conditioningPart}
+          partSvgImg="Logo"
           partTitle="컨디셔닝 파트"
           partSubtitle="부상 정보 남기기"
         />

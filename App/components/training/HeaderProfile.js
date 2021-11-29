@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   name: {
-    fontFamily: fonts.spoqaBold,
+    fontFamily: fonts.spoaBold,
     fontSize: Platform.OS === 'android' ? 18 : 22,
     fontWeight: 'bold',
     width: width * 300,
