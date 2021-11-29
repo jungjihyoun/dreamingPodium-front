@@ -1,9 +1,9 @@
 // Profile API 관리
+
 import API from './API';
 
 const getProfile = async (user_id, date) => {
   console.log(user_id);
-  // 작성된 글 불러오기
   try {
     return await API.get(`/profile/read_profile/${user_id}`);
   } catch (error) {

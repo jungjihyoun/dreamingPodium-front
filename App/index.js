@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -13,7 +12,6 @@ import {Provider, useDispatch, useSelector} from 'react-redux';
 import store from './store';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {selectLogin, setUserToken} from './reducer/userSlice';
-import {postingReducer} from './reducer/postingSlice';
 const StackApp = createStackNavigator();
 
 const navOptionHandler = () => ({
@@ -25,11 +23,16 @@ const App = navigation => {
   const loggedIn = useSelector(selectLogin);
 
   // 자동로그인
+  // userToken 과 serverToken state 관리
   useEffect(() => {
-    AsyncStorage.getItem('userToken').then(token => {
-      console.log('진입 유저 토큰', token);
-      if (token !== null) {
-        dispatch(setUserToken({userToken: token}));
+    AsyncStorage.multiGet(['userToken', 'serverToken'], (_err, items) => {
+      if (items !== null) {
+        dispatch(
+          setUserToken({
+            userToken: items[0][1],
+            serverToken: items[1][1],
+          }),
+        );
       }
     });
   }, [dispatch]);
@@ -39,7 +42,7 @@ const App = navigation => {
       <SafeAreaProvider>
         <NavigationContainer>
           <StackApp.Navigator presentation="modal">
-            {/* UserToken이 없으면 로그인 페이지 */}
+            {/* UserToken이 없으면 로그인 페이지로 이동합니다 */}
             {!loggedIn ? (
               <StackApp.Screen
                 name="Login"

@@ -7,14 +7,11 @@ import {
   StyleSheet,
   Image,
   Platform,
-  TouchableOpacity,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
 // REDUX
-import {useSelector, useDispatch} from 'react-redux';
-import {setUser, setLogin, setLogout} from '../../reducer/userSlice';
-import {fetchNoteData} from '../../reducer/postingSlice';
+import {useDispatch} from 'react-redux';
+import {setUser, setLogin} from '../../reducer/userSlice';
 
 import {colors, images, width, height} from '../../config/globalStyles';
 

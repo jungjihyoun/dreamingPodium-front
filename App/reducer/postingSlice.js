@@ -11,7 +11,11 @@ export const fetchNoteData = createAsyncThunk(
   'record/get',
   async payload => {
     console.log('record api 호출 파라미터', payload);
-    const response = await API.getRecord(payload.user_id, payload.date);
+    const response = await API.getRecord(
+      payload.user_id,
+      payload.date,
+      payload.serverToken,
+    );
     if (response.status !== 200) {
       throw Error(response.data);
     }
@@ -195,11 +199,16 @@ export const postingSlice = createSlice({
         !state.writtenNote.noteContentGroup.training.routines[
           action.payload.routineName
         ];
+      console.log(
+        '테스트;ㅡ,',
+        state.writtenNote.noteContentGroup.training.routines,
+      );
       API.postRecord(
         action.payload.userToken,
         state.todayDate,
         'routines',
         state.writtenNote.noteContentGroup.training.routines,
+        action.payload.serverToken,
       );
     },
 

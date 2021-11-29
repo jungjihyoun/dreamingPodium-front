@@ -1,14 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-
 import {HomePartCard} from '../../components/HomePartCard';
 import {HeaderProfile} from '../../components/training/HeaderProfile.js';
 
@@ -17,35 +10,35 @@ import {
   selectDate,
   fetchNoteData,
   fetchObjective,
-  setObjectNoteInit,
 } from '../../reducer/postingSlice';
-import {setLogout} from '../../reducer/userSlice';
-import API from '../../utils/note';
 import {colors, images} from '../../config/globalStyles';
 
 function HomeScreen({navigation, ...props}) {
   const todayDate = useSelector(state => state.posting.todayDate);
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
   const dispatch = useDispatch();
 
-  // 접속시 training, condit4ioning 데이터 불러오기 주석해제
+  // Training , Conditioning record get
   useEffect(() => {
     dispatch(
       fetchNoteData({
         user_id: userToken,
         date: todayDate,
+        serverToken: serverToken,
       }),
     );
+
+    // 첫 접속 유저라면 목표 설정 페이지로 이동합니다.
     AsyncStorage.getItem('isVisitedUser').then(data => {
       if (data !== 'true') {
         navigation.push('DreamScreen');
       }
     });
-  }, [dispatch, navigation, todayDate, userToken]);
+  }, [dispatch, navigation, serverToken, todayDate, userToken]);
 
+  // Objective get
   useEffect(() => {
-    console.log('effef');
-
     dispatch(
       fetchObjective({
         user_id: userToken,
@@ -85,7 +78,6 @@ const styles = StyleSheet.create({
   DateTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    // color: colors.darkGrey,
     paddingTop: 48,
     paddingBottom: 28,
   },
@@ -93,7 +85,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.darkGrey,
-    // paddingTop: 95,
     paddingBottom: 48,
   },
   HomePartCard: {

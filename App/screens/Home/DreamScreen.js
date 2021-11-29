@@ -14,10 +14,8 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
-
 import ObjectCard from '../../components/ObjectCard';
 import {colors, width, height} from '../../config/globalStyles';
-
 import {
   submitObject,
   deleteObject,
@@ -26,37 +24,14 @@ import {
 import API from '../../utils/note';
 
 function DreamScreen({navigation, ...props}) {
-  const [test, setKeyBoardAvoid] = useState(true);
+  const [keyBoardAvoid, setKeyBoardAvoid] = useState(true);
   const todayDate = useSelector(state => state.posting.todayDate);
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
   const objectNote = useSelector(state => state.posting.ObjectNote);
   const dispatch = useDispatch();
 
-  const submitObjectList = () => {
-    const objectives = objectNote.objectives;
-    const requirements = objectNote.requirements;
-    const efforts = objectNote.efforts;
-    const routines = objectNote.routines;
-    AsyncStorage.setItem('visitedUser', 'true');
-    API.postObjectInit(userToken, objectives, requirements, efforts, routines);
-
-    dispatch(
-      fetchNoteData({
-        user_id: userToken,
-        date: todayDate,
-      }),
-    );
-
-    AsyncStorage.getItem('isVisitedUser').then(data => {
-      // 방문 기록이 없는 유저이면
-      if (data !== 'true') {
-        navigation.navigate('ProfileEditScreen');
-      } else {
-        navigation.push('HomeApp');
-      }
-    });
-  };
-
+  // 각각의 아이템들 작성 핸들링
   const addObjectItem = (type, text) => {
     if (objectNote[type].length > 0 && objectNote[type].includes(text)) {
       Alert.alert('라잇', '중복된 내용은 작성할 수 없습니다 😢 ', [
@@ -76,6 +51,34 @@ function DreamScreen({navigation, ...props}) {
     }
   };
 
+  // 목표설정 저장 API 호출
+  const submitObjectList = () => {
+    const objectives = objectNote.objectives;
+    const requirements = objectNote.requirements;
+    const efforts = objectNote.efforts;
+    const routines = objectNote.routines;
+
+    API.postObjectInit(userToken, objectives, requirements, efforts, routines);
+
+    // routine을 수정할 경우 트레이닝 파트와의 동기화를 위해 다시 record/get 요청을 받아옵니다.
+    dispatch(
+      fetchNoteData({
+        user_id: userToken,
+        date: todayDate,
+        serverToken: serverToken,
+      }),
+    );
+
+    // 첫 방문 유저라면 프로필 수정 페이지로 이동 합니다
+    AsyncStorage.getItem('isVisitedUser').then(data => {
+      if (data !== 'true') {
+        navigation.navigate('ProfileEditScreen');
+      } else {
+        navigation.push('HomeApp');
+      }
+    });
+  };
+
   const deleteObjectItem = (type, text) => {
     dispatch(
       deleteObject({
@@ -89,14 +92,8 @@ function DreamScreen({navigation, ...props}) {
     <KeyboardAvoidingView
       keyboardVerticalOffset={height * 10}
       behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
-      enabled={test}
-      style={{
-        backgroundColor: colors.white,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignContent: 'center',
-      }}>
+      enabled={keyBoardAvoid}
+      style={styles.DreamPage}>
       <SafeAreaView>
         <View style={styles.SafeAreaView}>
           <View>
@@ -166,6 +163,13 @@ function DreamScreen({navigation, ...props}) {
 }
 
 const styles = StyleSheet.create({
+  DreamPage: {
+    backgroundColor: colors.white,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
   SafeAreaView: {
     flexDirection: 'row',
     marginTop: height * 35,

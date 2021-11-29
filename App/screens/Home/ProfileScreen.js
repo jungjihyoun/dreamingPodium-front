@@ -7,30 +7,24 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  ScrollView,
   Modal,
 } from 'react-native';
-
-import AppModal from '../../components/AppModal';
 import TermsScreen from '../../config/TermsScreen';
-// REDUX
-import {useSelector, useDispatch} from 'react-redux';
-import {signOutKakaoTalk} from '../../screens/Auth/loginKakao';
-import {fetchProfileData, setLogout} from '../../reducer/userSlice';
-import {setModalVisible} from '../../reducer/modalSlice';
 
+import {useSelector, useDispatch} from 'react-redux';
+import {setLogout} from '../../reducer/userSlice';
 import {colors, images, width, height} from '../../config/globalStyles';
 
 function ProfileScreen({navigation, ...props}) {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const userToken = useSelector(state => state.user.userToken);
 
   const logout = () => {
     dispatch(setLogout());
   };
 
+  // TODO : DATE 핸들링 모듈 따로 빼기
   const zero = num => (num < 10 && num >= 0 ? '0' + num : num);
   const dateKo = date =>
     `${date.getFullYear()}년 ${zero(date.getMonth() + 1)}월 ${zero(
@@ -65,26 +59,11 @@ function ProfileScreen({navigation, ...props}) {
         </View>
 
         <View style={styles.userInfoArea}>
-          <Text
-            style={{
-              ...styles.userInfoText,
-              fontWeight: 'bold',
-              fontSize: 24,
-              height: 30,
-              marginTop: height * 90,
-              marginBottom: height * 8,
-            }}>
+          <Text style={[styles.userInfoText, styles.username]}>
             {user.username}
           </Text>
 
-          <Text
-            style={{
-              ...styles.userInfoText,
-              fontSize: 16,
-              color: colors.textGrey,
-              marginBottom: height * 15,
-              fontWeight: '600',
-            }}>
+          <Text style={[styles.birthday, styles.userInfoText]}>
             {dateKo(new Date(user.birth))}
           </Text>
 
@@ -110,13 +89,7 @@ function ProfileScreen({navigation, ...props}) {
         </View>
       </View>
 
-      <View
-        style={{
-          flex: 3,
-          alignSelf: 'center',
-          alignItems: 'center',
-          marginTop: height * 100,
-        }}>
+      <View style={styles.editSection}>
         <TouchableOpacity
           onPress={() => navigation.push('ProfileEditScreen')}
           style={styles.buttonSection}>
@@ -139,6 +112,7 @@ function ProfileScreen({navigation, ...props}) {
             setModal(!modal);
           }}>
           <Text style={styles.buttonText}>이용약관 보기</Text>
+          {/* 이용 약관 모달 */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -213,6 +187,25 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 16,
     alignSelf: 'center',
+  },
+  username: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    height: 30,
+    marginTop: height * 90,
+    marginBottom: height * 8,
+  },
+  birthday: {
+    fontSize: 16,
+    color: colors.textGrey,
+    marginBottom: height * 15,
+    fontWeight: '600',
+  },
+  editSection: {
+    flex: 3,
+    alignSelf: 'center',
+    alignItems: 'center',
+    marginTop: height * 100,
   },
 });
 

@@ -25,6 +25,7 @@ export const userSlice = createSlice({
     serviceId: '',
     platform: '',
     deviceToken: '',
+    serverToken: '',
 
     username: '',
     userImage: '',
@@ -38,15 +39,17 @@ export const userSlice = createSlice({
   reducers: {
     setUserToken: (state, action) => {
       state.userToken = action.payload.userToken;
+      state.serverToken = action.payload.serverToken;
       state.loggedIn = true;
-      console.log('자동로그인', state.userToken);
     },
     setLogin: (state, action) => {
       console.log(
         'token login redux 토큰 저장을 성공하였습니다.',
         action.payload.userToken,
+        action.payload.serverToken,
       );
       AsyncStorage.setItem('userToken', action.payload.userToken);
+      AsyncStorage.setItem('serverToken', action.payload.serverToken);
       state.loggedIn = true;
       state.userToken = action.payload.userToken;
     },

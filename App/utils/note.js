@@ -3,42 +3,40 @@ import API from './API';
 import axios from 'axios';
 import * as APIURL from '../../config';
 
-const getRecord = async (user_id, date) => {
-  console.log(user_id, date);
-  // 작성된 글 불러오기
+// 작성된 글 API
+const getRecord = async (user_id, date, serverToken) => {
   try {
-    return await API.get(`/record/read/${user_id}?wdate=${date}`);
+    return await axios.get(
+      `${APIURL.BASE_URL}/record/read/${user_id}?wdate=${date}`,
+      {
+        headers: {
+          token: serverToken,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
   } catch (error) {
-    console.warn('기록 불러오기 실패', error);
+    console.warn('기록을 불러오지 못했습니다. ', error);
   }
 };
 
-const getObjective = async user_id => {
+const postRecord = async (user_id, wdate, key_type, content, serverToken) => {
   try {
-    return await API.get(`/objective/read_objectives/${user_id}`);
-  } catch (error) {
-    console.warn('오브젝트 불러오기 실패', error);
-  }
-};
-
-const postRecord = async (user_id, wdate, key_type, content) => {
-  // 작성된 글
-  //  key_type : "train_detail" : "routines" : "success" : "failure": "feedback": "mind" "physical" "injury"
-  // body : array or string
-  console.log('API 들어가는 것 ', user_id, wdate, key_type, content);
-
-  return axios
-    .post(
+    return await axios.post(
       `${APIURL.BASE_URL}/record/write/${user_id}?wdate=${wdate}&key_type=${key_type}`,
       content,
-    )
-    .then(res => console.log('success post', key_type, res))
-    .catch(err => console.log('fail  post', key_type, err));
+      {
+        headers: {
+          token: serverToken,
+        },
+      },
+    );
+  } catch (error) {
+    console.warn('기록을 저장하지 못했습니다.', error);
+  }
 };
 
 const postImage = async (user_id, image_type, wdate, image) => {
-  console.log('## 이미지 테스트 ##', user_id, image_type, wdate, image);
-
   return axios
     .post(
       `${APIURL.BASE_URL}/images/uploadfile?user_id=${user_id}&image_type=${image_type}&wdate=${wdate}`,
@@ -49,11 +47,19 @@ const postImage = async (user_id, image_type, wdate, image) => {
         },
       },
     )
-    .then(res => console.log('success image post', res))
-    .catch(err => console.log('fail image post', err));
+    .then(res => console.log('이미지를 성공적으로 보냈습니다.'))
+    .catch(err => console.log('이미지 전송을 실패했습니다.', err));
 };
 
 // 목표설정 API
+const getObjective = async user_id => {
+  try {
+    return await API.get(`/objective/read_objectives/${user_id}`);
+  } catch (error) {
+    console.warn('목표설정을 불러오지 못했습니다. ', error);
+  }
+};
+
 const postObjectInit = async (
   user_id,
   objectives,
@@ -77,8 +83,8 @@ const postObjectInit = async (
       efforts: efforts,
       routines: routines,
     })
-    .then(res => console.log('success object post', res))
-    .catch(err => console.log('fail object post', err));
+    .then(res => console.log('목표설정을 성공적으로 보냈습니다.', res))
+    .catch(err => console.log('목표설정을 저장하지 못했습니다.', err));
 };
 
 const updateObject = async (user_id, keyword, content) => {

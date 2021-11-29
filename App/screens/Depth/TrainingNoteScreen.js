@@ -29,7 +29,7 @@ import API from '../../utils/note';
 function TrainingNoteScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const userToken = useSelector(state => state.user.userToken);
-  const todayDate = useSelector(state => state.posting.todayDate);
+  const serverToken = useSelector(state => state.user.serverToken);
   const dispatch = useDispatch();
 
   //TODO : 루틴 불러오기 코드정리
@@ -48,6 +48,7 @@ function TrainingNoteScreen({navigation, route}) {
           checkRoutine({
             routineName: data,
             userToken: userToken,
+            serverToken: serverToken,
           }),
         );
       }

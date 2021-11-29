@@ -17,6 +17,7 @@ import {colors} from '../config/globalStyles';
 
 const AppCalendar = () => {
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
   const dispatch = useDispatch();
 
   const toggle = selectedDate => {
@@ -26,6 +27,7 @@ const AppCalendar = () => {
       fetchNoteData({
         user_id: userToken,
         date: selectedDate.toDate().toDateString(),
+        serverToken: serverToken,
       }),
     );
   };
