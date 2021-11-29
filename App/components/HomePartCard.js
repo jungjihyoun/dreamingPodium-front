@@ -9,36 +9,17 @@ import {
 } from 'react-native';
 //custom imports
 import {width, height, colors, fonts} from '../config/globalStyles';
-import Logo from '../assets/svg/conditioningCard';
 
-export const HomePartCard = ({style, onPress, ...props}) => {
+export const HomePartCard = ({style, onPress, Logo, ...props}) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      {props.partSvgImg ? (
-        <>
-          <View style={styles.partCardSvg}>
-            <Logo
-              style={{
-                position: 'absolute',
-              }}
-            />
-            <View style={styles.titleGroup}>
-              <Text style={styles.partTitle}>{props.partTitle}</Text>
-              <Text style={styles.partSubtitle}>{props.partSubtitle}</Text>
-            </View>
-          </View>
-        </>
-      ) : (
-        <ImageBackground
-          source={props.partCardImg}
-          style={styles.HomePartCard}
-          {...props}>
-          <View style={styles.titleGroup}>
-            <Text style={styles.partTitle}>{props.partTitle}</Text>
-            <Text style={styles.partSubtitle}>{props.partSubtitle}</Text>
-          </View>
-        </ImageBackground>
-      )}
+      <View style={styles.partCardSvg}>
+        {props.children}
+        <View style={styles.titleGroup}>
+          <Text style={styles.partTitle}>{props.partTitle}</Text>
+          <Text style={styles.partSubtitle}>{props.partSubtitle}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
 };

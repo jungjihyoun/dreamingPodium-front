@@ -5,17 +5,15 @@ import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {colors, width, height} from '../../config/globalStyles';
-import {mindSelectList, physicalList} from '../../config/conditionSelectList';
 
 // REDUX
-import {checkRoutine, submitCondition} from '../../reducer/postingSlice';
-import {setModalVisible} from '../../reducer/modalSlice';
+import {submitCondition} from '../../reducer/postingSlice';
 
 function AppSelectPane({title, idx, ...props}) {
   const [select, setSelect] = useState(false);
-  const [seletList, setSelectList] = useState([]);
   const dispatch = useDispatch();
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
 
@@ -46,6 +44,7 @@ function AppSelectPane({title, idx, ...props}) {
             date: todayDate,
             conditionIdx: idx,
             content: props.children,
+            serverToken: serverToken,
           }),
         );
       }}>

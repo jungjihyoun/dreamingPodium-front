@@ -12,6 +12,8 @@ import {
   fetchObjective,
 } from '../../reducer/postingSlice';
 import {colors, images} from '../../config/globalStyles';
+import ConditioningCard from '../../assets/svg/conditioningCard';
+import TrainingCard from '../../assets/svg/trainingCard';
 
 function HomeScreen({navigation, ...props}) {
   const todayDate = useSelector(state => state.posting.todayDate);
@@ -56,19 +58,32 @@ function HomeScreen({navigation, ...props}) {
             dispatch(selectDate({date: new Date().toDateString()}));
             navigation.push('TrainingNote');
           }}
-          partCardImg={images.trainingPart}
           partTitle="트레이닝 파트"
-          partSubtitle="훈련내용, 피드백 남기기"
-        />
+          partSubtitle="훈련내용, 피드백 남기기">
+          {
+            <TrainingCard
+              style={{
+                position: 'absolute',
+              }}
+            />
+          }
+        </HomePartCard>
+
         <HomePartCard
           onPress={() => {
             dispatch(selectDate({date: new Date().toDateString()}));
             navigation.push('ConditioningNote');
           }}
-          partSvgImg="Logo"
           partTitle="컨디셔닝 파트"
-          partSubtitle="부상 정보 남기기"
-        />
+          partSubtitle="부상 정보 남기기">
+          {
+            <ConditioningCard
+              style={{
+                position: 'absolute',
+              }}
+            />
+          }
+        </HomePartCard>
       </View>
     </SafeAreaView>
   );

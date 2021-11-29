@@ -17,9 +17,6 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
-// COMPONENT
-import {SocialButton} from '../../components/SocialButton';
-
 // REDUX
 import {submitNote, deleteImage} from '../../reducer/postingSlice';
 
@@ -30,6 +27,7 @@ import API from '../../utils/note';
 
 function WritingScreen({navigation, route}) {
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
   const todayDate = useSelector(state => state.posting.todayDate);
   const NoteList = useSelector(
     state => state.posting.writtenNote.noteContentGroup.training,
@@ -174,7 +172,13 @@ function WritingScreen({navigation, route}) {
         }),
       );
       // // 글 작성 post
-      await API.postRecord(userToken, todayDate, route.params.noteIdx, content);
+      await API.postRecord(
+        userToken,
+        todayDate,
+        route.params.noteIdx,
+        content,
+        serverToken,
+      );
       // 사진 post
       if (choosePicture) {
         await API.postImage(

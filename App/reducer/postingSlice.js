@@ -24,7 +24,6 @@ export const fetchNoteData = createAsyncThunk(
 );
 
 export const fetchObjective = createAsyncThunk(
-  // record 불러오기
   'objective/get',
   async payload => {
     console.log('objective api 호출 파라미터', payload);
@@ -114,12 +113,17 @@ export const postingSlice = createSlice({
       }
 
       // 신체상태 API
-      API.postRecord(action.payload.userToken, state.todayDate, 'injury', [
-        ...state.writtenNote.noteContentGroup.conditioning[
-          action.payload.conditionIdx
+      API.postRecord(
+        action.payload.userToken,
+        state.todayDate,
+        'injury',
+        [
+          ...state.writtenNote.noteContentGroup.conditioning[
+            action.payload.conditionIdx
+          ],
         ],
-        action.payload.content,
-      ]);
+        action.payload.serverToken,
+      );
     },
 
     deleteInjury: (state, action) => {
@@ -146,12 +150,17 @@ export const postingSlice = createSlice({
             1,
           );
 
+          console.log(
+            't삭제 후 injury 리스트',
+            state.writtenNote.noteContentGroup.conditioning.injury,
+          );
           // 신체상태 API
           API.postRecord(
             action.payload.userToken,
             state.todayDate,
             'injury',
-            state.writtenNote.noteContentGroup.conditioning.injury,
+            [...state.writtenNote.noteContentGroup.conditioning.injury],
+            action.payload.serverToken,
           );
         }
       });

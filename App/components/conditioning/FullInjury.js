@@ -17,12 +17,12 @@ import {S3Image} from '../../config/injuryPickerList';
 import AppXBar from './AppXBar';
 // REDUX
 import {deleteInjury} from '../../reducer/postingSlice';
-
 import InjurySVG from '../InjurySVG';
 
 function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
+  const serverToken = useSelector(state => state.user.serverToken);
   const dispatch = useDispatch();
 
   const filterConditionGroup = idx => {
@@ -85,6 +85,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                       injuryMemo: data.injuryMemo,
                       interruptData: data.interruptData,
                       painData: data.painData,
+                      serverToken: serverToken,
                     }),
                   );
                 }}

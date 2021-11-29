@@ -33,6 +33,7 @@ const InjurySelect = props => {
   const todayDate = useSelector(state => state.posting.todayDate);
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
 
   const [submitList, setSubmitList] = useState({
     injuryDirection: '왼쪽',
@@ -147,13 +148,17 @@ const InjurySelect = props => {
                 date: todayDate,
                 conditionIdx: 'injury',
                 content: submitList,
+                serverToken: serverToken,
               }),
             );
             // 신체상태 API
-            API.postRecord(userToken, todayDate.todayDate, 'injury', [
-              ...writtenNote.noteContentGroup.conditioning.injury,
-              submitList,
-            ]);
+            // API.postRecord(
+            //   userToken,
+            //   todayDate.todayDate,
+            //   'injury',
+            //   [...writtenNote.noteContentGroup.conditioning.injury, submitList],
+            //   serverToken,
+            // );
           }}>
           <Text
             style={{

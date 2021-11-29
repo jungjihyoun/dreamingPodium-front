@@ -44,14 +44,16 @@ export const userSlice = createSlice({
     },
     setLogin: (state, action) => {
       console.log(
-        'token login redux 토큰 저장을 성공하였습니다.',
+        'token login redux 토큰 저장을 성공하였습니다. #########',
         action.payload.userToken,
         action.payload.serverToken,
       );
       AsyncStorage.setItem('userToken', action.payload.userToken);
       AsyncStorage.setItem('serverToken', action.payload.serverToken);
+
       state.loggedIn = true;
       state.userToken = action.payload.userToken;
+      state.serverToken = action.payload.serverToken;
     },
     setLogout: state => {
       console.log('token logout redux');

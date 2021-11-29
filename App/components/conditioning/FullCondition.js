@@ -135,18 +135,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
-  paneUI: {
-    // width: 150,
-    // margin: 2,
-    // backgroundColor: colors.lightBlue,
-    // borderRadius: 15,
-    // paddingLeft: 5,
-    // paddingRight: 5,
-    // height: 45,
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
 });
 
 export default FullCondition;
