@@ -10,11 +10,13 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   TextInput,
   StyleSheet,
   ScrollView,
   Alert,
   Image,
+  Keyboard,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -139,22 +141,6 @@ function WritingScreen({navigation, route}) {
               }),
             }),
           );
-          // // 글 작성 post
-          // await API.postRecord(
-          //   userToken,
-          //   todayDate,
-          //   route.params.noteIdx,
-          //   content,
-          // );
-          // // 사진 post
-          // if (choosePicture) {
-          //   await API.postImage(
-          //     userToken,
-          //     route.params.noteIdx,
-          //     todayDate,
-          //     formData,
-          //   );
-          // }
         },
       },
     ]);
@@ -202,15 +188,18 @@ function WritingScreen({navigation, route}) {
 
   return (
     <SafeAreaView style={{...styles.container, backgroundColor: 'white'}}>
-      <ScrollView style={{height: '100%'}}>
-        <Text style={styles.title}>{route.params.title}</Text>
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          extraScrollHeight={100}
-          style={{backgroundColor: 'white', height: '100%'}}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            height: '100%',
+          }}>
+          <Text style={styles.title}>{route.params.title}</Text>
           <View style={styles.inputBox}>
             <TextInput
-              // maxLength={500}
               style={styles.input}
               multiline={true}
               placeholder={
@@ -292,8 +281,8 @@ function WritingScreen({navigation, route}) {
                 })}
               </View>
             )}
-        </KeyboardAwareScrollView>
-      </ScrollView>
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
@@ -321,7 +310,7 @@ const styles = StyleSheet.create({
     padding: 13,
   },
   inputBox: {
-    minHeight: height * 210,
+    minHeight: height * 270,
     borderWidth: 1,
     borderRadius: 5,
     borderStyle: 'solid',
