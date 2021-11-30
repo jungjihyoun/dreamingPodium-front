@@ -113,19 +113,21 @@ export const postingSlice = createSlice({
       }
 
       // 신체상태 API
-      API.postRecord(
-        action.payload.userToken,
-        state.todayDate,
-        action.payload.conditionIdx,
-        {
-          content: [
-            ...state.writtenNote.noteContentGroup.conditioning[
-              action.payload.conditionIdx
+      if (action.payload.conditionIdx === 'injury') {
+        API.postRecord(
+          action.payload.userToken,
+          state.todayDate,
+          action.payload.conditionIdx,
+          {
+            content: [
+              ...state.writtenNote.noteContentGroup.conditioning[
+                action.payload.conditionIdx
+              ],
             ],
-          ],
-        },
-        action.payload.serverToken,
-      );
+          },
+          action.payload.serverToken,
+        );
+      }
     },
 
     deleteInjury: (state, action) => {

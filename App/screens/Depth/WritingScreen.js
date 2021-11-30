@@ -268,9 +268,9 @@ function WritingScreen({navigation, route}) {
                     <TouchableOpacity
                       onPress={() => {
                         handleDeleteImage(data);
-                      }}>
+                      }}
+                      key={data}>
                       <Image
-                        key={data}
                         source={{uri: data}}
                         resizeMode="cover"
                         resizeMethod="auto"
