@@ -65,6 +65,7 @@ function ProfileScreen({navigation, ...props}) {
 
           <Text style={[styles.birthday, styles.userInfoText]}>
             {dateKo(new Date(user.birth))}
+            {/* {dateKo(user.birth)} */}
           </Text>
 
           <View>

@@ -10,7 +10,6 @@ export const fetchNoteData = createAsyncThunk(
   // record 불러오기
   'record/get',
   async payload => {
-    console.log('record api 호출 파라미터', payload);
     const response = await API.getRecord(
       payload.user_id,
       payload.date,
@@ -26,7 +25,6 @@ export const fetchNoteData = createAsyncThunk(
 export const fetchObjective = createAsyncThunk(
   'objective/get',
   async payload => {
-    console.log('objective api 호출 파라미터', payload);
     const response = await API.getObjective(payload.user_id);
     if (response.status !== 200) {
       throw Error(response.data);
@@ -154,12 +152,6 @@ export const postingSlice = createSlice({
             1,
           );
 
-          console.log(
-            '삭제 후 injury 리스트',
-            [...state.writtenNote.noteContentGroup.conditioning.injury],
-            '토근',
-            action.payload.serverToken,
-          );
           // 신체상태 삭제 API
           API.postRecord(
             action.payload.userToken,
@@ -183,8 +175,6 @@ export const postingSlice = createSlice({
         state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
           .image;
 
-      console.log('action', action.payload.imageURI);
-
       imageGroup.map((element, index) => {
         if (element === action.payload.imageURI) {
           deleteIndex = index;
@@ -195,11 +185,6 @@ export const postingSlice = createSlice({
             action.payload.noteIdx
           ].image.splice(deleteIndex, 1);
 
-          console.log(
-            '이미지 삭제 ===>',
-            state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
-              .image,
-          );
           // TODO : image API
           API.deleteImage(
             action.payload.userToken,
@@ -226,6 +211,7 @@ export const postingSlice = createSlice({
           action.payload.routineName
         ];
 
+      // 루틴 체크 API
       API.postRecord(
         action.payload.userToken,
         state.todayDate,
@@ -249,39 +235,6 @@ export const postingSlice = createSlice({
   extraReducers: {
     [fetchNoteData.fulfilled](state, action) {
       state.writtenNote = action.payload;
-      console.log(action.payload);
-      console.log('dddddddd: ', action.payload.noteContentGroup);
-      console.log(
-        '피지컬',
-        action.payload.noteContentGroup.conditioning.physical,
-      );
-
-      // state.writtenNote.noteContentGroup.training.success.image =
-      //   typeof state.writtenNote.noteContentGroup.training.success.image ===
-      //   Object
-      //     ? null
-      //     : action.payload.noteContentGroup.training.success.image;
-
-      // state.writtenNote.noteContentGroup.training.failure.image =
-      //   typeof state.writtenNote.noteContentGroup.training.failure.image ===
-      //   Object
-      //     ? null
-      //     : action.payload.noteContentGroup.training.failure.image;
-
-      // state.writtenNote.noteContentGroup.conditioning.mind =
-      //   state.writtenNote.noteContentGroup.conditioning.mind === {}
-      //     ? []
-      //     : action.payload.noteContentGroup.conditioning.mind;
-
-      // state.writtenNote.noteContentGroup.conditioning.physical =
-      //   state.writtenNote.noteContentGroup.conditioning.physical === {}
-      //     ? []
-      //     : action.payload.noteContentGroup.conditioning.physical;
-
-      // state.writtenNote.noteContentGroup.conditioning.injury =
-      //   state.writtenNote.noteContentGroup.conditioning.injury === {}
-      //     ? []
-      //     : action.payload.noteContentGroup.conditioning.injury;
 
       console.log('record api 요청 후 데이터 => ', state.writtenNote);
     },

@@ -53,7 +53,6 @@ function TrainingNoteScreen({navigation, route}) {
         );
       }
     });
-    console.log('routineName => ', Object.keys(routineName));
   };
 
   // //TODO : 작성된 글 불러오기 코드정리
@@ -80,7 +79,6 @@ function TrainingNoteScreen({navigation, route}) {
     };
 
     if (noteIdx === 'success' || noteIdx === 'failure') {
-      // console.log('image', trainingNote[noteIdx].image);
       return trainingNote[noteIdx].image;
     } else {
       return null;

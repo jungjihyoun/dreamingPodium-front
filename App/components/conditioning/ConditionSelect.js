@@ -29,7 +29,6 @@ function ConditionSelect({title, idx, ...props}) {
   const serverToken = useSelector(state => state.user.serverToken);
 
   const postCondition = async () => {
-    console.log(writtenNote.noteContentGroup.conditioning.mind);
     await API.postRecord(
       userToken,
       todayDate,

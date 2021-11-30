@@ -26,7 +26,7 @@ const App = navigation => {
   // userToken 과 serverToken state 관리
   useEffect(() => {
     AsyncStorage.multiGet(['userToken', 'serverToken'], (_err, items) => {
-      if (items !== null) {
+      if (items[0][1] !== null) {
         dispatch(
           setUserToken({
             userToken: items[0][1],

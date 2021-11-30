@@ -19,13 +19,12 @@ const postProfileInfo = async (
   team,
   field,
 ) => {
-  console.log(user_id, name, gender, birthday, team, field);
   try {
     return await API.post(
       `/profile/create_profile/${user_id}?name=${name}&gender=${gender}&birthday=${birthday}&team=${team}&field=${field}`,
     )
       .then(res => {
-        console.log('sucess update profile Info', res);
+        console.log('sucess update profile Info');
       })
       .catch(err => console.log(err));
   } catch (error) {

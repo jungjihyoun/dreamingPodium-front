@@ -15,8 +15,6 @@ const signInApple = async (setUserInfo, setLoggedIn) => {
     requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
   });
 
-  // get current authentication state for user
-  // This method must be tested on a real device. On the iOS simulator it always throws an error.
   const credentialState = await appleAuth.getCredentialStateForUser(
     appleAuthRequestResponse.user,
   );
@@ -30,23 +28,7 @@ const signInApple = async (setUserInfo, setLoggedIn) => {
       platform: Platform.OS.toUpperCase(), //푸시알림을 등록하기 위한 플랫폼
     });
 
-    // user is authenticated
-    console.log('credentialState', credentialState);
-    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
-
     await API.postAppleToken(appleAuthRequestResponse, setLoggedIn);
-
-    // await API.post(
-    //   'http://3.35.43.76:8000/create_user',
-    //   appleAuthRequestResponse,
-    // )
-    //   .then(function (response) {
-    //     console.log(response.data);
-    //     setLoggedIn({userToken: response.data});
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }
 };
 export {signInApple};

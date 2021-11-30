@@ -40,10 +40,11 @@ export const userSlice = createSlice({
     setUserToken: (state, action) => {
       state.userToken = action.payload.userToken;
       state.serverToken = action.payload.serverToken;
+      state.loggedIn = true;
     },
     setLogin: (state, action) => {
       console.log(
-        'token login redux 토큰 저장을 성공하였습니다. #########',
+        'token login redux 토큰 저장을 성공하였습니다.',
         action.payload.userToken,
         action.payload.serverToken,
       );
@@ -71,12 +72,10 @@ export const userSlice = createSlice({
       state.username = action.payload.username;
       state.gender = action.payload.gender;
       state.birth = action.payload.birth;
-
-      console.log('redux 로그인 세팅', state);
     },
-    setUserImage: (state, action) => {
-      console.log('redux 이미지', state.payload);
-    },
+    // setUserImage: (state, action) => {
+    //   console.log('redux 이미지', state.payload);
+    // },
     // profile 화면에서 정보 받기
     setProfile: (state, action) => {
       state.username = action.payload.username;
@@ -111,7 +110,6 @@ export const userSlice = createSlice({
     },
     [fetchProfileData.fulfilled](state, action) {
       // 성공
-      console.log('profile success @@@ ', action.payload);
       state.username = action.payload.name;
       state.gender = action.payload.gender;
       state.birth = action.payload.birthday;

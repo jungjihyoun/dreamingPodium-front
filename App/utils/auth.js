@@ -10,7 +10,7 @@ const postKakaoToken = async (accessToken, refreshToken, setLoggedIn) => {
     refresh_token: refreshToken,
   })
     .then(function (response) {
-      console.log('userId return from server KAKAO====>', response.data);
+      console.log('userId return from server KAKAO ====>', response.data);
 
       // Login Dispatch => 유저토큰과 서버토큰을 저장
       setLoggedIn({

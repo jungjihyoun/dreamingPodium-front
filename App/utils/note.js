@@ -21,7 +21,16 @@ const getRecord = async (user_id, date, serverToken) => {
 };
 
 const postRecord = async (user_id, wdate, key_type, content, serverToken) => {
-  console.log('마지막 ,,,', content, '토큰 ㅇㅇ', serverToken);
+  console.log(
+    ' ######### postrecord API #########',
+    user_id,
+    '유저 아이디 ',
+    content,
+    '토큰 ',
+    serverToken,
+    '보낼 내용 : ',
+    content,
+  );
   try {
     return await axios.post(
       `${APIURL.BASE_URL}/record/write/${user_id}?wdate=${wdate}&key_type=${key_type}`,
@@ -85,14 +94,6 @@ const postObjectInit = async (
   efforts,
   routines,
 ) => {
-  console.log({
-    user_id: user_id,
-    objectives: objectives,
-    requirements: requirements,
-    efforts: efforts,
-    routines: routines,
-  });
-
   return axios
     .post(`${APIURL.BASE_URL}/objective/create_objectives`, {
       user_id: user_id,

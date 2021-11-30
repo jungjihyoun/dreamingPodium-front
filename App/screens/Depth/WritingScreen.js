@@ -73,7 +73,6 @@ function WritingScreen({navigation, route}) {
             });
             setPictures(
               maxImage.map((v, i) => {
-                console.log('receive image', v);
                 return {
                   uri: v.path,
                   type: v.mime,
@@ -83,10 +82,8 @@ function WritingScreen({navigation, route}) {
             );
             setChoosePicture(true);
           } else {
-            console.log(images);
             setPictures(
               images.map((v, i) => {
-                console.log('receive image', v);
                 return {
                   uri: v.path,
                   type: v.mime,
