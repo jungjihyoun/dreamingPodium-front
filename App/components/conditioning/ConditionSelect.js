@@ -34,14 +34,14 @@ function ConditionSelect({title, idx, ...props}) {
       userToken,
       todayDate,
       'physical',
-      writtenNote.noteContentGroup.conditioning.physical,
+      {content: writtenNote.noteContentGroup.conditioning.physical},
       serverToken,
     );
     await API.postRecord(
       userToken,
       todayDate,
       'mind',
-      writtenNote.noteContentGroup.conditioning.mind,
+      {content: writtenNote.noteContentGroup.conditioning.mind},
       serverToken,
     );
   };

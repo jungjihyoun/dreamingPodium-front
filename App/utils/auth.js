@@ -12,6 +12,7 @@ const postKakaoToken = async (accessToken, refreshToken, setLoggedIn) => {
     .then(function (response) {
       console.log('userId return from server KAKAO====>', response.data);
 
+      // Login Dispatch => 유저토큰과 서버토큰을 저장
       setLoggedIn({
         userToken: response.data['user_id'],
         serverToken: response.data['API_Token'],

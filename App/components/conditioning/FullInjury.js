@@ -23,6 +23,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
   const todayDate = useSelector(state => state.posting.todayDate);
   const serverToken = useSelector(state => state.user.serverToken);
+  const userToken = useSelector(state => state.user.userToken);
   const dispatch = useDispatch();
 
   const filterConditionGroup = idx => {
@@ -59,7 +60,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
 
               <View style={{...styles.degreeGroup, marginBottom: 5}}>
                 <Text style={styles.degreeTitle}>통증정도</Text>
-                <AppXBar amount={data.painData} />
+                {/* <AppXBar amount={data.painData} /> */}
                 <Text style={styles.degreeNumber}>{data.painData}</Text>
               </View>
               <View style={styles.degreeGroup}>
@@ -78,6 +79,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                 onPress={() => {
                   dispatch(
                     deleteInjury({
+                      userToken: userToken,
                       todayDate: todayDate,
                       injuryDirection: data.injuryDirection,
                       injurySection: data.injurySection,
@@ -94,7 +96,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                   style={{
                     fontSize: 16,
                     color: colors.white,
-                    fontFamily: fonts.spoqaRegular,
+                    // fontFamily: fonts.spoqaRegular,
                   }}>
                   부상 삭제
                 </Text>
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   memoContent: {
-    fontFamily: fonts.spoqaRegular,
+    // fontFamily: fonts.spoqaRegular,
     fontSize: 15,
     color: colors.textGrey,
     marginLeft: width * 10,

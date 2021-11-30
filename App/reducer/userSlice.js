@@ -40,7 +40,6 @@ export const userSlice = createSlice({
     setUserToken: (state, action) => {
       state.userToken = action.payload.userToken;
       state.serverToken = action.payload.serverToken;
-      state.loggedIn = true;
     },
     setLogin: (state, action) => {
       console.log(

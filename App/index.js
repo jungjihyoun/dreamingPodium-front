@@ -43,7 +43,7 @@ const App = navigation => {
         <NavigationContainer>
           <StackApp.Navigator presentation="modal">
             {/* UserToken이 없으면 로그인 페이지로 이동합니다 */}
-            {!loggedIn ? (
+            {loggedIn === false ? (
               <StackApp.Screen
                 name="Login"
                 component={LoginScreen}

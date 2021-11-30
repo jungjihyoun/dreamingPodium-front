@@ -23,30 +23,31 @@ function HomeScreen({navigation, ...props}) {
 
   // Training , Conditioning record get
   useEffect(() => {
-    dispatch(
-      fetchNoteData({
-        user_id: userToken,
-        date: todayDate,
-        serverToken: serverToken,
-      }),
-    );
+    AsyncStorage.getItem('userToken').then(data => {
+      if (data) {
+        dispatch(
+          fetchNoteData({
+            user_id: userToken,
+            date: todayDate,
+            serverToken: serverToken,
+          }),
+        );
 
-    // 첫 접속 유저라면 목표 설정 페이지로 이동합니다.
-    AsyncStorage.getItem('isVisitedUser').then(data => {
-      if (data !== 'true') {
-        navigation.push('DreamScreen');
+        dispatch(
+          fetchObjective({
+            user_id: userToken,
+          }),
+        );
+
+        // 첫 접속 유저라면 목표 설정 페이지로 이동합니다.
+        AsyncStorage.getItem('isVisitedUser').then(visited => {
+          if (visited !== 'true') {
+            navigation.push('DreamScreen');
+          }
+        });
       }
     });
   }, [dispatch, navigation, serverToken, todayDate, userToken]);
-
-  // Objective get
-  useEffect(() => {
-    dispatch(
-      fetchObjective({
-        user_id: userToken,
-      }),
-    );
-  }, [dispatch, userToken]);
 
   return (
     <SafeAreaView style={{backgroundColor: 'white', height: '100%'}}>

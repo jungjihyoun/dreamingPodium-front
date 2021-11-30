@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import {
   Platform,
+  KeyboardAvoidingView,
   SafeAreaView,
   View,
   Text,
@@ -16,6 +17,7 @@ import {
   Image,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 // REDUX
 import {submitNote, deleteImage} from '../../reducer/postingSlice';
@@ -119,22 +121,24 @@ function WritingScreen({navigation, route}) {
 
           dispatch(
             deleteImage({
+              userToken: userToken,
               noteIdx: route.params.noteIdx,
+              serverToken: serverToken,
               imageURI: imageURI,
             }),
           );
 
           Alert.alert('라잇', '사진 삭제가 완료되었습니다', [{text: '확인'}]);
-          // dispatch(
-          //   submitNote({
-          //     date: todayDate,
-          //     noteIdx: route.params.noteIdx,
-          //     content: content,
-          //     image: pictures.map(data => {
-          //       return data.uri;
-          //     }),
-          //   }),
-          // );
+          dispatch(
+            submitNote({
+              date: todayDate,
+              noteIdx: route.params.noteIdx,
+              content: content,
+              image: pictures.map(data => {
+                return data.uri;
+              }),
+            }),
+          );
           // // 글 작성 post
           // await API.postRecord(
           //   userToken,
@@ -186,6 +190,7 @@ function WritingScreen({navigation, route}) {
           route.params.noteIdx,
           todayDate,
           formData,
+          serverToken,
         );
       }
       navigation.navigate('TrainingNote', {
@@ -197,37 +202,58 @@ function WritingScreen({navigation, route}) {
 
   return (
     <SafeAreaView style={{...styles.container, backgroundColor: 'white'}}>
-      <Text style={styles.title}>{route.params.title}</Text>
-
       <ScrollView style={{height: '100%'}}>
-        <View style={styles.inputBox}>
-          <TextInput
-            style={styles.input}
-            multiline={true}
-            placeholder={
-              route.params.placeholder
-                ? route.params.placeholder
-                : route.params.value
-            }
-            value={content}
-            returnKeyType="next"
-            onChange={event => {
-              const {eventCount, target, text} = event.nativeEvent;
-              setContent(text);
-            }}
-          />
-        </View>
+        <Text style={styles.title}>{route.params.title}</Text>
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          extraScrollHeight={100}
+          style={{backgroundColor: 'white', height: '100%'}}>
+          <View style={styles.inputBox}>
+            <TextInput
+              // maxLength={500}
+              style={styles.input}
+              multiline={true}
+              placeholder={
+                route.params.placeholder
+                  ? route.params.placeholder
+                  : route.params.value
+              }
+              value={content}
+              returnKeyType="next"
+              onChange={event => {
+                const {eventCount, target, text} = event.nativeEvent;
+                setContent(text);
+              }}
+            />
+          </View>
 
-        <View
-          style={{
-            justifyContent: 'flex-end',
-            flexDirection: 'row',
-          }}>
-          {(route.params.noteIdx === 'success' ||
-            route.params.noteIdx === 'failure') && (
+          <View
+            style={{
+              justifyContent: 'flex-end',
+              flexDirection: 'row',
+            }}>
+            {(route.params.noteIdx === 'success' ||
+              route.params.noteIdx === 'failure') && (
+              <TouchableOpacity
+                style={{...styles.submitButton, marginRight: 10}}
+                onPress={() => pickMultiple()}>
+                <Text
+                  style={{
+                    color: colors.white,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    fontSize: 12,
+                  }}>
+                  사진첨부
+                </Text>
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity
-              style={{...styles.submitButton, marginRight: 10}}
-              onPress={() => pickMultiple()}>
+              style={styles.submitButton}
+              onPress={() => {
+                goToNext();
+              }}>
               <Text
                 style={{
                   color: colors.white,
@@ -235,56 +261,38 @@ function WritingScreen({navigation, route}) {
                   textAlign: 'center',
                   fontSize: 12,
                 }}>
-                사진첨부
+                작성완료
               </Text>
             </TouchableOpacity>
-          )}
+          </View>
 
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={() => {
-              goToNext();
-            }}>
-            <Text
-              style={{
-                color: colors.white,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                fontSize: 12,
-              }}>
-              작성완료
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        {route.params.noteIdx !== 'feedback' &&
-          route.params.noteIdx !== 'train_detail' &&
-          NoteList[route.params.noteIdx].image && (
-            <View
-              style={{
-                flexDirection: 'row',
-                // width: width * 300,
-                // overflow: 'visible',
-                // height: '100%',
-              }}>
-              {NoteList[route.params.noteIdx].image.map(data => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleDeleteImage(data);
-                    }}>
-                    <Image
-                      key={data}
-                      source={{uri: data}}
-                      resizeMode="cover"
-                      resizeMethod="auto"
-                      style={styles.imageList}
-                    />
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          )}
+          {route.params.noteIdx !== 'feedback' &&
+            route.params.noteIdx !== 'train_detail' &&
+            NoteList[route.params.noteIdx].image && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginTop: height * 50,
+                }}>
+                {NoteList[route.params.noteIdx].image.map(data => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        handleDeleteImage(data);
+                      }}>
+                      <Image
+                        key={data}
+                        source={{uri: data}}
+                        resizeMode="cover"
+                        resizeMethod="auto"
+                        style={styles.imageList}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            )}
+        </KeyboardAwareScrollView>
       </ScrollView>
     </SafeAreaView>
   );
@@ -305,6 +313,7 @@ const styles = StyleSheet.create({
     color: colors.darkGrey,
   },
   input: {
+    flex: 1,
     fontFamily: fonts.spoqaLight,
     width: width * 343,
     fontSize: 15,
@@ -323,6 +332,7 @@ const styles = StyleSheet.create({
   submitButton: {
     fontFamily: fonts.spoqaRegular,
     marginTop: 10,
+    marginBottom: 20,
     borderRadius: 8,
     width: 62,
     height: 24,

@@ -116,12 +116,14 @@ export const postingSlice = createSlice({
       API.postRecord(
         action.payload.userToken,
         state.todayDate,
-        'injury',
-        [
-          ...state.writtenNote.noteContentGroup.conditioning[
-            action.payload.conditionIdx
+        action.payload.conditionIdx,
+        {
+          content: [
+            ...state.writtenNote.noteContentGroup.conditioning[
+              action.payload.conditionIdx
+            ],
           ],
-        ],
+        },
         action.payload.serverToken,
       );
     },
@@ -151,15 +153,21 @@ export const postingSlice = createSlice({
           );
 
           console.log(
-            't삭제 후 injury 리스트',
-            state.writtenNote.noteContentGroup.conditioning.injury,
+            '삭제 후 injury 리스트',
+            [...state.writtenNote.noteContentGroup.conditioning.injury],
+            '토근',
+            action.payload.serverToken,
           );
-          // 신체상태 API
+          // 신체상태 삭제 API
           API.postRecord(
             action.payload.userToken,
             state.todayDate,
             'injury',
-            [...state.writtenNote.noteContentGroup.conditioning.injury],
+            {
+              content: [
+                ...state.writtenNote.noteContentGroup.conditioning.injury,
+              ],
+            },
             action.payload.serverToken,
           );
         }
@@ -185,13 +193,20 @@ export const postingSlice = createSlice({
             action.payload.noteIdx
           ].image.splice(deleteIndex, 1);
 
+          console.log(
+            '이미지 삭제 ===>',
+            state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
+              .image,
+          );
           // TODO : image API
-          // API.postRecord(
-          //   action.payload.userToken,
-          //   state.todayDate,
-          //   'injury',
-          //   state.writtenNote.noteContentGroup.conditioning.injury,
-          // );
+          API.deleteImage(
+            action.payload.userToken,
+            action.payload.noteIdx,
+            state.todayDate,
+            action.payload.serverToken,
+            state.writtenNote.noteContentGroup.training[action.payload.noteIdx]
+              .image,
+          );
         }
       });
     },
@@ -208,15 +223,12 @@ export const postingSlice = createSlice({
         !state.writtenNote.noteContentGroup.training.routines[
           action.payload.routineName
         ];
-      console.log(
-        '테스트;ㅡ,',
-        state.writtenNote.noteContentGroup.training.routines,
-      );
+
       API.postRecord(
         action.payload.userToken,
         state.todayDate,
         'routines',
-        state.writtenNote.noteContentGroup.training.routines,
+        {content: state.writtenNote.noteContentGroup.training.routines},
         action.payload.serverToken,
       );
     },
@@ -235,6 +247,39 @@ export const postingSlice = createSlice({
   extraReducers: {
     [fetchNoteData.fulfilled](state, action) {
       state.writtenNote = action.payload;
+      console.log(action.payload);
+      console.log('dddddddd: ', action.payload.noteContentGroup);
+      console.log(
+        '피지컬',
+        action.payload.noteContentGroup.conditioning.physical,
+      );
+
+      // state.writtenNote.noteContentGroup.training.success.image =
+      //   typeof state.writtenNote.noteContentGroup.training.success.image ===
+      //   Object
+      //     ? null
+      //     : action.payload.noteContentGroup.training.success.image;
+
+      // state.writtenNote.noteContentGroup.training.failure.image =
+      //   typeof state.writtenNote.noteContentGroup.training.failure.image ===
+      //   Object
+      //     ? null
+      //     : action.payload.noteContentGroup.training.failure.image;
+
+      // state.writtenNote.noteContentGroup.conditioning.mind =
+      //   state.writtenNote.noteContentGroup.conditioning.mind === {}
+      //     ? []
+      //     : action.payload.noteContentGroup.conditioning.mind;
+
+      // state.writtenNote.noteContentGroup.conditioning.physical =
+      //   state.writtenNote.noteContentGroup.conditioning.physical === {}
+      //     ? []
+      //     : action.payload.noteContentGroup.conditioning.physical;
+
+      // state.writtenNote.noteContentGroup.conditioning.injury =
+      //   state.writtenNote.noteContentGroup.conditioning.injury === {}
+      //     ? []
+      //     : action.payload.noteContentGroup.conditioning.injury;
 
       console.log('record api 요청 후 데이터 => ', state.writtenNote);
     },

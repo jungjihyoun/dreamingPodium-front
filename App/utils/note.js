@@ -21,6 +21,7 @@ const getRecord = async (user_id, date, serverToken) => {
 };
 
 const postRecord = async (user_id, wdate, key_type, content, serverToken) => {
+  console.log('마지막 ,,,', content, '토큰 ㅇㅇ', serverToken);
   try {
     return await axios.post(
       `${APIURL.BASE_URL}/record/write/${user_id}?wdate=${wdate}&key_type=${key_type}`,
@@ -36,7 +37,7 @@ const postRecord = async (user_id, wdate, key_type, content, serverToken) => {
   }
 };
 
-const postImage = async (user_id, image_type, wdate, image) => {
+const postImage = async (user_id, image_type, wdate, image, serverToken) => {
   return axios
     .post(
       `${APIURL.BASE_URL}/images/uploadfile?user_id=${user_id}&image_type=${image_type}&wdate=${wdate}`,
@@ -44,11 +45,28 @@ const postImage = async (user_id, image_type, wdate, image) => {
       {
         headers: {
           'Content-Type': 'multipart/form-data',
+          token: serverToken,
         },
       },
     )
     .then(res => console.log('이미지를 성공적으로 보냈습니다.'))
     .catch(err => console.log('이미지 전송을 실패했습니다.', err));
+};
+
+const deleteImage = async (user_id, image_type, wdate, serverToken, uri) => {
+  console.log('전체테스트,', user_id, image_type, wdate, uri, serverToken);
+  return await axios
+    .post(
+      `${APIURL.BASE_URL}/images/delete_image/${user_id}?image_type=${image_type}&wdate=${wdate}`,
+      {content: uri},
+      {
+        headers: {
+          token: serverToken,
+        },
+      },
+    )
+    .then(res => console.log('이미지를 성공적으로 삭제했습니다.'))
+    .catch(err => console.log('이미지 삭제에 실패했습니다.', err));
 };
 
 // 목표설정 API
@@ -104,4 +122,5 @@ export default {
   postImage,
   postObjectInit,
   updateObject,
+  deleteImage,
 };

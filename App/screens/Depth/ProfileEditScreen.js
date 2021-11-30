@@ -31,6 +31,7 @@ import PROFILEAPI from '../../utils/profile';
 function ProfileEditScreen({navigation, ...props}) {
   const user = useSelector(state => state.user);
   const userToken = useSelector(state => state.user.userToken);
+  const serverToken = useSelector(state => state.user.serverToken);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
 
@@ -98,7 +99,13 @@ function ProfileEditScreen({navigation, ...props}) {
 
     // 프로필 이미지 저장  API
     if (choosePicture === true) {
-      await NOTEAPI.postImage(userToken, 'profile', todayDate, formData);
+      await NOTEAPI.postImage(
+        userToken,
+        'profile',
+        todayDate,
+        formData,
+        serverToken,
+      );
     }
 
     Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
