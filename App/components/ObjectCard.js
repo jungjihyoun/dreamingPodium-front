@@ -58,6 +58,11 @@ function ObjectCard({
           placeholder="입력해주세요"
           clearTextOnFocus={true}
           autoFocus={true}
+          onEndEditing={() => [
+            addObjectItem(text),
+            setShowInputBox(false),
+            setText(''),
+          ]}
           onSubmitEditing={() => [
             addObjectItem(text),
             setShowInputBox(false),

@@ -17,7 +17,6 @@ import ConditionCard from '../../components/conditioning/ConditionCard';
 import AppModal from '../../components/AppModal';
 import ConditionSelect from '../../components/conditioning/ConditionSelect';
 import InjurySelect from '../../components/conditioning/InjurySelect';
-import DreamInjuryCard from '../../components/conditioning/FullInjury';
 
 // REDUX
 

@@ -60,7 +60,7 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
 
               <View style={{...styles.degreeGroup, marginBottom: 5}}>
                 <Text style={styles.degreeTitle}>통증정도</Text>
-                {/* <AppXBar amount={data.painData} /> */}
+                <AppXBar amount={data.painData} />
                 <Text style={styles.degreeNumber}>{data.painData}</Text>
               </View>
               <View style={styles.degreeGroup}>

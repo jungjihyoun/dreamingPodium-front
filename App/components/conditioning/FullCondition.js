@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   subTitle: {
-    fontFamily: fonts.spoqaBold,
     fontSize: 18,
     marginVertical: 10,
     marginLeft: 10,

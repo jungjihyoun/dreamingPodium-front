@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     height: height * 200,
     borderRadius: 10,
     overflow: 'hidden',
+    marginBottom: height * 15,
   },
   HomePartCard: {
     flexDirection: 'column',
