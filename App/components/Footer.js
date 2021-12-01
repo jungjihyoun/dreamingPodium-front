@@ -40,7 +40,7 @@ function ProfileScreen({navigation, ...props}) {
           style={{
             flexDirection: 'row',
             paddingBottom: 3,
-            fontSize: 14,
+            fontSize: 13,
           }}>
           <Text style={{color: colors.primary, fontWeight: '400'}}>
             contact{' '}
@@ -51,8 +51,9 @@ function ProfileScreen({navigation, ...props}) {
               fontWeight: '300',
               textAlign: 'right',
               fontFamily: fonts.spoqaLight,
+              fontSize: 13,
             }}>
-            sujinju0311@naver.com |
+            sujinju0311@naver.com
           </Text>
         </View>
       </View>
@@ -66,6 +67,7 @@ function ProfileScreen({navigation, ...props}) {
           position: 'absolute',
           bottom: height * 13,
           right: width * 10,
+          fontSize: 13,
         }}>
         develop by Jihyoun & Minhyeok
       </Text>

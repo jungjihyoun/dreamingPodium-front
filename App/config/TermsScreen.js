@@ -671,10 +671,9 @@ export default function TermsScreen(props) {
     <ScrollView
       style={{
         position: 'absolute',
-        marginVertical: height * 150,
-        width: '85%',
-        height: '60%',
-        padding: 10,
+        marginVertical: height * 200,
+        width: '75%',
+        height: '50%',
         alignSelf: 'center',
         backgroundColor: '#ffffff',
         borderWidth: 3,
@@ -685,7 +684,7 @@ export default function TermsScreen(props) {
       }}>
       <View
         style={{
-          // padding: 10,
+          padding: 10,
           width: '100%',
           height: '100%',
           alignSelf: 'center',
