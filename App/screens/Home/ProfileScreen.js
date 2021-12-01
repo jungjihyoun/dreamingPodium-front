@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  ScrollView,
 } from 'react-native';
-import TermsScreen from '../../config/TermsScreen';
-
+import {Linking} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLogout} from '../../reducer/userSlice';
-import {colors, images, width, height} from '../../config/globalStyles';
+import TermsScreen from '../../config/TermsScreen';
+import Footer from '../../components/Footer';
+import {colors, images, width, height, fonts} from '../../config/globalStyles';
 
 function ProfileScreen({navigation, ...props}) {
   const [modal, setModal] = useState(false);
@@ -30,6 +32,7 @@ function ProfileScreen({navigation, ...props}) {
     `${date.getFullYear()}년 ${zero(date.getMonth() + 1)}월 ${zero(
       date.getDate(),
     )}일`;
+  const datePick = new Date(user.birth);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
@@ -64,8 +67,8 @@ function ProfileScreen({navigation, ...props}) {
           </Text>
 
           <Text style={[styles.birthday, styles.userInfoText]}>
-            {dateKo(new Date(user.birth))}
-            {/* {dateKo(user.birth)} */}
+            {zero(datePick.getFullYear())}년 {zero(datePick.getMonth() + 1)}월{' '}
+            {zero(datePick.getDate())}일
           </Text>
 
           <View>
@@ -130,7 +133,17 @@ function ProfileScreen({navigation, ...props}) {
             {<TermsScreen />}
           </Modal>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonSection}
+          onPress={() =>
+            Linking.openURL('https://blog.naver.com/sujinju0311/222583009802')
+          }>
+          <Text style={styles.buttonText}>개인정보 처리방침</Text>
+        </TouchableOpacity>
       </View>
+
+      <Footer />
     </SafeAreaView>
   );
 }
@@ -158,7 +171,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   profileHeader: {
-    flex: 4,
+    flex: 3.6,
     alignSelf: 'center',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -177,7 +190,7 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     width: width * 300,
-    height: height * 40,
+    height: height * 35,
     marginBottom: 16,
     borderWidth: 1.5,
     borderColor: '#EEEEEE',

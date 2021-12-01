@@ -2,6 +2,7 @@
 import React from 'react';
 import {useWindowDimensions, ScrollView, View} from 'react-native';
 import RenderHtml from 'react-native-render-html';
+import {height} from '../config/globalStyles';
 
 const source = {
   html: `
@@ -670,9 +671,10 @@ export default function TermsScreen(props) {
     <ScrollView
       style={{
         position: 'absolute',
-        marginVertical: 200,
-        width: '80%',
-        height: '50%',
+        marginVertical: height * 150,
+        width: '85%',
+        height: '60%',
+        padding: 10,
         alignSelf: 'center',
         backgroundColor: '#ffffff',
         borderWidth: 3,

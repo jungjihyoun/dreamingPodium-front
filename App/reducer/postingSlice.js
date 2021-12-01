@@ -185,7 +185,7 @@ export const postingSlice = createSlice({
             action.payload.noteIdx
           ].image.splice(deleteIndex, 1);
 
-          // TODO : image API
+          // image Delete API
           API.deleteImage(
             action.payload.userToken,
             action.payload.noteIdx,

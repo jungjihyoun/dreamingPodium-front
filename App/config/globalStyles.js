@@ -55,6 +55,7 @@ export const images = {
   apple: require('../assets//images/appleLogin.png'),
   addButton: require('../assets/images/add_circle.png'),
   closeButton: require('../assets/images/close.png'),
+  dreaming: require('../assets/images/dreaming.png'),
 };
 
 export const height = (

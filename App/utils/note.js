@@ -63,7 +63,14 @@ const postImage = async (user_id, image_type, wdate, image, serverToken) => {
 };
 
 const deleteImage = async (user_id, image_type, wdate, serverToken, uri) => {
-  console.log('전체테스트,', user_id, image_type, wdate, uri, serverToken);
+  console.log(
+    '사진 삭제 테스트 API',
+    user_id,
+    image_type,
+    wdate,
+    uri,
+    serverToken,
+  );
   return await axios
     .post(
       `${APIURL.BASE_URL}/images/delete_image/${user_id}?image_type=${image_type}&wdate=${wdate}`,

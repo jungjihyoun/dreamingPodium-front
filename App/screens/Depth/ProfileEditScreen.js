@@ -74,13 +74,18 @@ function ProfileEditScreen({navigation, ...props}) {
   var formData = new FormData();
   formData.append('files', image);
 
+  useEffect(() => {
+    console.log('생일 : ', birth);
+    console.log('user 생일:', user.birth);
+  }, [birth, user.birth]);
+
   const submitUserProfile = async () => {
     //redux
     dispatch(
       setProfile({
         username: name ? name : user.username,
         gender: gender ? gender : user.gender,
-        birth: birth ? birth : user.birth,
+        birth: birth ? birth : new Date(user.birth).toDateString(),
         userImage: picture !== '' ? picture : '',
         field: field ? field : user.field,
         team: team ? team : user.team,
@@ -107,9 +112,6 @@ function ProfileEditScreen({navigation, ...props}) {
         serverToken,
       );
     }
-
-    console.log('날짜를 선택 하진 않읏ㅁ', birth);
-    console.log('날짜를redux', user.birth);
 
     Alert.alert('라잇', '프로필 설정이 완료되었습니다.', [{text: '확인'}]);
   };

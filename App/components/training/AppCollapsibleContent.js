@@ -27,7 +27,7 @@ const AppCollapsibleContent = ({
             source={{uri: data}}
             resizeMode="contain"
             resizeMethod="auto"
-            style={styles.swiperItem}
+            style={{...styles.swiperItem}}
           />
         );
       });
@@ -53,7 +53,7 @@ const AppCollapsibleContent = ({
           <Swiper
             activeDotColor={colors.white}
             paginationStyle={{bottom: 0}}
-            height={400}
+            height={300}
             style={styles.swiperWrapper}
             showsButtons={false}>
             {imageGroup()}
@@ -92,12 +92,11 @@ const AppCollapsibleContent = ({
 const styles = StyleSheet.create({
   swiperWrapper: {marginTop: 15},
   swiperItem: {
-    // flex: 1,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    width: width * 350,
-    height: height * 350,
+    width: width * 300,
+    height: height * 300,
   },
 
   text: {

@@ -252,32 +252,39 @@ function WritingScreen({navigation, route}) {
             </TouchableOpacity>
           </View>
 
-          {route.params.noteIdx !== 'feedback' &&
-            route.params.noteIdx !== 'train_detail' &&
-            NoteList[route.params.noteIdx].image && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: height * 50,
-                }}>
-                {NoteList[route.params.noteIdx].image.map(data => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => {
-                        handleDeleteImage(data);
-                      }}
-                      key={data}>
-                      <Image
-                        source={{uri: data}}
-                        resizeMode="cover"
-                        resizeMethod="auto"
-                        style={styles.imageList}
-                      />
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            )}
+          <Text
+            style={{
+              flexDirection: 'row',
+              width: width * 350,
+            }}>
+            <View>
+              {route.params.noteIdx !== 'feedback' &&
+                route.params.noteIdx !== 'train_detail' &&
+                NoteList[route.params.noteIdx].image && (
+                  <Text
+                    style={{
+                      alignSelf: 'flex-start',
+                    }}>
+                    {NoteList[route.params.noteIdx].image.map(data => {
+                      return (
+                        <TouchableOpacity
+                          onPress={() => {
+                            handleDeleteImage(data);
+                          }}
+                          key={data}>
+                          <Image
+                            source={{uri: data}}
+                            resizeMode="cover"
+                            resizeMethod="auto"
+                            style={styles.imageList}
+                          />
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </Text>
+                )}
+            </View>
+          </Text>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -326,7 +333,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
     justifyContent: 'center',
   },
-  imageList: {width: width * 70, height: height * 100},
+  imageList: {width: width * 70, height: height * 70},
 });
 
 export default WritingScreen;
