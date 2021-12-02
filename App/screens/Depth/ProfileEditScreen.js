@@ -119,8 +119,8 @@ function ProfileEditScreen({navigation, ...props}) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        keyboardVerticalOffset={height * 20}
-        behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
+        keyboardVerticalOffset={10}
+        behavior={Platform.OS === 'ios' ? 'position' : 'position'}
         enabled
         style={{flex: 1, backgroundColor: colors.white}}>
         <SafeAreaView style={{height: '100%'}}>
@@ -128,7 +128,7 @@ function ProfileEditScreen({navigation, ...props}) {
             <Text style={styles.profileTitle}>프로필 수정</Text>
           </View>
 
-          <View style={{flex: 1.5}}>
+          <View style={{flex: 2}}>
             <TouchableOpacity
               style={styles.profileImgArea}
               onPress={() => {
@@ -158,7 +158,7 @@ function ProfileEditScreen({navigation, ...props}) {
             </TouchableOpacity>
           </View>
 
-          <View style={{flex: 3}}>
+          <View style={{flex: 4}}>
             <ProfileInputLine
               inputName="이름"
               value={name}
@@ -180,7 +180,6 @@ function ProfileEditScreen({navigation, ...props}) {
                 setBirth(event);
               }}
             />
-
             <ProfileInputLine
               inputName="소속"
               onChangeText={event => {
@@ -233,6 +232,7 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   profileTitleArea: {
+    flex: 1,
     flexDirection: 'row',
   },
   profileImgArea: {
@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 100,
     alignSelf: 'center',
-    justifyContent: 'center',
   },
   profileImgGroup: {
     width: width * 160,

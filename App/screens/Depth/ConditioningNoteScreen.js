@@ -82,7 +82,7 @@ function ConditioningNoteScreen(props) {
 
       <View style={styles.boxContainer}>
         {selectTab === 'condition' ? (
-          <View style={{minHeight: height * 500}}>
+          <View style={{height: height * 500}}>
             <ConditionCard idx="mind" />
           </View>
         ) : (

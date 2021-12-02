@@ -15,7 +15,7 @@ import {colors, images, width, height} from '../config/globalStyles';
 import DatePicker from 'react-native-date-picker';
 
 function ProfileInputLine({inputType, onConfirm, ...props}) {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date('2000-01-01'));
   const [open, setOpen] = useState(false);
 
   const zero = num => (num < 10 && num >= 0 ? '0' + num : num);
@@ -70,7 +70,9 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
             justifyContent: 'center',
           }}>
           <Text style={{...styles.inputHolder}}>
-            {dateKo(new Date(props.value))}
+            {props.value === null
+              ? dateKo(new Date('2000-01-01'))
+              : dateKo(new Date(props.value))}
           </Text>
         </TouchableOpacity>
       );
@@ -96,6 +98,7 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
 
           {inputUI()}
 
+          {/* 날짜 선택창 */}
           <DatePicker
             locale="ko"
             modal
@@ -136,12 +139,14 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     width: Platform.OS === 'android' ? width * 400 : width * 325,
-    height: Platform.OS === 'android' ? '100%' : height * 30,
+    height: Platform.OS === 'android' ? 50 : height * 30,
     borderBottomWidth: 1.5,
     borderStyle: 'solid',
     borderColor: colors.whiteGrey,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    // android
+    alignItems: 'center',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -151,7 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   genderButton: {
-    marginRight: 10,
+    marginRight: 30,
     width: 40,
   },
   genderText: {

@@ -96,7 +96,6 @@ function FullInjury({subtitle, title, content, style, idx, data, ...props}) {
                   style={{
                     fontSize: 16,
                     color: colors.white,
-                    // fontFamily: fonts.spoqaRegular,
                   }}>
                   부상 삭제
                 </Text>
@@ -131,10 +130,10 @@ const styles = StyleSheet.create({
   },
   section: {
     position: 'absolute',
-    bottom: Platform.OS === 'android' ? height * 5 : height * 10,
+    bottom: Platform.OS === 'android' ? height * 25 : height * 10,
     borderRadius: 10,
     backgroundColor: colors.white,
-    height: Platform.OS === 'android' ? height * 250 : height * 230,
+    height: Platform.OS === 'android' ? height * 220 : height * 230,
     width: width * 310,
     alignSelf: 'center',
   },
@@ -143,7 +142,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '100%',
     width: width * 300,
-    marginVertical: 6,
   },
   title: {
     fontSize: 18,
@@ -172,12 +170,9 @@ const styles = StyleSheet.create({
   },
   scrollMemo: {
     width: 270,
-    height: height * 30,
     marginTop: 20,
-    marginBottom: 30,
   },
   memoContent: {
-    // fontFamily: fonts.spoqaRegular,
     fontSize: 15,
     color: colors.textGrey,
     marginLeft: width * 10,

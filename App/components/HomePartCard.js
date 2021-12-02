@@ -26,23 +26,23 @@ export const HomePartCard = ({style, onPress, Logo, ...props}) => {
 
 const styles = StyleSheet.create({
   partCardSvg: {
-    width: width * 341,
-    height: height * 200,
+    width: width * 340,
+    height: height > 0.9 ? height * 210 : height * 190,
     borderRadius: 10,
     overflow: 'hidden',
     marginBottom: height * 15,
   },
   HomePartCard: {
     flexDirection: 'column',
-    width: width * 341,
-    height: height * 190,
+    width: 300,
+    height: 190,
     borderRadius: 10,
     borderStyle: 'solid',
     marginBottom: 27,
   },
   titleGroup: {
-    marginLeft: 23,
-    marginTop: 37,
+    marginLeft: width * 25,
+    marginTop: height * 37,
   },
   partTitle: {
     fontFamily: fonts.spoqaBold,

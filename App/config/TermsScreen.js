@@ -673,7 +673,7 @@ export default function TermsScreen(props) {
         position: 'absolute',
         marginVertical: height * 200,
         width: '75%',
-        height: '50%',
+        height: height * 450,
         alignSelf: 'center',
         backgroundColor: '#ffffff',
         borderWidth: 3,

@@ -57,20 +57,6 @@ function ProfileScreen({navigation, ...props}) {
           </Text>
         </View>
       </View>
-
-      <Text
-        style={{
-          color: colors.primary,
-          fontWeight: '300',
-          textAlign: 'right',
-          fontFamily: fonts.spoqaLight,
-          position: 'absolute',
-          bottom: height * 13,
-          right: width * 10,
-          fontSize: 13,
-        }}>
-        develop by Jihyoun & Minhyeok
-      </Text>
     </View>
   );
 }

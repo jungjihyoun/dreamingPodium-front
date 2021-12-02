@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {HomePartCard} from '../../components/HomePartCard';
 import {HeaderProfile} from '../../components/training/HeaderProfile.js';
@@ -11,7 +11,7 @@ import {
   fetchNoteData,
   fetchObjective,
 } from '../../reducer/postingSlice';
-import {colors, images} from '../../config/globalStyles';
+import {colors, images, width, height} from '../../config/globalStyles';
 import ConditioningCard from '../../assets/svg/conditioningCard';
 import TrainingCard from '../../assets/svg/trainingCard';
 
@@ -26,16 +26,16 @@ function HomeScreen({navigation, ...props}) {
     AsyncStorage.getItem('userToken').then(data => {
       if (data) {
         dispatch(
-          fetchNoteData({
+          fetchObjective({
             user_id: userToken,
-            date: todayDate,
-            serverToken: serverToken,
           }),
         );
 
         dispatch(
-          fetchObjective({
+          fetchNoteData({
             user_id: userToken,
+            date: todayDate,
+            serverToken: serverToken,
           }),
         );
 
@@ -66,6 +66,8 @@ function HomeScreen({navigation, ...props}) {
               style={{
                 position: 'absolute',
               }}
+              width={350}
+              height={210}
             />
           }
         </HomePartCard>
@@ -82,6 +84,8 @@ function HomeScreen({navigation, ...props}) {
               style={{
                 position: 'absolute',
               }}
+              width={350}
+              height={210}
             />
           }
         </HomePartCard>

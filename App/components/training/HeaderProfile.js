@@ -44,7 +44,7 @@ const HeaderProfile = ({style, ...props}) => {
           </View>
           <View style={styles.contentGroup}>
             <Text style={styles.title}>나의 목표</Text>
-            <Text style={styles.content}>{userObject}</Text>
+            <Text style={styles.content}>{userObject[0]}</Text>
           </View>
         </View>
       </View>

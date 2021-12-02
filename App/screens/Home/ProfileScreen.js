@@ -28,17 +28,13 @@ function ProfileScreen({navigation, ...props}) {
 
   // TODO : DATE 핸들링 모듈 따로 빼기
   const zero = num => (num < 10 && num >= 0 ? '0' + num : num);
-  const dateKo = date =>
-    `${date.getFullYear()}년 ${zero(date.getMonth() + 1)}월 ${zero(
-      date.getDate(),
-    )}일`;
   const datePick = new Date(user.birth);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
       <View style={styles.profileHeader}>
         <View style={styles.profileImg}>
-          {user.userImage !== null ? (
+          {(user.userImage !== null) & (user.userImage !== '') ? (
             <Image
               style={{
                 width: 116,
@@ -67,8 +63,10 @@ function ProfileScreen({navigation, ...props}) {
           </Text>
 
           <Text style={[styles.birthday, styles.userInfoText]}>
-            {zero(datePick.getFullYear())}년 {zero(datePick.getMonth() + 1)}월{' '}
-            {zero(datePick.getDate())}일
+            {user.birth &&
+              `${zero(datePick.getFullYear())}년 ${zero(
+                datePick.getMonth() + 1,
+              )}월 ${zero(datePick.getDate())}일`}
           </Text>
 
           <View>
@@ -143,7 +141,7 @@ function ProfileScreen({navigation, ...props}) {
         </TouchableOpacity>
       </View>
 
-      <Footer />
+      {/* <Footer /> */}
     </SafeAreaView>
   );
 }

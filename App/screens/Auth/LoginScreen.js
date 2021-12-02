@@ -41,7 +41,12 @@ function LoginScreen({navigation}) {
       <View style={{flex: 1}}>
         <Text style={styles.headerSection}>
           운동을 올바르게{' '}
-          <Text style={{color: '#20C1A1', fontWeight: 'bold', fontSize: 18}}>
+          <Text
+            style={{
+              colorTrainingCard: '#20C1A1',
+              fontWeight: 'bold',
+              fontSize: 18,
+            }}>
             right
           </Text>
         </Text>
@@ -65,8 +70,8 @@ function LoginScreen({navigation}) {
         <SocialButton
           style={{backgroundColor: colors.kakaoTalk}}
           onPress={() => {
-            // dispatch(setLogin({userToken: 'KA1951543508'}));
-            signInKakaoTalk(setUserInfo, setLoggedIn);
+            dispatch(setLogin({userToken: 'KA1951543508'}));
+            // signInKakaoTalk(setUserInfo, setLoggedIn);
           }}>
           <Image style={{width: 15, height: 15}} source={images.kakao} />
           <Text style={{...styles.socialText, color: '#421919'}}>
@@ -95,7 +100,7 @@ function LoginScreen({navigation}) {
 
 const styles = StyleSheet.create({
   LogoSection: {
-    flex: 2,
+    flex: 2.5,
     marginBottom: height * 15,
     marginRight: width * 10,
   },

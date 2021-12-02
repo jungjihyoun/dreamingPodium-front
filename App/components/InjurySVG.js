@@ -1,14 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, Platform} from 'react-native';
 
 import {colors, width, height} from '../config/globalStyles';
 
@@ -90,7 +82,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     zIndex: 99,
     position: 'absolute',
-    bottom: height * 210,
+    bottom: Platform.OS === 'android' ? height * 218 : height * 210,
     alignSelf: 'center',
   },
 });
