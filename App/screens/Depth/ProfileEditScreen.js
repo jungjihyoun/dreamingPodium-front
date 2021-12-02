@@ -47,8 +47,8 @@ function ProfileEditScreen({navigation, ...props}) {
   const [image, setImage] = useState(
     user.userImage !== null ? user.userImage : '',
   );
-  const [team, setTeam] = useState(user.team);
-  const [field, setField] = useState(user.field);
+  const [team, setTeam] = useState(user.team !== null ? user.team : '-');
+  const [field, setField] = useState(user.field !== null ? user.field : '-');
 
   const showImage = async () => {
     ImagePicker.openPicker({
@@ -57,6 +57,7 @@ function ProfileEditScreen({navigation, ...props}) {
       sortOrder: 'asc',
       includeExif: true,
       forceJpg: true,
+      mediaType: 'photo',
     })
       .then(data => {
         setImage({
@@ -80,26 +81,28 @@ function ProfileEditScreen({navigation, ...props}) {
   }, [birth, user.birth]);
 
   const submitUserProfile = async () => {
+    console.log('생일 : ', birth);
+    console.log('user 생일:', user.birth);
     //redux
     dispatch(
       setProfile({
-        username: name ? name : user.username,
-        gender: gender ? gender : user.gender,
+        username: name,
+        gender: gender,
         birth: birth ? birth : new Date(user.birth).toDateString(),
         userImage: picture !== '' ? picture : '',
-        field: field ? field : user.field,
-        team: team ? team : user.team,
+        field: field,
+        team: team,
       }),
     );
     // 프로필 수정 저장  API
 
     await PROFILEAPI.postProfileInfo(
       userToken,
-      name ? name : user.username,
-      gender ? gender : user.gender,
-      birth ? birth : new Date(user.birth).toDateString(),
-      team ? team : user.team,
-      field ? field : user.field,
+      name,
+      gender,
+      new Date(birth).toDateString(),
+      team,
+      field,
     );
 
     // 프로필 이미지 저장  API

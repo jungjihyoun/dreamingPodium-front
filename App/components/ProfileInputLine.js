@@ -61,8 +61,12 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
       );
       // 날짜
     } else if (inputType === 'date') {
-      return props.value === new Date().toDateString() ? (
-        <Button title="선택" onPress={() => setOpen(true)} />
+      return props.value === null ? (
+        <TouchableOpacity onPress={() => setOpen(true)}>
+          <Text style={{fontSize: 18, color: colors.primary, marginRight: 20}}>
+            선택
+          </Text>
+        </TouchableOpacity>
       ) : (
         <TouchableOpacity
           onPress={() => setOpen(true)}
@@ -70,9 +74,7 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
             justifyContent: 'center',
           }}>
           <Text style={{...styles.inputHolder}}>
-            {props.value === null
-              ? dateKo(new Date('2000-01-01'))
-              : dateKo(new Date(props.value))}
+            {dateKo(new Date(props.value))}
           </Text>
         </TouchableOpacity>
       );

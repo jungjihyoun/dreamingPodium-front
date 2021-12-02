@@ -50,6 +50,7 @@ function WritingScreen({navigation, route}) {
       sortOrder: 'asc',
       includeExif: true,
       forceJpg: true,
+      mediaType: 'photo',
     })
       .then(images => {
         if (pictures && pictures.length > 0) {

@@ -43,7 +43,7 @@ function LoginScreen({navigation}) {
           운동을 올바르게{' '}
           <Text
             style={{
-              colorTrainingCard: '#20C1A1',
+              color: '#20C1A1',
               fontWeight: 'bold',
               fontSize: 18,
             }}>
