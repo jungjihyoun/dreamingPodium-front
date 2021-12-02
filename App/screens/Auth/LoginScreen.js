@@ -70,8 +70,8 @@ function LoginScreen({navigation}) {
         <SocialButton
           style={{backgroundColor: colors.kakaoTalk}}
           onPress={() => {
-            dispatch(setLogin({userToken: 'KA1951543508'}));
-            // signInKakaoTalk(setUserInfo, setLoggedIn);
+            // dispatch(setLogin({userToken: 'KA1951543508'}));
+            signInKakaoTalk(setUserInfo, setLoggedIn);
           }}>
           <Image style={{width: 15, height: 15}} source={images.kakao} />
           <Text style={{...styles.socialText, color: '#421919'}}>
