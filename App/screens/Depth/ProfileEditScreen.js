@@ -14,12 +14,12 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 
 // REDUX
 import {useSelector, useDispatch} from 'react-redux';
 import {setProfile, setUser, setUserImage} from '../../reducer/userSlice';
-
 import ImagePicker from 'react-native-image-crop-picker';
 
 import ProfileInputLine from '../../components/ProfileInputLine';
@@ -34,6 +34,8 @@ function ProfileEditScreen({navigation, ...props}) {
   const serverToken = useSelector(state => state.user.serverToken);
   const todayDate = useSelector(state => state.posting.todayDate);
   const dispatch = useDispatch();
+
+  const [imgLoading, setImgLoading] = useState(true);
 
   const [choosePicture, setChoosePicture] = useState(false);
 
@@ -75,15 +77,7 @@ function ProfileEditScreen({navigation, ...props}) {
   var formData = new FormData();
   formData.append('files', image);
 
-  useEffect(() => {
-    console.log('성별', user.gender, gender, user);
-    console.log('생일 : ', birth);
-    console.log('user 생일:', user.birth);
-  }, [birth, user.birth]);
-
   const submitUserProfile = async () => {
-    console.log('생일 : ', birth);
-    console.log('user 생일:', user.birth);
     //redux
     dispatch(
       setProfile({
@@ -141,17 +135,30 @@ function ProfileEditScreen({navigation, ...props}) {
                 showImage();
               }}>
               {image.length !== 0 ? (
-                <Image
-                  style={{
-                    width: 150,
-                    height: 150,
-                  }}
-                  resizeMode="cover"
-                  resizeMethod="auto"
-                  source={{
-                    uri: picture,
-                  }}
-                />
+                <>
+                  {imgLoading && (
+                    <ActivityIndicator
+                      style={{
+                        width: 150,
+                        height: 150,
+                      }}
+                    />
+                  )}
+                  <Image
+                    onLoad={() => {
+                      setImgLoading(false);
+                    }}
+                    style={{
+                      width: 150,
+                      height: 150,
+                    }}
+                    resizeMode="cover"
+                    resizeMethod="auto"
+                    source={{
+                      uri: picture,
+                    }}
+                  />
+                </>
               ) : (
                 <Image
                   style={{

@@ -10,7 +10,7 @@ import {
   Modal,
   ScrollView,
 } from 'react-native';
-import {Linking} from 'react-native';
+import {Linking, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLogout} from '../../reducer/userSlice';
 import TermsScreen from '../../config/TermsScreen';
@@ -18,6 +18,7 @@ import Footer from '../../components/Footer';
 import {colors, images, width, height, fonts} from '../../config/globalStyles';
 
 function ProfileScreen({navigation, ...props}) {
+  const [imgLoading, setImgLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
@@ -35,17 +36,28 @@ function ProfileScreen({navigation, ...props}) {
       <View style={styles.profileHeader}>
         <View style={styles.profileImg}>
           {(user.userImage !== null) & (user.userImage !== '') ? (
-            <Image
-              style={{
-                width: 116,
-                height: 116,
-              }}
-              resizeMode="cover"
-              resizeMethod="auto"
-              source={{
-                uri: user.userImage,
-              }}
-            />
+            <>
+              {imgLoading && (
+                <ActivityIndicator
+                  style={{
+                    width: 150,
+                    height: 150,
+                  }}
+                />
+              )}
+              <Image
+                onLoad={() => setImgLoading(false)}
+                style={{
+                  width: 116,
+                  height: 116,
+                }}
+                resizeMode="cover"
+                resizeMethod="auto"
+                source={{
+                  uri: user.userImage,
+                }}
+              />
+            </>
           ) : (
             <Image
               style={{

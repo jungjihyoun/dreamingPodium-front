@@ -2,31 +2,37 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {StyleSheet, Text, View, Platform, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 // import {fetchProfileData} from '../../reducer/userSlice';
 import {width, height, colors, images, fonts} from '../../config/globalStyles';
 
 const HeaderProfile = ({style, ...props}) => {
-  const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user);
-  const userToken = useSelector(state => state.user.userToken);
-
   const userObject = useSelector(state => state.posting.ObjectNote.objectives);
-
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchProfileData({
-  //       user_id: userToken,
-  //     }),
-  //   );
-  // }, [dispatch, userToken]);
+  const [imgLoading, setImgLoading] = useState(true);
 
   return (
     <>
       <View style={styles.profileGroup}>
         <View style={styles.userImageSection}>
           {userInfo.userImage ? (
-            <Image source={{uri: userInfo.userImage}} style={styles.image} />
+            <>
+              {imgLoading && <ActivityIndicator style={styles.image} />}
+              <Image
+                onLoad={() => {
+                  setImgLoading(false);
+                }}
+                source={{uri: userInfo.userImage}}
+                style={styles.image}
+              />
+            </>
           ) : (
             <Image source={images.profileImgGroup} style={styles.image} />
           )}
