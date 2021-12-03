@@ -11,6 +11,8 @@ import {
   fetchNoteData,
   fetchObjective,
 } from '../../reducer/postingSlice';
+import {fetchProfileData} from '../../reducer/userSlice';
+
 import {colors, images, width, height} from '../../config/globalStyles';
 import ConditioningCard from '../../assets/svg/conditioningCard';
 import TrainingCard from '../../assets/svg/trainingCard';
@@ -25,6 +27,12 @@ function HomeScreen({navigation, ...props}) {
   useEffect(() => {
     AsyncStorage.getItem('userToken').then(data => {
       if (data) {
+        dispatch(
+          fetchProfileData({
+            user_id: userToken,
+          }),
+        );
+
         dispatch(
           fetchObjective({
             user_id: userToken,

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {StyleSheet, Text, View, Platform, Image} from 'react-native';
-import {fetchProfileData} from '../../reducer/userSlice';
+// import {fetchProfileData} from '../../reducer/userSlice';
 import {width, height, colors, images, fonts} from '../../config/globalStyles';
 
 const HeaderProfile = ({style, ...props}) => {
@@ -13,13 +13,13 @@ const HeaderProfile = ({style, ...props}) => {
 
   const userObject = useSelector(state => state.posting.ObjectNote.objectives);
 
-  useEffect(() => {
-    dispatch(
-      fetchProfileData({
-        user_id: userToken,
-      }),
-    );
-  }, [dispatch, userToken]);
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchProfileData({
+  //       user_id: userToken,
+  //     }),
+  //   );
+  // }, [dispatch, userToken]);
 
   return (
     <>

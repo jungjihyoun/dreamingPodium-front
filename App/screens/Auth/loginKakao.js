@@ -30,13 +30,9 @@ const signInKakaoTalk = async (setUserInfo, setLoggedIn, navigation) => {
           const {id, nickname, gender, birthday} = response;
 
           setUserInfo({
-            username: nickname,
-            gender: gender,
-            birth: birthday,
             provider: 'kakao',
             serviceId: id,
             platform: Platform.OS.toUpperCase(),
-            deviceToken: fcmToken,
           });
         })
         .catch(err => {

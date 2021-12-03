@@ -70,7 +70,13 @@ function LoginScreen({navigation}) {
         <SocialButton
           style={{backgroundColor: colors.kakaoTalk}}
           onPress={() => {
-            // dispatch(setLogin({userToken: 'KA1951543508'}));
+            // dispatch(
+            //   setLogin({
+            //     userToken: 'KA1951543508',
+            //     serverToken:
+            //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJXcmlnaHQiLCJpYXQiOjE2MzgxODIzMTEsImV4cCI6MTY0MDc3NDMxMSwic3ViIjoiQVBJIFRva2VuIiwiVXNlciI6IktBMTk5MjE0OTMxNiJ9.9GYFxNJkYT3vzHtErpvizywbFuwQ0Eom0hyJfzNbeRQ',
+            //   }),
+            // );
             signInKakaoTalk(setUserInfo, setLoggedIn);
           }}>
           <Image style={{width: 15, height: 15}} source={images.kakao} />

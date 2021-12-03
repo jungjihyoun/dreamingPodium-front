@@ -76,6 +76,7 @@ function ProfileEditScreen({navigation, ...props}) {
   formData.append('files', image);
 
   useEffect(() => {
+    console.log('성별', user.gender, gender, user);
     console.log('생일 : ', birth);
     console.log('user 생일:', user.birth);
   }, [birth, user.birth]);
@@ -87,7 +88,7 @@ function ProfileEditScreen({navigation, ...props}) {
     dispatch(
       setProfile({
         username: name,
-        gender: gender,
+        gender: gender ? gender : user.gender,
         birth: birth ? birth : new Date(user.birth).toDateString(),
         userImage: picture !== '' ? picture : '',
         field: field,
@@ -99,8 +100,10 @@ function ProfileEditScreen({navigation, ...props}) {
     await PROFILEAPI.postProfileInfo(
       userToken,
       name,
-      gender,
-      new Date(birth).toDateString(),
+      gender ? gender : user.gender,
+      birth
+        ? new Date(birth).toDateString()
+        : new Date(user.birth).toDateString(),
       team,
       field,
     );

@@ -66,12 +66,6 @@ export const userSlice = createSlice({
       state.provider = action.payload.provider;
       state.serviceId = action.payload.serviceId;
       state.loggedIn = true;
-      state.platform = action.payload.platform;
-      // state.deviceToken = action.payload.deviceToken;
-      state.user = action.payload;
-      state.username = action.payload.username;
-      state.gender = action.payload.gender;
-      state.birth = action.payload.birth;
     },
     // setUserImage: (state, action) => {
     //   console.log('redux 이미지', state.payload);
@@ -112,11 +106,14 @@ export const userSlice = createSlice({
       // 성공
       state.username = action.payload.name;
       state.gender = action.payload.gender;
-      state.birth = action.payload.birthday;
+      state.birth =
+        action.payload.birthday !== null
+          ? action.payload.birthday
+          : new Date('2000-01-01').toDateString();
       state.team = action.payload.team;
       state.field = action.payload.field;
       state.userImage = action.payload.profile_image;
-      console.log('after fetch profile : ', state.userImage);
+      console.log('after fetch profile : ', action.payload.birthday, state);
     },
     [fetchProfileData.rejected](state, action) {
       // 실패

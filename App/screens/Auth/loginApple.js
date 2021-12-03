@@ -21,11 +21,8 @@ const signInApple = async (setUserInfo, setLoggedIn) => {
   // use credentialState response to ensure the user is authenticated
   if (credentialState === appleAuth.State.AUTHORIZED) {
     setUserInfo({
-      // username: nickname,
-      // gender: gender,
-      // birth: birthday,
       provider: 'Apple',
-      platform: Platform.OS.toUpperCase(), //푸시알림을 등록하기 위한 플랫폼
+      platform: Platform.OS.toUpperCase(),
     });
 
     await API.postAppleToken(appleAuthRequestResponse, setLoggedIn);
