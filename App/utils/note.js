@@ -3,7 +3,7 @@ import API from './API';
 import axios from 'axios';
 import * as APIURL from '../../config';
 
-// 작성된 글 API
+// 해당 날짜의 트레이닝, 컨디셔닝 부분 기록 불러오기
 const getRecord = async (user_id, date, serverToken) => {
   try {
     return await axios.get(
@@ -20,17 +20,8 @@ const getRecord = async (user_id, date, serverToken) => {
   }
 };
 
+// 해당 날짜의 기록 쓰기
 const postRecord = async (user_id, wdate, key_type, content, serverToken) => {
-  console.log(
-    ' ######### postrecord API #########',
-    user_id,
-    '유저 아이디 ',
-    content,
-    '토큰 ',
-    serverToken,
-    '보낼 내용 : ',
-    content,
-  );
   try {
     return await axios.post(
       `${APIURL.BASE_URL}/record/write/${user_id}?wdate=${wdate}&key_type=${key_type}`,
@@ -42,7 +33,7 @@ const postRecord = async (user_id, wdate, key_type, content, serverToken) => {
       },
     );
   } catch (error) {
-    console.warn('기록을 저장하지 못했습니다.', error);
+    console.warn('fail record', error);
   }
 };
 
@@ -58,19 +49,11 @@ const postImage = async (user_id, image_type, wdate, image, serverToken) => {
         },
       },
     )
-    .then(res => console.log('이미지를 성공적으로 보냈습니다.'))
-    .catch(err => console.log('이미지 전송을 실패했습니다.', err));
+    .then(res => console.log('success image upload'))
+    .catch(err => console.log('fail image upload', err));
 };
 
 const deleteImage = async (user_id, image_type, wdate, serverToken, uri) => {
-  console.log(
-    '사진 삭제 테스트 API',
-    user_id,
-    image_type,
-    wdate,
-    uri,
-    serverToken,
-  );
   return await axios
     .post(
       `${APIURL.BASE_URL}/images/delete_image/${user_id}?image_type=${image_type}&wdate=${wdate}`,
@@ -81,16 +64,16 @@ const deleteImage = async (user_id, image_type, wdate, serverToken, uri) => {
         },
       },
     )
-    .then(res => console.log('이미지를 성공적으로 삭제했습니다.'))
-    .catch(err => console.log('이미지 삭제에 실패했습니다.', err));
+    .then(res => console.log('success to delete image'))
+    .catch(err => console.log('fail to delete image', err));
 };
 
-// 목표설정 API
+// 목표, 자질 , 노력 ,루틴  기록 불러오기
 const getObjective = async user_id => {
   try {
     return await API.get(`/objective/read_objectives/${user_id}`);
   } catch (error) {
-    console.warn('목표설정을 불러오지 못했습니다. ', error);
+    console.warn('fail to fetch ObjectRecord ', error);
   }
 };
 
@@ -109,13 +92,11 @@ const postObjectInit = async (
       efforts: efforts,
       routines: routines,
     })
-    .then(res => console.log('목표설정을 성공적으로 보냈습니다.', res))
-    .catch(err => console.log('목표설정을 저장하지 못했습니다.', err));
+    .then(res => console.log('success post ObjectRecord', res))
+    .catch(err => console.log('fail post ObjectRecord', err));
 };
 
 const updateObject = async (user_id, keyword, content) => {
-  console.log(user_id, keyword, content);
-
   return await API.post(
     `/objective/update_objectives/${user_id}?keyword=${keyword}&content=${content}`,
   )

@@ -10,21 +10,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-
-// COMPONENT
 import AppCalendar from '../../components/AppCalendar';
 import CollapsibleCard from '../../components/training/CollapsibleCard';
 import {RoutineItem} from '../../components/training/RoutineItem';
-
-// REDUX
 import {checkRoutine} from '../../reducer/postingSlice';
-
-// CONFIG
 import {noteTitleList} from '../../config/noteTitleList';
 import {height, colors} from '../../config/globalStyles';
-
-// API
-import API from '../../utils/note';
 
 function TrainingNoteScreen({navigation, route}) {
   const writtenNote = useSelector(state => state.posting.writtenNote);
@@ -40,7 +31,7 @@ function TrainingNoteScreen({navigation, route}) {
     }
   };
   const routineName = filterRoutineGroup() ? filterRoutineGroup() : [];
-  // //TODO : 루틴 체크하기 코드정리 + post api 처리
+
   const handleRoutineState = async params => {
     Object.keys(routineName).map(async data => {
       if (data === params) {
@@ -55,7 +46,6 @@ function TrainingNoteScreen({navigation, route}) {
     });
   };
 
-  // //TODO : 작성된 글 불러오기 코드정리
   const filterContentGroup = noteIdx => {
     let trainingNote = writtenNote.noteContentGroup.training;
     trainingNote = {
@@ -71,7 +61,6 @@ function TrainingNoteScreen({navigation, route}) {
     }
   };
 
-  //TODO : 작성된 사진 불러오기 코드정리
   const filterPhotoGroup = noteIdx => {
     let trainingNote = writtenNote.noteContentGroup.training;
     trainingNote = {

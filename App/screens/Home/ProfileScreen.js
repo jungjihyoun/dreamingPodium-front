@@ -8,14 +8,13 @@ import {
   TouchableOpacity,
   Image,
   Modal,
-  ScrollView,
 } from 'react-native';
 import {Linking, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLogout} from '../../reducer/userSlice';
 import TermsScreen from '../../config/TermsScreen';
 import Footer from '../../components/Footer';
-import {colors, images, width, height, fonts} from '../../config/globalStyles';
+import {colors, images, width, height} from '../../config/globalStyles';
 
 function ProfileScreen({navigation, ...props}) {
   const [imgLoading, setImgLoading] = useState(true);

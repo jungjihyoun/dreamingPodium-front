@@ -22,6 +22,7 @@ function ObjectCard({
   addObjectItem,
   title,
   onPress,
+  maxLength,
   ...props
 }) {
   const [showInputBox, setShowInputBox] = useState(false);
@@ -53,6 +54,7 @@ function ObjectCard({
 
       {showInputBox && (
         <TextInput
+          maxLength={maxLength}
           onChangeText={saveText}
           style={styles.inputHolder}
           placeholder="입력해주세요"

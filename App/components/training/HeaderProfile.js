@@ -24,7 +24,6 @@ const HeaderProfile = ({style, ...props}) => {
         <View style={styles.userImageSection}>
           {userInfo.userImage ? (
             <>
-              {imgLoading && <ActivityIndicator style={styles.image} />}
               <Image
                 onLoad={() => {
                   setImgLoading(false);
@@ -66,8 +65,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    alignSelf: 'flex-end',
     textAlign: 'left',
-    marginTop: height * 20,
+    marginBottom: height * 20,
   },
   profileGroup: {
     width: width * 410,
@@ -96,13 +96,14 @@ const styles = StyleSheet.create({
     fontSize: Platform.OS === 'android' ? 12 : 14,
     color: colors.textGrey,
     fontWeight: '600',
-    width: width * 60,
+    width: 60,
   },
   content: {
     fontFamily: fonts.spoqaBold,
-    fontSize: Platform.OS === 'android' ? 16 : 18,
+    fontSize: Platform.OS === 'android' ? 14 : 16,
     fontWeight: 'bold',
-    width: width * 180,
+    width: 160,
+    justifyContent: 'flex-end',
   },
   image: {
     width: 100,
@@ -114,15 +115,13 @@ const styles = StyleSheet.create({
     fontSize: Platform.OS === 'android' ? 18 : 22,
     fontWeight: 'bold',
     width: width * 300,
-    paddingBottom: 10,
   },
   contentGroup: {
     width: width * 300,
-    paddingBottom: height * 7,
     flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
+    marginTop: 5,
   },
   homeTitle: {
     fontFamily: fonts.gmarket,

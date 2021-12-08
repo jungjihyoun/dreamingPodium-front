@@ -3,7 +3,6 @@
 import API from './API';
 
 const getProfile = async (user_id, date) => {
-  console.log(user_id);
   try {
     return await API.get(`/profile/read_profile/${user_id}`);
   } catch (error) {
@@ -24,7 +23,7 @@ const postProfileInfo = async (
       `/profile/create_profile/${user_id}?name=${name}&gender=${gender}&birthday=${birthday}&team=${team}&field=${field}`,
     )
       .then(res => {
-        console.log('sucess update profile Info');
+        console.log('success update profile Info');
       })
       .catch(err => console.log(err));
   } catch (error) {

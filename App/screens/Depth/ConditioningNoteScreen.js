@@ -1,26 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {
   SafeAreaView,
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
-
-// COMPONENT
 import AppCalendar from '../../components/AppCalendar';
 import ConditionCard from '../../components/conditioning/ConditionCard';
 import AppModal from '../../components/AppModal';
 import ConditionSelect from '../../components/conditioning/ConditionSelect';
 import InjurySelect from '../../components/conditioning/InjurySelect';
-
-// REDUX
-
-// CONFIG
 import {colors, width, height} from '../../config/globalStyles';
 
 function ConditioningNoteScreen(props) {

@@ -26,13 +26,14 @@ export const HomePartCard = ({style, onPress, Logo, ...props}) => {
 
 const styles = StyleSheet.create({
   partCardSvg: {
-    width: width * 340,
-    height: height > 0.9 ? height * 210 : height * 190,
+    width: (width > 1) & (height > 1) ? width * 320 : 320,
+    height: (width > 1) & (height > 1) ? height * 190 : 190,
     borderRadius: 10,
     overflow: 'hidden',
     marginBottom: height * 15,
   },
   HomePartCard: {
+    overflow: 'hidden',
     flexDirection: 'column',
     width: 300,
     height: 190,

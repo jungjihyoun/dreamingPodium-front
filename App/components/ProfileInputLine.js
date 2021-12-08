@@ -1,17 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   Platform,
-  Button,
   TextInput,
 } from 'react-native';
 
-import {colors, images, width, height} from '../config/globalStyles';
+import {colors, width, height} from '../config/globalStyles';
 import DatePicker from 'react-native-date-picker';
 
 function ProfileInputLine({inputType, onConfirm, ...props}) {
@@ -82,6 +80,7 @@ function ProfileInputLine({inputType, onConfirm, ...props}) {
     } else {
       return (
         <TextInput
+          maxLength={props.maxLength}
           onChangeText={props.onChangeText}
           style={styles.inputHolder}
           value={props.value}

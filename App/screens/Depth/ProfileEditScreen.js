@@ -42,6 +42,7 @@ function ProfileEditScreen({navigation, ...props}) {
   const [name, setName] = useState(user.username);
   const [gender, setGender] = useState(user.gender);
   const [birth, setBirth] = useState(user.birth);
+
   // pictures for redux & image for api
   const [picture, setPicture] = useState(
     user.userImage !== null ? user.userImage : '',
@@ -49,8 +50,8 @@ function ProfileEditScreen({navigation, ...props}) {
   const [image, setImage] = useState(
     user.userImage !== null ? user.userImage : '',
   );
-  const [team, setTeam] = useState(user.team !== null ? user.team : '-');
-  const [field, setField] = useState(user.field !== null ? user.field : '-');
+  const [team, setTeam] = useState(user.team);
+  const [field, setField] = useState(user.field);
 
   const showImage = async () => {
     ImagePicker.openPicker({
@@ -89,8 +90,8 @@ function ProfileEditScreen({navigation, ...props}) {
         team: team,
       }),
     );
-    // 프로필 수정 저장  API
 
+    // 프로필 수정 저장  API
     await PROFILEAPI.postProfileInfo(
       userToken,
       name,
@@ -194,6 +195,7 @@ function ProfileEditScreen({navigation, ...props}) {
               }}
             />
             <ProfileInputLine
+              maxLength={12}
               inputName="소속"
               onChangeText={event => {
                 setTeam(event);
@@ -201,6 +203,7 @@ function ProfileEditScreen({navigation, ...props}) {
               value={team}
             />
             <ProfileInputLine
+              maxLength={12}
               inputName="종목"
               onChangeText={event => {
                 setField(event);

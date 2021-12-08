@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -22,8 +22,7 @@ const App = navigation => {
   const dispatch = useDispatch();
   const loggedIn = useSelector(selectLogin);
 
-  // 자동로그인
-  // userToken 과 serverToken state 관리
+  // 자동로그인 userToken 과 serverToken state 관리
   useEffect(() => {
     AsyncStorage.multiGet(['userToken', 'serverToken'], (_err, items) => {
       if (items[0][1] !== null) {

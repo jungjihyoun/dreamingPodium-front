@@ -45,7 +45,6 @@ export const postingSlice = createSlice({
       noteContentGroup: {
         training: {
           train_detail: {content: null},
-          // feedback: '',
           routines: {},
           success: {content: null, image: []},
           failure: {content: null, image: []},
@@ -54,7 +53,6 @@ export const postingSlice = createSlice({
         conditioning: {
           mind: [],
           physical: [],
-          //  injury 는 통째로
           injury: [],
         },
       },

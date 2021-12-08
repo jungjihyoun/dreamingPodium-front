@@ -4,8 +4,6 @@ import React, {useEffect, useContext, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {
-  Platform,
-  KeyboardAvoidingView,
   SafeAreaView,
   View,
   Text,
@@ -13,20 +11,14 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   StyleSheet,
-  ScrollView,
   Alert,
   Image,
   Keyboard,
 } from 'react-native';
+import ImageDeleteList from '../../components/training/ImageDeleteList';
 import ImagePicker from 'react-native-image-crop-picker';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
-// REDUX
 import {submitNote, deleteImage} from '../../reducer/postingSlice';
-
-// CONFIG
 import {colors, width, height, fonts} from '../../config/globalStyles';
-
 import API from '../../utils/note';
 
 function WritingScreen({navigation, route}) {
@@ -144,11 +136,11 @@ function WritingScreen({navigation, route}) {
     ]);
   };
 
-  const goToNext = async () => {
+  const submitRecord = async () => {
     if (!content) {
       Alert.alert('라잇', '내용을 입력해 주세요 ✍️', [{text: '확인'}]);
     } else {
-      // 글 상태 관리
+      // 레코드 상태 관리
       dispatch(
         submitNote({
           date: todayDate,
@@ -159,7 +151,7 @@ function WritingScreen({navigation, route}) {
           }),
         }),
       );
-      // // 글 작성 post
+      // 레코드 제출
       await API.postRecord(
         userToken,
         todayDate,
@@ -167,7 +159,7 @@ function WritingScreen({navigation, route}) {
         content,
         serverToken,
       );
-      // 사진 post
+      // 사진 제출
       if (choosePicture) {
         await API.postImage(
           userToken,
@@ -224,68 +216,25 @@ function WritingScreen({navigation, route}) {
               <TouchableOpacity
                 style={{...styles.submitButton, marginRight: 10}}
                 onPress={() => pickMultiple()}>
-                <Text
-                  style={{
-                    color: colors.white,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    fontSize: 12,
-                  }}>
-                  사진첨부
-                </Text>
+                <Text style={styles.submitText}>사진첨부</Text>
               </TouchableOpacity>
             )}
 
             <TouchableOpacity
               style={styles.submitButton}
               onPress={() => {
-                goToNext();
+                submitRecord();
               }}>
-              <Text
-                style={{
-                  color: colors.white,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  fontSize: 12,
-                }}>
-                작성완료
-              </Text>
+              <Text style={styles.submitText}>작성완료</Text>
             </TouchableOpacity>
           </View>
 
-          <Text
-            style={{
-              flexDirection: 'row',
-              width: width * 350,
-            }}>
-            <View>
-              {route.params.noteIdx !== 'feedback' &&
-                route.params.noteIdx !== 'train_detail' &&
-                NoteList[route.params.noteIdx].image && (
-                  <Text
-                    style={{
-                      alignSelf: 'flex-start',
-                    }}>
-                    {NoteList[route.params.noteIdx].image.map(data => {
-                      return (
-                        <TouchableOpacity
-                          onPress={() => {
-                            handleDeleteImage(data);
-                          }}
-                          key={data}>
-                          <Image
-                            source={{uri: data}}
-                            resizeMode="cover"
-                            resizeMethod="auto"
-                            style={styles.imageList}
-                          />
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </Text>
-                )}
-            </View>
-          </Text>
+          {/* 이미지 삭제 리스트 */}
+          <ImageDeleteList
+            NoteList={NoteList[route.params.noteIdx].image}
+            handleDeleteImage={handleDeleteImage}
+            noteIdx={route.params.noteIdx}
+          />
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -333,6 +282,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     fontSize: 8,
     justifyContent: 'center',
+  },
+  submitText: {
+    color: colors.white,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 12,
   },
   imageList: {width: width * 70, height: height * 70},
 });

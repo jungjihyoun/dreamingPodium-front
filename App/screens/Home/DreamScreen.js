@@ -31,7 +31,7 @@ function DreamScreen({navigation, ...props}) {
   const objectNote = useSelector(state => state.posting.ObjectNote);
   const dispatch = useDispatch();
 
-  // 각각의 아이템들 작성 핸들링
+  // 목표 설정 textInput 핸들링
   const addObjectItem = (type, text) => {
     if (objectNote[type].length > 0 && objectNote[type].includes(text)) {
       Alert.alert('라잇', '중복된 내용은 작성할 수 없습니다 😢 ', [
@@ -46,12 +46,10 @@ function DreamScreen({navigation, ...props}) {
           content: text,
         }),
       );
-      let submitList = [];
-      submitList.push(...objectNote[type], text);
     }
   };
 
-  // 목표설정 저장 API 호출
+  // 목표설정 제출
   const submitObjectList = () => {
     const objectives = objectNote.objectives;
     const requirements = objectNote.requirements;
@@ -113,6 +111,7 @@ function DreamScreen({navigation, ...props}) {
           <View>
             <ObjectCard
               title="나의 최종 목표"
+              maxLength={16}
               objectValues={objectNote.objectives}
               addObjectItem={text => {
                 addObjectItem('objectives', text);

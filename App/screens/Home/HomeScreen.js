@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {HomePartCard} from '../../components/HomePartCard';
 import {HeaderProfile} from '../../components/training/HeaderProfile.js';
@@ -13,7 +13,7 @@ import {
 } from '../../reducer/postingSlice';
 import {fetchProfileData} from '../../reducer/userSlice';
 
-import {colors, images, width, height} from '../../config/globalStyles';
+import {colors} from '../../config/globalStyles';
 import ConditioningCard from '../../assets/svg/conditioningCard';
 import TrainingCard from '../../assets/svg/trainingCard';
 
@@ -23,22 +23,23 @@ function HomeScreen({navigation, ...props}) {
   const serverToken = useSelector(state => state.user.serverToken);
   const dispatch = useDispatch();
 
-  // Training , Conditioning record get
   useEffect(() => {
     AsyncStorage.getItem('userToken').then(data => {
       if (data) {
+        // 프로필 기록 불러오기
         dispatch(
           fetchProfileData({
             user_id: userToken,
           }),
         );
 
+        // 목표 설정 기록 불러오기
         dispatch(
           fetchObjective({
             user_id: userToken,
           }),
         );
-
+        // 트레이닝, 컨디셔닝 기록 불러오기
         dispatch(
           fetchNoteData({
             user_id: userToken,
@@ -47,7 +48,7 @@ function HomeScreen({navigation, ...props}) {
           }),
         );
 
-        // 첫 접속 유저라면 목표 설정 페이지로 이동합니다.
+        // 첫 방문 유저라면 목표 설정 페이지로 이동합니다.
         AsyncStorage.getItem('isVisitedUser').then(visited => {
           if (visited !== 'true') {
             navigation.push('DreamScreen');
@@ -74,8 +75,8 @@ function HomeScreen({navigation, ...props}) {
               style={{
                 position: 'absolute',
               }}
-              width={350}
-              height={210}
+              width={'100%'}
+              height={'100%'}
             />
           }
         </HomePartCard>
@@ -92,8 +93,8 @@ function HomeScreen({navigation, ...props}) {
               style={{
                 position: 'absolute',
               }}
-              width={350}
-              height={210}
+              width={'100%'}
+              height={'100%'}
             />
           }
         </HomePartCard>
