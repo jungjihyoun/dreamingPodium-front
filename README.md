@@ -2,12 +2,12 @@
 
 DreamingPodium _ **'wright'** 
 
-Training diary services for athletes.
+Training diary services for athletes.🏃🏻‍♀️
 
 
 
 ## Initial Screen
-<img src="https://user-images.githubusercontent.com/55846598/145140612-9f199952-5ee2-4c14-abba-5e210f44484c.PNG"  width="100" height="200"/>
+<img src="https://user-images.githubusercontent.com/55846598/145140612-9f199952-5ee2-4c14-abba-5e210f44484c.PNG"  width="200" height="350"/>
 
 
 
@@ -26,3 +26,12 @@ Training diary services for athletes.
 ###        npx react-native run-ios / npx react-native run-android
 
 
+
+---
+
+
+### License
+Distributed under the DreamingPodium and Jihyoun Jung.
+
+### Contact
+Jihyoun Jung - jihyoun0602@gmail.com
