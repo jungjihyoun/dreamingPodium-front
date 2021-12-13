@@ -109,8 +109,8 @@ Major composition of this project are as followed:
 >   - store.js
 > * ios 
 > * android 
-> package.json 
-> pakage-lock.json
+> * package.json 
+> * pakage-lock.json
 
 ### Description
 #### android
