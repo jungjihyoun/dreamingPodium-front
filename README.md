@@ -18,7 +18,7 @@ Abstract
 
 [back_link]: https://github.com/PodiumDreaming/Dreaming_Podium_Backend "백엔드 깃허브"
 
-Quick and easy way to write trainging repoert.   
+Quick and easy way to write trainging report.   
 Wright is a mobile application that helps manage training, injury, conditioning records in a systematic and effeective manner.   
 This repository contains all information about backend.
 Frontend part is made and managed by Jihyoun Jeong.   
@@ -107,9 +107,9 @@ Major composition of this project are as followed:
 >     - profile.js
 >   - index.js
 >   - store.js
-> * ios
-> * android
-> package.json
+> * ios 
+> * android 
+> package.json 
 > pakage-lock.json
 
 ### Description
