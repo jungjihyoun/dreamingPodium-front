@@ -3,7 +3,8 @@
 DreamingPodium _ **'wright'** 
 
 Training diary services for athletes.🏃🏻‍♀️
-Mobile App 'Wright' Frontend using FastAPI
+
+Mobile App 'Wright' Frontend using ReactNative
 
 
 ***
@@ -12,7 +13,7 @@ Abstract
 ------------
 빠르고 간편하게 작성하는 훈련일지.    
 체계적이고 효과적으로 훈련 내용, 부상, 컨디셔닝을 관리할 수 있도록 도와주는 모바일 어플리케이션입니다.   
-이 레포지토리에는 백엔드 코드가 담겨져 있습니다.
+이 레포지토리에는 백엔드 코드가 담겨져 있습니다.   
 프론트엔드는 정지현이 담당하였고 관리하고 있습니다.   
 #### 백엔드에 관련된 내용은 여기서 확인할 수 있습니다: [Click Here][back_link]
 
@@ -20,7 +21,7 @@ Abstract
 
 Quick and easy way to write trainging report.   
 Wright is a mobile application that helps manage training, injury, conditioning records in a systematic and effeective manner.   
-This repository contains all information about backend.
+This repository contains all information about backend.   
 Frontend part is made and managed by Jihyoun Jeong.   
 #### You can check backend here: [Click Here][back_link]
 
