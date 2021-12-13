@@ -54,7 +54,7 @@ Major composition of this project are as followed:
 >       - EmptyCard.js
 >       - FullCondition.js
 >       - FullInjury.js
->       -InjurySelect.js
+>       - InjurySelect.js
 >     + training
 >       - AppCollasibleContent.js
 >       - AppCollapsibleTitle.js
