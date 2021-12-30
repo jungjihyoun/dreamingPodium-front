@@ -1,10 +1,10 @@
-# Wright App _ front    
-
-DreamingPodium _ **'wright'** 
-
-Training diary services for athletes.🏃🏻‍♀️
+# Wright App _ front  
 
 Mobile App 'Wright' Frontend using ReactNative
+
+Training diary services for athletes 🏃🏻‍♀️
+
+2021 '경희대학교 Startup the dream' 대상을 수상하였습니다 🏆
 
 
 ***
